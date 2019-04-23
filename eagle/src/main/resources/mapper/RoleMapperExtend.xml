@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.eagle.order.mapper.RoleMapper">
+    <select id="selectByUserId" resultMap="BaseResultMap">
+        SELECT
+        role.id,
+        role.role_name
+        FROM h_web_role webRole
+        LEFT JOIN h_role role on role.id = webRole.role_id
+        WHERE webRole.web_user_id = #{userId,jdbcType=BIGINT}
+    </select>
+
+    <select id="selectByExampleNew" resultType="com.eagle.order.vo.RoleVO" parameterType="com.eagle.order.po.RoleExample" >
+        select
+        role.id, role.role_name, role.create_time, role.update_time,
+        group_concat(rolePerm.permission_id order by rolePerm.permission_id asc) AS permIdStr,
+        group_concat(DISTINCT plist.pId) as pPermIdStr
+        from h_role role
+        left join h_role_permission rolePerm on rolePerm.role_id=role.id
+        left join permissionlist plist on plist.cId=rolePerm.permission_id
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+        group by  role.id, role.role_name, role.create_time, role.update_time
+        <if test="orderByClause != null" >
+            order by ${orderByClause}
+        </if>
+
+    </select>
+</mapper>

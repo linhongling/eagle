@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.eagle.order.mapper.OrderMapper" >
+  <resultMap id="BaseResultMap" type="com.eagle.order.po.Order" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="no" property="no" jdbcType="VARCHAR" />
+    <result column="order_date" property="orderDate" jdbcType="DATE" />
+    <result column="client_id" property="clientId" jdbcType="BIGINT" />
+    <result column="addr" property="addr" jdbcType="VARCHAR" />
+    <result column="goods_type" property="goodsType" jdbcType="BIGINT" />
+    <result column="count" property="count" jdbcType="INTEGER" />
+    <result column="weight" property="weight" jdbcType="DECIMAL" />
+    <result column="volume" property="volume" jdbcType="DECIMAL" />
+    <result column="freight_monthly" property="freightMonthly" jdbcType="DECIMAL" />
+    <result column="freight_now" property="freightNow" jdbcType="DECIMAL" />
+    <result column="freight_arrive" property="freightArrive" jdbcType="DECIMAL" />
+    <result column="cost_freight" property="costFreight" jdbcType="DECIMAL" />
+    <result column="cost_direct" property="costDirect" jdbcType="DECIMAL" />
+    <result column="cost_insurance" property="costInsurance" jdbcType="DECIMAL" />
+    <result column="transfer_company_id" property="transferCompanyId" jdbcType="BIGINT" />
+    <result column="transfer_no" property="transferNo" jdbcType="VARCHAR" />
+    <result column="receipt" property="receipt" jdbcType="DATE" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, no, order_date, client_id, addr, goods_type, count, weight, volume, freight_monthly, 
+    freight_now, freight_arrive, cost_freight, cost_direct, cost_insurance, transfer_company_id, 
+    transfer_no, receipt, remark, create_date, modify_date
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.eagle.order.po.OrderExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_order
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_order
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.eagle.order.po.OrderExample" >
+    delete from t_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.eagle.order.po.Order" >
+    insert into t_order (id, no, order_date, 
+      client_id, addr, goods_type, 
+      count, weight, volume, 
+      freight_monthly, freight_now, freight_arrive, 
+      cost_freight, cost_direct, cost_insurance, 
+      transfer_company_id, transfer_no, receipt, 
+      remark, create_date, modify_date
+      )
+    values (#{id,jdbcType=BIGINT}, #{no,jdbcType=VARCHAR}, #{orderDate,jdbcType=DATE}, 
+      #{clientId,jdbcType=BIGINT}, #{addr,jdbcType=VARCHAR}, #{goodsType,jdbcType=BIGINT}, 
+      #{count,jdbcType=INTEGER}, #{weight,jdbcType=DECIMAL}, #{volume,jdbcType=DECIMAL}, 
+      #{freightMonthly,jdbcType=DECIMAL}, #{freightNow,jdbcType=DECIMAL}, #{freightArrive,jdbcType=DECIMAL}, 
+      #{costFreight,jdbcType=DECIMAL}, #{costDirect,jdbcType=DECIMAL}, #{costInsurance,jdbcType=DECIMAL}, 
+      #{transferCompanyId,jdbcType=BIGINT}, #{transferNo,jdbcType=VARCHAR}, #{receipt,jdbcType=DATE}, 
+      #{remark,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.eagle.order.po.Order" >
+    insert into t_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="no != null" >
+        no,
+      </if>
+      <if test="orderDate != null" >
+        order_date,
+      </if>
+      <if test="clientId != null" >
+        client_id,
+      </if>
+      <if test="addr != null" >
+        addr,
+      </if>
+      <if test="goodsType != null" >
+        goods_type,
+      </if>
+      <if test="count != null" >
+        count,
+      </if>
+      <if test="weight != null" >
+        weight,
+      </if>
+      <if test="volume != null" >
+        volume,
+      </if>
+      <if test="freightMonthly != null" >
+        freight_monthly,
+      </if>
+      <if test="freightNow != null" >
+        freight_now,
+      </if>
+      <if test="freightArrive != null" >
+        freight_arrive,
+      </if>
+      <if test="costFreight != null" >
+        cost_freight,
+      </if>
+      <if test="costDirect != null" >
+        cost_direct,
+      </if>
+      <if test="costInsurance != null" >
+        cost_insurance,
+      </if>
+      <if test="transferCompanyId != null" >
+        transfer_company_id,
+      </if>
+      <if test="transferNo != null" >
+        transfer_no,
+      </if>
+      <if test="receipt != null" >
+        receipt,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="modifyDate != null" >
+        modify_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="no != null" >
+        #{no,jdbcType=VARCHAR},
+      </if>
+      <if test="orderDate != null" >
+        #{orderDate,jdbcType=DATE},
+      </if>
+      <if test="clientId != null" >
+        #{clientId,jdbcType=BIGINT},
+      </if>
+      <if test="addr != null" >
+        #{addr,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsType != null" >
+        #{goodsType,jdbcType=BIGINT},
+      </if>
+      <if test="count != null" >
+        #{count,jdbcType=INTEGER},
+      </if>
+      <if test="weight != null" >
+        #{weight,jdbcType=DECIMAL},
+      </if>
+      <if test="volume != null" >
+        #{volume,jdbcType=DECIMAL},
+      </if>
+      <if test="freightMonthly != null" >
+        #{freightMonthly,jdbcType=DECIMAL},
+      </if>
+      <if test="freightNow != null" >
+        #{freightNow,jdbcType=DECIMAL},
+      </if>
+      <if test="freightArrive != null" >
+        #{freightArrive,jdbcType=DECIMAL},
+      </if>
+      <if test="costFreight != null" >
+        #{costFreight,jdbcType=DECIMAL},
+      </if>
+      <if test="costDirect != null" >
+        #{costDirect,jdbcType=DECIMAL},
+      </if>
+      <if test="costInsurance != null" >
+        #{costInsurance,jdbcType=DECIMAL},
+      </if>
+      <if test="transferCompanyId != null" >
+        #{transferCompanyId,jdbcType=BIGINT},
+      </if>
+      <if test="transferNo != null" >
+        #{transferNo,jdbcType=VARCHAR},
+      </if>
+      <if test="receipt != null" >
+        #{receipt,jdbcType=DATE},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.eagle.order.po.OrderExample" resultType="java.lang.Integer" >
+    select count(*) from t_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_order
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.no != null" >
+        no = #{record.no,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderDate != null" >
+        order_date = #{record.orderDate,jdbcType=DATE},
+      </if>
+      <if test="record.clientId != null" >
+        client_id = #{record.clientId,jdbcType=BIGINT},
+      </if>
+      <if test="record.addr != null" >
+        addr = #{record.addr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsType != null" >
+        goods_type = #{record.goodsType,jdbcType=BIGINT},
+      </if>
+      <if test="record.count != null" >
+        count = #{record.count,jdbcType=INTEGER},
+      </if>
+      <if test="record.weight != null" >
+        weight = #{record.weight,jdbcType=DECIMAL},
+      </if>
+      <if test="record.volume != null" >
+        volume = #{record.volume,jdbcType=DECIMAL},
+      </if>
+      <if test="record.freightMonthly != null" >
+        freight_monthly = #{record.freightMonthly,jdbcType=DECIMAL},
+      </if>
+      <if test="record.freightNow != null" >
+        freight_now = #{record.freightNow,jdbcType=DECIMAL},
+      </if>
+      <if test="record.freightArrive != null" >
+        freight_arrive = #{record.freightArrive,jdbcType=DECIMAL},
+      </if>
+      <if test="record.costFreight != null" >
+        cost_freight = #{record.costFreight,jdbcType=DECIMAL},
+      </if>
+      <if test="record.costDirect != null" >
+        cost_direct = #{record.costDirect,jdbcType=DECIMAL},
+      </if>
+      <if test="record.costInsurance != null" >
+        cost_insurance = #{record.costInsurance,jdbcType=DECIMAL},
+      </if>
+      <if test="record.transferCompanyId != null" >
+        transfer_company_id = #{record.transferCompanyId,jdbcType=BIGINT},
+      </if>
+      <if test="record.transferNo != null" >
+        transfer_no = #{record.transferNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receipt != null" >
+        receipt = #{record.receipt,jdbcType=DATE},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null" >
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifyDate != null" >
+        modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_order
+    set id = #{record.id,jdbcType=BIGINT},
+      no = #{record.no,jdbcType=VARCHAR},
+      order_date = #{record.orderDate,jdbcType=DATE},
+      client_id = #{record.clientId,jdbcType=BIGINT},
+      addr = #{record.addr,jdbcType=VARCHAR},
+      goods_type = #{record.goodsType,jdbcType=BIGINT},
+      count = #{record.count,jdbcType=INTEGER},
+      weight = #{record.weight,jdbcType=DECIMAL},
+      volume = #{record.volume,jdbcType=DECIMAL},
+      freight_monthly = #{record.freightMonthly,jdbcType=DECIMAL},
+      freight_now = #{record.freightNow,jdbcType=DECIMAL},
+      freight_arrive = #{record.freightArrive,jdbcType=DECIMAL},
+      cost_freight = #{record.costFreight,jdbcType=DECIMAL},
+      cost_direct = #{record.costDirect,jdbcType=DECIMAL},
+      cost_insurance = #{record.costInsurance,jdbcType=DECIMAL},
+      transfer_company_id = #{record.transferCompanyId,jdbcType=BIGINT},
+      transfer_no = #{record.transferNo,jdbcType=VARCHAR},
+      receipt = #{record.receipt,jdbcType=DATE},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      modify_date = #{record.modifyDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.eagle.order.po.Order" >
+    update t_order
+    <set >
+      <if test="no != null" >
+        no = #{no,jdbcType=VARCHAR},
+      </if>
+      <if test="orderDate != null" >
+        order_date = #{orderDate,jdbcType=DATE},
+      </if>
+      <if test="clientId != null" >
+        client_id = #{clientId,jdbcType=BIGINT},
+      </if>
+      <if test="addr != null" >
+        addr = #{addr,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsType != null" >
+        goods_type = #{goodsType,jdbcType=BIGINT},
+      </if>
+      <if test="count != null" >
+        count = #{count,jdbcType=INTEGER},
+      </if>
+      <if test="weight != null" >
+        weight = #{weight,jdbcType=DECIMAL},
+      </if>
+      <if test="volume != null" >
+        volume = #{volume,jdbcType=DECIMAL},
+      </if>
+      <if test="freightMonthly != null" >
+        freight_monthly = #{freightMonthly,jdbcType=DECIMAL},
+      </if>
+      <if test="freightNow != null" >
+        freight_now = #{freightNow,jdbcType=DECIMAL},
+      </if>
+      <if test="freightArrive != null" >
+        freight_arrive = #{freightArrive,jdbcType=DECIMAL},
+      </if>
+      <if test="costFreight != null" >
+        cost_freight = #{costFreight,jdbcType=DECIMAL},
+      </if>
+      <if test="costDirect != null" >
+        cost_direct = #{costDirect,jdbcType=DECIMAL},
+      </if>
+      <if test="costInsurance != null" >
+        cost_insurance = #{costInsurance,jdbcType=DECIMAL},
+      </if>
+      <if test="transferCompanyId != null" >
+        transfer_company_id = #{transferCompanyId,jdbcType=BIGINT},
+      </if>
+      <if test="transferNo != null" >
+        transfer_no = #{transferNo,jdbcType=VARCHAR},
+      </if>
+      <if test="receipt != null" >
+        receipt = #{receipt,jdbcType=DATE},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.eagle.order.po.Order" >
+    update t_order
+    set no = #{no,jdbcType=VARCHAR},
+      order_date = #{orderDate,jdbcType=DATE},
+      client_id = #{clientId,jdbcType=BIGINT},
+      addr = #{addr,jdbcType=VARCHAR},
+      goods_type = #{goodsType,jdbcType=BIGINT},
+      count = #{count,jdbcType=INTEGER},
+      weight = #{weight,jdbcType=DECIMAL},
+      volume = #{volume,jdbcType=DECIMAL},
+      freight_monthly = #{freightMonthly,jdbcType=DECIMAL},
+      freight_now = #{freightNow,jdbcType=DECIMAL},
+      freight_arrive = #{freightArrive,jdbcType=DECIMAL},
+      cost_freight = #{costFreight,jdbcType=DECIMAL},
+      cost_direct = #{costDirect,jdbcType=DECIMAL},
+      cost_insurance = #{costInsurance,jdbcType=DECIMAL},
+      transfer_company_id = #{transferCompanyId,jdbcType=BIGINT},
+      transfer_no = #{transferNo,jdbcType=VARCHAR},
+      receipt = #{receipt,jdbcType=DATE},
+      remark = #{remark,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
