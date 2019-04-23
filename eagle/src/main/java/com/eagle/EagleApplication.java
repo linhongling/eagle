@@ -8,10 +8,10 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 @SpringBootApplication
 @ServletComponentScan
 @MapperScan("com.eagle.order.mapper")
-public class PushApplication {
+public class EagleApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(PushApplication.class, args);
+		SpringApplication.run(EagleApplication.class, args);
 	}
 
 }
