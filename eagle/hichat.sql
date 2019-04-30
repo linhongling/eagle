@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50723
 File Encoding         : 65001
 
-Date: 2019-04-30 10:33:23
+Date: 2019-04-30 17:07:21
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -81,7 +81,7 @@ CREATE TABLE "h_permission" (
   "permission_code" varchar(255) NOT NULL DEFAULT '' COMMENT '权限的代码/通配符,对应代码中@RequiresPermissions 的value',
   "permission_name" varchar(255) DEFAULT '' COMMENT '本权限的中文释义',
   PRIMARY KEY ("id")
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COMMENT='后台权限表';
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COMMENT='后台权限表';
 
 -- ----------------------------
 -- Records of h_permission
@@ -102,6 +102,7 @@ INSERT INTO `h_permission` VALUES ('14', 'role', '系统角色管理', 'role:que
 INSERT INTO `h_permission` VALUES ('15', 'role', '系统角色管理', 'role:edit', '编辑');
 INSERT INTO `h_permission` VALUES ('17', 'role', '系统角色管理', 'role:delete', '删除');
 INSERT INTO `h_permission` VALUES ('18', 'role', '系统角色管理', 'role:assign', '分配权限');
+INSERT INTO `h_permission` VALUES ('19', 'goodsQuery', '品类管理', 'goodsQuery:query', '查询');
 
 -- ----------------------------
 -- Table structure for h_role
@@ -211,8 +212,8 @@ CREATE TABLE "t_client" (
   "cellphone" varchar(20) DEFAULT NULL COMMENT '联系人电话',
   "addr" varchar(255) DEFAULT NULL COMMENT '公司地址',
   "remark" varchar(255) DEFAULT NULL COMMENT '备注',
-  "create_date" datetime DEFAULT NULL,
-  "modify_date" datetime DEFAULT NULL,
+  "create_date" datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  "modify_date" timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY ("id")
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
@@ -229,12 +230,17 @@ DROP TABLE IF EXISTS `t_goods`;
 CREATE TABLE "t_goods" (
   "id" bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   "name" varchar(255) NOT NULL,
+  "remark" varchar(500) DEFAULT NULL,
+  "create_date" datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  "modify_date" timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY ("id")
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of t_goods
 -- ----------------------------
+INSERT INTO `t_goods` VALUES ('1', '模具', null, '2019-04-30 15:07:20', '2019-04-30 15:07:24');
+INSERT INTO `t_goods` VALUES ('2', '服装', null, '2019-04-30 15:12:20', '2019-04-30 15:12:20');
 
 -- ----------------------------
 -- Table structure for t_order
@@ -260,8 +266,8 @@ CREATE TABLE "t_order" (
   "transfer_no" varchar(50) DEFAULT NULL COMMENT '转运单号',
   "receipt" date DEFAULT NULL COMMENT '回单',
   "remark" varchar(500) DEFAULT NULL COMMENT '备注',
-  "create_date" datetime DEFAULT NULL,
-  "modify_date" datetime DEFAULT NULL,
+  "create_date" datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  "modify_date" timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY ("id")
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
@@ -282,14 +288,15 @@ CREATE TABLE "t_transfer_company" (
   "cellphone" varchar(20) DEFAULT NULL COMMENT '联系人电话',
   "addr" varchar(255) DEFAULT NULL COMMENT '公司地址',
   "remark" varchar(255) DEFAULT NULL COMMENT '备注',
-  "create_date" datetime DEFAULT NULL,
-  "modify_date" datetime DEFAULT NULL,
+  "create_date" datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  "modify_date" timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY ("id")
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of t_transfer_company
 -- ----------------------------
+INSERT INTO `t_transfer_company` VALUES ('1', '聚盟-新侨', '15335555555', null, null, null, null, null, null);
 
 -- ----------------------------
 -- View structure for messageusers
