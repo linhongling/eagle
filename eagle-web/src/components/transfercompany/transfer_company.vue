@@ -18,6 +18,7 @@
           <el-button type="primary" size="small" @click="searchCompany">查询</el-button>
           <el-button type="primary" size="small" @click="createCompany">新增</el-button>
           <el-button type="primary" size="small" @click="updateCompany" :disabled=this.visibles.choosed>修改</el-button>
+          <el-button type="primary" size="small" @click="deleteCompany" :disabled=this.visibles.choosed>删除</el-button>
         </el-row>
       </el-form>
 
@@ -41,6 +42,16 @@
         <el-table-column prop="cellphone" label="联系人手机"></el-table-column>
         <el-table-column prop="addr" label="地址"></el-table-column>
         <el-table-column prop="remark" label="备注"></el-table-column>
+        <el-table-column prop="createDate" label="创建时间">
+          <template slot-scope="scope">
+            <span>{{scope.row.createDate | formatDate}}</span>
+          </template>
+        </el-table-column>
+        <el-table-column prop="modifyDate" label="修改时间">
+          <template slot-scope="scope">
+            <span>{{scope.row.modifyDate | formatDate}}</span>
+          </template>
+        </el-table-column>
       </el-table>
 
       <el-pagination
@@ -112,6 +123,9 @@
 
       },
       updateCompany() {
+
+      },
+      deleteCompany() {
 
       }
     },

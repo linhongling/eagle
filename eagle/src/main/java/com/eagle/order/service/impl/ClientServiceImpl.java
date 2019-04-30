@@ -7,6 +7,7 @@ import com.eagle.order.service.ClientService;
 import com.eagle.order.util.CommonBeanUtils;
 import com.eagle.order.util.QueryData;
 import com.eagle.order.util.ReturnResult;
+import com.eagle.order.vo.ClientInfo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.base.Strings;
@@ -55,16 +56,20 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public ReturnResult<Integer> saveClient(Client client) {
-        client.setCreateDate(new Date());
         int insert = clientMapper.insert(client);
         return ReturnResult.ok(insert);
     }
 
     @Override
     public ReturnResult<Integer> updateClient(Client client) {
-        client.setModifyDate(new Date());
         int i = clientMapper.updateByPrimaryKey(client);
         return ReturnResult.ok(i);
+    }
+
+    @Override
+    public ReturnResult<List<ClientInfo>> getClientInfoList() {
+        List<ClientInfo> clientInfo = clientMapper.getClientInfo();
+        return ReturnResult.ok(clientInfo);
     }
 
 }

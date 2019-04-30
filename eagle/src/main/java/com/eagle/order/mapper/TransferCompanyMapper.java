@@ -3,6 +3,9 @@ package com.eagle.order.mapper;
 import com.eagle.order.domain.TransferCompany;
 import com.eagle.order.domain.TransferCompanyExample;
 import java.util.List;
+
+import com.eagle.order.vo.GoodsInfo;
+import com.eagle.order.vo.TransferCoInfo;
 import org.apache.ibatis.annotations.Param;
 
 public interface TransferCompanyMapper {
@@ -27,4 +30,6 @@ public interface TransferCompanyMapper {
     int updateByPrimaryKeySelective(TransferCompany record);
 
     int updateByPrimaryKey(TransferCompany record);
+
+    List<TransferCoInfo> getTransferCoInfo();
 }

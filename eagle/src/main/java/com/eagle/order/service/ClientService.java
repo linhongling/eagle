@@ -3,7 +3,10 @@ package com.eagle.order.service;
 import com.eagle.order.domain.Client;
 import com.eagle.order.util.QueryData;
 import com.eagle.order.util.ReturnResult;
+import com.eagle.order.vo.ClientInfo;
 import com.github.pagehelper.PageInfo;
+
+import java.util.List;
 
 /**
  * @Description
@@ -19,4 +22,6 @@ public interface ClientService {
     ReturnResult<Integer> saveClient(Client client);
 
     ReturnResult<Integer> updateClient(Client client);
+
+    ReturnResult<List<ClientInfo>> getClientInfoList();
 }

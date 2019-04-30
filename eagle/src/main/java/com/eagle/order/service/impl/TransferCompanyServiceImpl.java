@@ -7,6 +7,7 @@ import com.eagle.order.service.TransferCompanyService;
 import com.eagle.order.util.CommonBeanUtils;
 import com.eagle.order.util.QueryData;
 import com.eagle.order.util.ReturnResult;
+import com.eagle.order.vo.TransferCoInfo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.base.Strings;
@@ -39,5 +40,25 @@ public class TransferCompanyServiceImpl implements TransferCompanyService {
         List<TransferCompany> transferCompanies = transferCompanyMapper.selectByExample(transferCompanyExample);
         PageInfo<TransferCompany> resultInfo = new PageInfo<TransferCompany>(transferCompanies);
         return ReturnResult.ok(resultInfo);
+    }
+
+    @Override
+    public ReturnResult<TransferCompany> getDtail(Long id) {
+        return null;
+    }
+
+    @Override
+    public ReturnResult<Integer> saveClient(TransferCompany transferCompany) {
+        return null;
+    }
+
+    @Override
+    public ReturnResult<Integer> updateClient(TransferCompany transferCompany) {
+        return null;
+    }
+
+    @Override
+    public ReturnResult<List<TransferCoInfo>> getTransferCoInfoList() {
+        return null;
     }
 }

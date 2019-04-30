@@ -3,7 +3,11 @@ package com.eagle.order.service;
 import com.eagle.order.domain.Goods;
 import com.eagle.order.util.QueryData;
 import com.eagle.order.util.ReturnResult;
+import com.eagle.order.vo.ClientInfo;
+import com.eagle.order.vo.GoodsInfo;
 import com.github.pagehelper.PageInfo;
+
+import java.util.List;
 
 /**
  * @Description
@@ -19,4 +23,6 @@ public interface GoodsService {
     ReturnResult<Integer> saveClient(Goods goods);
 
     ReturnResult<Integer> updateClient(Goods goods);
+
+    ReturnResult<List<GoodsInfo>> getGoodsInfoList();
 }

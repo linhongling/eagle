@@ -4,11 +4,15 @@ import com.eagle.order.domain.Goods;
 import com.eagle.order.service.GoodsService;
 import com.eagle.order.util.QueryData;
 import com.eagle.order.util.ReturnResult;
+import com.eagle.order.vo.ClientInfo;
+import com.eagle.order.vo.GoodsInfo;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * @Description
@@ -26,5 +30,10 @@ public class GoodsController {
     public ReturnResult<PageInfo<Goods>> queryList(@RequestBody QueryData<Goods> queryData){
         ReturnResult<PageInfo<Goods>> returnResult = goodsService.queryList(queryData);
         return returnResult;
+    }
+
+    @RequestMapping("/getGoodsInfoList")
+    public ReturnResult<List<GoodsInfo>> getGoodsInfoList(){
+        return goodsService.getGoodsInfoList();
     }
 }

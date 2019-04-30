@@ -2,13 +2,13 @@
   <div>
     <el-breadcrumb separator-class="el-icon-arrow-right">
       <el-breadcrumb-item :to="{ path: '/index' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>品名管理</el-breadcrumb-item>
+      <el-breadcrumb-item>品类管理</el-breadcrumb-item>
     </el-breadcrumb>
     <div style="margin-top: 15px">
-      <el-form ref="querys" :model="querys" label-width="120px">
+      <el-form ref="querys" :model="querys" label-width="100px">
         <el-row>
           <el-col :span="8">
-            <el-form-item label="名称：">
+            <el-form-item label="品类名称：">
               <el-input v-model="querys.name" style="width:200px;" clearable></el-input>
             </el-form-item>
           </el-col>
@@ -18,6 +18,7 @@
           <el-button type="primary" size="small" @click="searchGoods">查询</el-button>
           <el-button type="primary" size="small" @click="createGoods">新增</el-button>
           <el-button type="primary" size="small" @click="updateGoods" :disabled=this.visibles.choosed>修改</el-button>
+          <el-button type="primary" size="small" @click="deleteGoods" :disabled=this.visibles.choosed>删除</el-button>
         </el-row>
       </el-form>
 
@@ -37,6 +38,16 @@
         </el-table-column>
         <el-table-column prop="name" label="品名"></el-table-column>
         <el-table-column prop="remark" label="备注"></el-table-column>
+        <el-table-column prop="createDate" label="创建时间">
+          <template slot-scope="scope">
+            <span>{{scope.row.createDate | formatDate}}</span>
+          </template>
+        </el-table-column>
+        <el-table-column prop="modifyDate" label="修改时间">
+          <template slot-scope="scope">
+            <span>{{scope.row.modifyDate | formatDate}}</span>
+          </template>
+        </el-table-column>
       </el-table>
 
       <el-pagination
@@ -52,7 +63,7 @@
 
 <script>
   import base from '@/components/base.vue'
-  import {getTransferCompanyList} from '@/api/api'
+  import {getGoodsList} from '@/api/api'
 
   export default {
     extends: base,
@@ -93,7 +104,7 @@
           param: this.querys
         }
         var json = JSON.stringify(obj);
-        getTransferCompanyList(json).then((res) => {
+        getGoodsList(json).then((res) => {
           this.loading = false;
           if (res.status == 200) {
             this.tableData = res.data.list;
@@ -108,6 +119,9 @@
 
       },
       updateGoods() {
+
+      },
+      deleteGoods() {
 
       }
     },

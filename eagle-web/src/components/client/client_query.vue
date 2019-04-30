@@ -19,6 +19,7 @@
           <el-button type="primary" size="small" @click="createClient">新增</el-button>
           <el-button type="primary" size="small" @click="updateClient" :disabled=this.visibles.choosed>修改</el-button>
           <el-button type="primary" size="small" @click="searchDetail" :disabled=this.visibles.choosed>查看详情</el-button>
+          <el-button type="primary" size="small" @click="deleteClient" :disabled=this.visibles.choosed>删除</el-button>
         </el-row>
       </el-form>
 
@@ -41,6 +42,7 @@
         <el-table-column prop="contact" label="联系人"></el-table-column>
         <el-table-column prop="cellphone" label="联系人手机"></el-table-column>
         <el-table-column prop="addr" label="地址"></el-table-column>
+        <el-table-column prop="remark" label="备注"></el-table-column>
         <el-table-column prop="createDate" label="创建时间">
           <template slot-scope="scope">
             <span>{{scope.row.createDate | formatDate}}</span>
@@ -51,7 +53,6 @@
             <span>{{scope.row.modifyDate | formatDate}}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="remark" label="备注"></el-table-column>
       </el-table>
 
       <el-pagination
@@ -143,6 +144,9 @@
         this.dialogVisible = false
         if (refresh)
           this.searchClient()
+      },
+      deleteClient() {
+
       }
     },
     mounted() {

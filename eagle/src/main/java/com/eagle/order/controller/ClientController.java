@@ -4,12 +4,15 @@ import com.eagle.order.domain.Client;
 import com.eagle.order.service.ClientService;
 import com.eagle.order.util.QueryData;
 import com.eagle.order.util.ReturnResult;
+import com.eagle.order.vo.ClientInfo;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * @Description
@@ -51,5 +54,10 @@ public class ClientController {
             return ReturnResult.error("参数client不能为空");
         }
         return clientService.updateClient(client);
+    }
+
+    @RequestMapping("/getClientInfoList")
+    public ReturnResult<List<ClientInfo>> getClientInfoList(){
+        return clientService.getClientInfoList();
     }
 }

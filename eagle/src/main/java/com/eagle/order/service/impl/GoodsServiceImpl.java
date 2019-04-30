@@ -6,6 +6,7 @@ import com.eagle.order.mapper.GoodsMapper;
 import com.eagle.order.service.GoodsService;
 import com.eagle.order.util.QueryData;
 import com.eagle.order.util.ReturnResult;
+import com.eagle.order.vo.GoodsInfo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.base.Strings;
@@ -52,6 +53,11 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     public ReturnResult<Integer> updateClient(Goods goods) {
+        return null;
+    }
+
+    @Override
+    public ReturnResult<List<GoodsInfo>> getGoodsInfoList() {
         return null;
     }
 }

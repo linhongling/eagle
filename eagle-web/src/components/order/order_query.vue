@@ -71,6 +71,7 @@
           <el-button type="primary" size="small" @click="createOrder">新增</el-button>
           <el-button type="primary" size="small" @click="updateOrder" :disabled=this.visibles.choosed>修改</el-button>
           <el-button type="primary" size="small" @click="searchDetail" :disabled=this.visibles.choosed>查看详情</el-button>
+          <el-button type="primary" size="small" @click="deleteOrder" :disabled=this.visibles.choosed>删除</el-button>
         </el-row>
       </el-form>
 
@@ -133,7 +134,7 @@
 
 <script>
   import base from '@/components/base.vue'
-  import {getOrderList} from '@/api/api'
+  import {getOrderList, getClientInfoList} from '@/api/api'
 
   export default {
     extends: base,
@@ -202,10 +203,21 @@
       },
       exportOrder() {
 
+      },
+      deleteOrder() {
+
+      },
+      getClientInfoList() {
+        getClientInfoList().then((res) => {
+          if (res.status == 200) {
+            this.clientList = res.data
+          }
+        })
       }
     },
     mounted() {
       this.searchOrder();
+      this.getClientInfoList();
     }
   }
 </script>
