@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.eagle.order.mapper.WebUserMapper" >
-  <resultMap id="BaseResultMap" type="com.eagle.order.po.WebUser" >
+  <resultMap id="BaseResultMap" type="com.eagle.order.domain.WebUser" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="account" property="account" jdbcType="VARCHAR" />
     <result column="password" property="password" jdbcType="VARCHAR" />
@@ -70,7 +70,7 @@
   <sql id="Base_Column_List" >
     id, account, password, nickname, create_time, update_time
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.eagle.order.po.WebUserExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.eagle.order.domain.WebUserExample" >
     select
     <if test="distinct" >
       distinct
@@ -95,13 +95,13 @@
     delete from h_web_user
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.eagle.order.po.WebUserExample" >
+  <delete id="deleteByExample" parameterType="com.eagle.order.domain.WebUserExample" >
     delete from h_web_user
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.eagle.order.po.WebUser" >
+  <insert id="insert" parameterType="com.eagle.order.domain.WebUser" >
     insert into h_web_user (id, account, password, 
       nickname, create_time, update_time
       )
@@ -109,7 +109,7 @@
       #{nickname,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.eagle.order.po.WebUser" >
+  <insert id="insertSelective" parameterType="com.eagle.order.domain.WebUser" >
     insert into h_web_user
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -152,7 +152,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.eagle.order.po.WebUserExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.eagle.order.domain.WebUserExample" resultType="java.lang.Integer" >
     select count(*) from h_web_user
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -196,7 +196,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.eagle.order.po.WebUser" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.eagle.order.domain.WebUser" >
     update h_web_user
     <set>
       <if test="account != null" >
@@ -217,7 +217,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.eagle.order.po.WebUser" >
+  <update id="updateByPrimaryKey" parameterType="com.eagle.order.domain.WebUser" >
     update h_web_user
     set account = #{account,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},

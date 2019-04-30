@@ -1,4 +1,4 @@
-package com.eagle.order.po;
+package com.eagle.order.domain;
 
 public class RolePermission {
     private Long id;

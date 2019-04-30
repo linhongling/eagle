@@ -1,7 +1,7 @@
 package com.eagle.order.mapper;
 
-import com.eagle.order.po.Role;
-import com.eagle.order.po.RoleExample;
+import com.eagle.order.domain.Role;
+import com.eagle.order.domain.RoleExample;
 
 import java.util.List;
 

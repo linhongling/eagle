@@ -1,8 +1,8 @@
 package com.eagle.order.service;
 
+import com.eagle.order.domain.TransferCompany;
 import com.eagle.order.util.QueryData;
 import com.eagle.order.util.ReturnResult;
-import com.eagle.order.vo.TransferCompanyVO;
 import com.github.pagehelper.PageInfo;
 
 /**
@@ -12,6 +12,6 @@ import com.github.pagehelper.PageInfo;
  */
 public interface TransferCompanyService {
 
-    ReturnResult<PageInfo<TransferCompanyVO>> queryList(QueryData<TransferCompanyVO> queryData);
+    ReturnResult<PageInfo<TransferCompany>> queryList(QueryData<TransferCompany> queryData);
 
 }

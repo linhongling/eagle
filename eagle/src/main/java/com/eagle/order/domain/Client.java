@@ -1,6 +1,8 @@
-package com.eagle.order.vo;
+package com.eagle.order.domain;
 
-public class TransferCompanyVO {
+import java.util.Date;
+
+public class Client {
     private Long id;
 
     private String name;
@@ -14,6 +16,10 @@ public class TransferCompanyVO {
     private String addr;
 
     private String remark;
+
+    private Date createDate;
+
+    private Date modifyDate;
 
     public Long getId() {
         return id;
@@ -69,5 +75,21 @@ public class TransferCompanyVO {
 
     public void setRemark(String remark) {
         this.remark = remark == null ? null : remark.trim();
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    public Date getModifyDate() {
+        return modifyDate;
+    }
+
+    public void setModifyDate(Date modifyDate) {
+        this.modifyDate = modifyDate;
     }
 }

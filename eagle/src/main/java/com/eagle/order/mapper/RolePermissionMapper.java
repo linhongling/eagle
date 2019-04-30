@@ -1,7 +1,7 @@
 package com.eagle.order.mapper;
 
-import com.eagle.order.po.RolePermission;
-import com.eagle.order.po.RolePermissionExample;
+import com.eagle.order.domain.RolePermission;
+import com.eagle.order.domain.RolePermissionExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 

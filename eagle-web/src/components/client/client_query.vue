@@ -70,8 +70,8 @@
 </template>
 
 <script>
-  import base from './base.vue'
-  import {getClientList} from '../api/api'
+  import base from '@/components/base.vue'
+  import {getClientList} from '@/api/api'
   import Client_detail from "./client_detail";
 
   export default {

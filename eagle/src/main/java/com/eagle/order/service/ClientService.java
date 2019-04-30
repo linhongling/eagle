@@ -1,13 +1,9 @@
 package com.eagle.order.service;
 
-import com.eagle.order.po.Client;
-import com.eagle.order.po.Role;
+import com.eagle.order.domain.Client;
 import com.eagle.order.util.QueryData;
 import com.eagle.order.util.ReturnResult;
-import com.eagle.order.vo.ClientVO;
-import com.eagle.order.vo.OrderVO;
 import com.github.pagehelper.PageInfo;
-import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  * @Description
@@ -16,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
  */
 public interface ClientService {
 
-    ReturnResult<PageInfo<ClientVO>> queryList(QueryData<ClientVO> queryData);
+    ReturnResult<PageInfo<Client>> queryList(QueryData<Client> queryData);
 
-    ReturnResult<ClientVO> getDtail(Long id);
+    ReturnResult<Client> getDtail(Long id);
 
     ReturnResult<Integer> saveClient(Client client);
 

@@ -1,7 +1,6 @@
 package com.eagle.order.service;
 
-import com.eagle.order.po.WebUser;
-import com.eagle.order.util.ReturnResult;
+import com.eagle.order.domain.WebUser;
 import com.eagle.order.vo.WebUserPermissionDO;
 
 /**

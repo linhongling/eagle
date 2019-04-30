@@ -1,11 +1,7 @@
 package com.eagle.order.controller;
 
-import com.eagle.order.entity.User;
-import com.eagle.order.po.WebUser;
-import com.eagle.order.po.WebUserExample;
-import com.eagle.order.service.PermissionService;
+import com.eagle.order.domain.WebUser;
 import com.eagle.order.service.WebUserService;
-import com.eagle.order.service.impl.WebUserServiceImpl;
 import com.eagle.order.util.QueryData;
 import com.eagle.order.util.ReturnResult;
 import com.eagle.order.vo.WebUserVO;
@@ -16,7 +12,6 @@ import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 /**

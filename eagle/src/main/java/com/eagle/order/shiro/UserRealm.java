@@ -1,6 +1,5 @@
 package com.eagle.order.shiro;
 
-import com.eagle.order.po.WebUser;
 import com.eagle.order.service.WebUserService;
 import com.eagle.order.util.ReturnResult;
 import com.eagle.order.vo.WebUserVO;

@@ -1,19 +1,11 @@
-package com.eagle.order.vo;
+package com.eagle.order.domain;
 
 import java.util.Date;
 
-public class ClientVO {
+public class Goods {
     private Long id;
 
     private String name;
-
-    private String phone;
-
-    private String contact;
-
-    private String cellphone;
-
-    private String addr;
 
     private String remark;
 
@@ -35,38 +27,6 @@ public class ClientVO {
 
     public void setName(String name) {
         this.name = name == null ? null : name.trim();
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone == null ? null : phone.trim();
-    }
-
-    public String getContact() {
-        return contact;
-    }
-
-    public void setContact(String contact) {
-        this.contact = contact == null ? null : contact.trim();
-    }
-
-    public String getCellphone() {
-        return cellphone;
-    }
-
-    public void setCellphone(String cellphone) {
-        this.cellphone = cellphone == null ? null : cellphone.trim();
-    }
-
-    public String getAddr() {
-        return addr;
-    }
-
-    public void setAddr(String addr) {
-        this.addr = addr == null ? null : addr.trim();
     }
 
     public String getRemark() {

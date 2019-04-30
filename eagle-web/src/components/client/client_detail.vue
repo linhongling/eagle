@@ -36,7 +36,7 @@
 </template>
 
 <script>
-  import {getClientDetail, saveClient, updateClient} from '../api/api'
+  import {getClientDetail, saveClient, updateClient} from '../../api/api'
 
   export default {
     props: ['id', 'type'],

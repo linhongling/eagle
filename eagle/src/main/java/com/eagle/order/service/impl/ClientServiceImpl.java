@@ -1,16 +1,12 @@
 package com.eagle.order.service.impl;
 
 import com.eagle.order.mapper.ClientMapper;
-import com.eagle.order.po.Client;
-import com.eagle.order.po.ClientExample;
-import com.eagle.order.po.Order;
-import com.eagle.order.po.OrderExample;
+import com.eagle.order.domain.Client;
+import com.eagle.order.domain.ClientExample;
 import com.eagle.order.service.ClientService;
 import com.eagle.order.util.CommonBeanUtils;
 import com.eagle.order.util.QueryData;
 import com.eagle.order.util.ReturnResult;
-import com.eagle.order.vo.ClientVO;
-import com.eagle.order.vo.OrderVO;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.base.Strings;
@@ -33,25 +29,24 @@ public class ClientServiceImpl implements ClientService {
     private ClientMapper clientMapper;
 
     @Override
-    public ReturnResult<PageInfo<ClientVO>> queryList(QueryData<ClientVO> queryData) {
+    public ReturnResult<PageInfo<Client>> queryList(QueryData<Client> queryData) {
         PageInfo pageInfo = queryData.getPageInfo();
-        ClientVO clientVO = queryData.getParam();
+        Client client = queryData.getParam();
         ClientExample clientExample = new ClientExample();
         ClientExample.Criteria criteria = clientExample.createCriteria();
-        if (!Strings.isNullOrEmpty(clientVO.getName())) {
-            criteria.andNameLike("%" + clientVO.getName() + "%");
+        if (!Strings.isNullOrEmpty(client.getName())) {
+            criteria.andNameLike("%" + client.getName() + "%");
         }
         PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
         List<Client> clients = clientMapper.selectByExample(clientExample);
-        List<ClientVO> ClientVOs = CommonBeanUtils.copyList(clients, ClientVO.class);
-        PageInfo<ClientVO> resultInfo = new PageInfo<ClientVO>(ClientVOs);
+        PageInfo<Client> resultInfo = new PageInfo<Client>(clients);
         return ReturnResult.ok(resultInfo);
     }
 
     @Override
-    public ReturnResult<ClientVO> getDtail(Long id) {
+    public ReturnResult<Client> getDtail(Long id) {
         Client client = clientMapper.selectByPrimaryKey(id);
-        ClientVO clientVO = new ClientVO();
+        Client clientVO = new Client();
         if (client != null) {
             BeanUtils.copyProperties(client, clientVO);
         }
@@ -71,6 +66,5 @@ public class ClientServiceImpl implements ClientService {
         int i = clientMapper.updateByPrimaryKey(client);
         return ReturnResult.ok(i);
     }
-
 
 }

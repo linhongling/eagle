@@ -1,6 +1,5 @@
 package com.eagle.order.controller;
 
-import com.eagle.order.po.WebUser;
 import com.eagle.order.service.OrderService;
 import com.eagle.order.util.QueryData;
 import com.eagle.order.util.ReturnResult;

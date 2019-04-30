@@ -1,7 +1,7 @@
 package com.eagle.order.mapper;
 
-import com.eagle.order.po.Client;
-import com.eagle.order.po.ClientExample;
+import com.eagle.order.domain.Client;
+import com.eagle.order.domain.ClientExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 

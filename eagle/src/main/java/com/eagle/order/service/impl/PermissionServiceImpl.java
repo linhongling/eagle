@@ -1,12 +1,10 @@
 package com.eagle.order.service.impl;
 
-import com.eagle.order.enums.ErrorCodeEnum;
 import com.eagle.order.mapper.PermissionMapper;
-import com.eagle.order.po.Permission;
-import com.eagle.order.po.PermissionExample;
-import com.eagle.order.po.WebUser;
+import com.eagle.order.domain.Permission;
+import com.eagle.order.domain.PermissionExample;
+import com.eagle.order.domain.WebUser;
 import com.eagle.order.service.PermissionService;
-import com.eagle.order.util.ReturnResult;
 import com.eagle.order.vo.WebUserPermissionDO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

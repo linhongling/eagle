@@ -4,7 +4,7 @@ package com.eagle.order.service.impl;
 import com.eagle.order.mapper.RoleMapper;
 import com.eagle.order.mapper.WebUserMapper;
 import com.eagle.order.mapper.WebUserRoleMapper;
-import com.eagle.order.po.*;
+import com.eagle.order.domain.*;
 import com.eagle.order.service.PermissionService;
 import com.eagle.order.service.WebUserService;
 import com.eagle.order.util.CommonBeanUtils;

@@ -1,9 +1,9 @@
 package com.eagle.order.service.impl;
 
 import com.eagle.order.mapper.OrderMapper;
-import com.eagle.order.po.Order;
-import com.eagle.order.po.OrderExample;
-import com.eagle.order.po.Role;
+import com.eagle.order.domain.Order;
+import com.eagle.order.domain.OrderExample;
+import com.eagle.order.domain.Role;
 import com.eagle.order.service.OrderService;
 import com.eagle.order.util.CommonBeanUtils;
 import com.eagle.order.util.QueryData;

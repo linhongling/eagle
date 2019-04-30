@@ -1,11 +1,10 @@
 package com.eagle.order.mapper;
 
-import com.eagle.order.po.Permission;
-import com.eagle.order.po.PermissionExample;
+import com.eagle.order.domain.Permission;
+import com.eagle.order.domain.PermissionExample;
 import java.util.List;
 
 import com.eagle.order.vo.PermissionVO;
-import com.eagle.order.vo.WebUserPermissionDO;
 import org.apache.ibatis.annotations.Param;
 
 public interface PermissionMapper {

@@ -1,7 +1,7 @@
 package com.eagle.order.mapper;
 
-import com.eagle.order.po.WebUserRole;
-import com.eagle.order.po.WebUserRoleExample;
+import com.eagle.order.domain.WebUserRole;
+import com.eagle.order.domain.WebUserRoleExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 

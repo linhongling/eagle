@@ -2,8 +2,8 @@ package com.eagle.order.service.impl;
 
 import com.eagle.order.mapper.PermissionMapper;
 import com.eagle.order.mapper.RoleMapper;
-import com.eagle.order.po.Role;
-import com.eagle.order.po.RoleExample;
+import com.eagle.order.domain.Role;
+import com.eagle.order.domain.RoleExample;
 import com.eagle.order.service.RoleService;
 import com.eagle.order.util.QueryData;
 import com.eagle.order.util.ReturnResult;

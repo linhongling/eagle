@@ -2,22 +2,22 @@
   <div>
     <el-breadcrumb separator-class="el-icon-arrow-right">
       <el-breadcrumb-item :to="{ path: '/index' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>转运公司管理</el-breadcrumb-item>
+      <el-breadcrumb-item>品名管理</el-breadcrumb-item>
     </el-breadcrumb>
     <div style="margin-top: 15px">
       <el-form ref="querys" :model="querys" label-width="120px">
         <el-row>
           <el-col :span="8">
-            <el-form-item label="转运公司名称：">
-              <el-input v-model="querys.name" style="width:200px;"></el-input>
+            <el-form-item label="名称：">
+              <el-input v-model="querys.name" style="width:200px;" clearable></el-input>
             </el-form-item>
           </el-col>
         </el-row>
 
         <el-row colspan="24">
-          <el-button type="primary" size="small" @click="searchOrder">查询</el-button>
-          <el-button type="primary" size="small" @click="createOrder">新增</el-button>
-          <el-button type="primary" size="small" @click="updateOrder">修改</el-button>
+          <el-button type="primary" size="small" @click="searchGoods">查询</el-button>
+          <el-button type="primary" size="small" @click="createGoods">新增</el-button>
+          <el-button type="primary" size="small" @click="updateGoods" :disabled=this.visibles.choosed>修改</el-button>
         </el-row>
       </el-form>
 
@@ -28,11 +28,14 @@
         border
         style="width: 100%;margin-top: 15px"
         @current-change="handleCurrentChange">
-        <el-table-column prop="name" label="转运名称"></el-table-column>
-        <el-table-column prop="phone" label="电话"></el-table-column>
-        <el-table-column prop="contact" label="联系人"></el-table-column>
-        <el-table-column prop="cellphone" label="联系人手机"></el-table-column>
-        <el-table-column prop="addr" label="地址"></el-table-column>
+        <el-table-column label="选择" width="50" style="text-align:center">
+          <template slot-scope="scope">
+            <div style="text-align:center">
+              <el-radio v-model="currentRowId" :label="scope.row.id"><i></i></el-radio>
+            </div>
+          </template>
+        </el-table-column>
+        <el-table-column prop="name" label="品名"></el-table-column>
         <el-table-column prop="remark" label="备注"></el-table-column>
       </el-table>
 
@@ -48,8 +51,8 @@
 </template>
 
 <script>
-  import base from './base.vue'
-  import {getTransferCompanyList} from '../api/api'
+  import base from '@/components/base.vue'
+  import {getTransferCompanyList} from '@/api/api'
 
   export default {
     extends: base,
@@ -58,8 +61,12 @@
         loading: false,
         tableData: [],
         currentRow: {},
+        currentRowId: '',
         querys: {
           name: ''
+        },
+        visibles: {
+          choosed: true,
         },
         pageNum: 0,
         total: 0,
@@ -67,9 +74,16 @@
     },
     methods: {
       handleCurrentChange(val) {
-        this.currentRow = val;
+        if (!val) {
+          this.currentRow = ''
+          this.visibles.choosed = true
+          return
+        }
+        this.currentRow = val
+        this.currentRowId = val.id
+        this.visibles.choosed = false
       },
-      searchOrder() {
+      searchGoods() {
         this.loading = true;
         var obj = {
           pageInfo: {
@@ -90,15 +104,15 @@
           }
         })
       },
-      createOrder() {
+      createGoods() {
 
       },
-      updateOrder() {
+      updateGoods() {
 
       }
     },
     mounted() {
-      this.searchOrder();
+      this.searchGoods();
     }
   }
 </script>

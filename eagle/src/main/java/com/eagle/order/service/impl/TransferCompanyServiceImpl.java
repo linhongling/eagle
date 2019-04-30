@@ -1,16 +1,12 @@
 package com.eagle.order.service.impl;
 
 import com.eagle.order.mapper.TransferCompanyMapper;
-import com.eagle.order.po.Client;
-import com.eagle.order.po.ClientExample;
-import com.eagle.order.po.TransferCompany;
-import com.eagle.order.po.TransferCompanyExample;
+import com.eagle.order.domain.TransferCompany;
+import com.eagle.order.domain.TransferCompanyExample;
 import com.eagle.order.service.TransferCompanyService;
 import com.eagle.order.util.CommonBeanUtils;
 import com.eagle.order.util.QueryData;
 import com.eagle.order.util.ReturnResult;
-import com.eagle.order.vo.ClientVO;
-import com.eagle.order.vo.TransferCompanyVO;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.base.Strings;
@@ -31,18 +27,17 @@ public class TransferCompanyServiceImpl implements TransferCompanyService {
     private TransferCompanyMapper transferCompanyMapper;
 
     @Override
-    public ReturnResult<PageInfo<TransferCompanyVO>> queryList(QueryData<TransferCompanyVO> queryData) {
+    public ReturnResult<PageInfo<TransferCompany>> queryList(QueryData<TransferCompany> queryData) {
         PageInfo pageInfo = queryData.getPageInfo();
-        TransferCompanyVO transferCompanyVO = queryData.getParam();
+        TransferCompany transferCompany = queryData.getParam();
         TransferCompanyExample transferCompanyExample = new TransferCompanyExample();
         TransferCompanyExample.Criteria criteria = transferCompanyExample.createCriteria();
-        if(!Strings.isNullOrEmpty(transferCompanyVO.getName())){
-            criteria.andNameLike("%" + transferCompanyVO.getName() + "%");
+        if(!Strings.isNullOrEmpty(transferCompany.getName())){
+            criteria.andNameLike("%" + transferCompany.getName() + "%");
         }
         PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
         List<TransferCompany> transferCompanies = transferCompanyMapper.selectByExample(transferCompanyExample);
-        List<TransferCompanyVO> transferCompanyVOS = CommonBeanUtils.copyList(transferCompanies, TransferCompanyVO.class);
-        PageInfo<TransferCompanyVO> resultInfo = new PageInfo<TransferCompanyVO>(transferCompanyVOS);
+        PageInfo<TransferCompany> resultInfo = new PageInfo<TransferCompany>(transferCompanies);
         return ReturnResult.ok(resultInfo);
     }
 }

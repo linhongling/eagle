@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.eagle.order.mapper.ClientMapper" >
-  <resultMap id="BaseResultMap" type="com.eagle.order.po.Client" >
+  <resultMap id="BaseResultMap" type="com.eagle.order.domain.Client" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="phone" property="phone" jdbcType="VARCHAR" />
@@ -73,7 +73,7 @@
   <sql id="Base_Column_List" >
     id, name, phone, contact, cellphone, addr, remark, create_date, modify_date
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.eagle.order.po.ClientExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.eagle.order.domain.ClientExample" >
     select
     <if test="distinct" >
       distinct
@@ -98,13 +98,13 @@
     delete from t_client
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.eagle.order.po.ClientExample" >
+  <delete id="deleteByExample" parameterType="com.eagle.order.domain.ClientExample" >
     delete from t_client
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.eagle.order.po.Client" >
+  <insert id="insert" parameterType="com.eagle.order.domain.Client" >
     insert into t_client (id, name, phone, 
       contact, cellphone, addr, 
       remark, create_date, modify_date
@@ -114,7 +114,7 @@
       #{remark,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.eagle.order.po.Client" >
+  <insert id="insertSelective" parameterType="com.eagle.order.domain.Client" >
     insert into t_client
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -175,7 +175,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.eagle.order.po.ClientExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.eagle.order.domain.ClientExample" resultType="java.lang.Integer" >
     select count(*) from t_client
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -231,7 +231,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.eagle.order.po.Client" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.eagle.order.domain.Client" >
     update t_client
     <set >
       <if test="name != null" >
@@ -261,7 +261,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.eagle.order.po.Client" >
+  <update id="updateByPrimaryKey" parameterType="com.eagle.order.domain.Client" >
     update t_client
     set name = #{name,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},

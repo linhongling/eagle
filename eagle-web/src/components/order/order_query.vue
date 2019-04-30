@@ -67,6 +67,7 @@
         </el-row>
         <el-row colspan="24">
           <el-button type="primary" size="small" @click="searchOrder">查询</el-button>
+          <el-button type="primary" size="small" @click="exportOrder">导出</el-button>
           <el-button type="primary" size="small" @click="createOrder">新增</el-button>
           <el-button type="primary" size="small" @click="updateOrder" :disabled=this.visibles.choosed>修改</el-button>
           <el-button type="primary" size="small" @click="searchDetail" :disabled=this.visibles.choosed>查看详情</el-button>
@@ -131,8 +132,8 @@
 </template>
 
 <script>
-  import base from './base.vue'
-  import {getOrderList} from '../api/api'
+  import base from '@/components/base.vue'
+  import {getOrderList} from '@/api/api'
 
   export default {
     extends: base,
@@ -197,6 +198,9 @@
 
       },
       searchDetail() {
+
+      },
+      exportOrder() {
 
       }
     },

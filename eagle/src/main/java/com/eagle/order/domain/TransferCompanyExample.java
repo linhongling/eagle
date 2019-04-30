@@ -1,17 +1,17 @@
-package com.eagle.order.po;
+package com.eagle.order.domain;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class ClientExample {
+public class TransferCompanyExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public ClientExample() {
+    public TransferCompanyExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
