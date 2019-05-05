@@ -1,5 +1,6 @@
 package com.eagle.order.service.impl;
 
+import com.eagle.order.domain.Client;
 import com.eagle.order.mapper.OrderMapper;
 import com.eagle.order.domain.Order;
 import com.eagle.order.domain.OrderExample;
@@ -60,13 +61,27 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public ReturnResult<Boolean> saveOrUpdate(Role role) {
-        return null;
+    public ReturnResult<Order> getDtail(Long id) {
+        Order order = orderMapper.selectByPrimaryKey(id);
+        return ReturnResult.ok(order);
     }
 
     @Override
-    public ReturnResult<Boolean> delete(int id) {
-        return null;
+    public ReturnResult<Integer> saveOrder(Order order) {
+        int num = orderMapper.insert(order);
+        return ReturnResult.ok(num);
+    }
+
+    @Override
+    public ReturnResult<Integer> updateOrder(Order order) {
+        int num = orderMapper.updateByPrimaryKey(order);
+        return ReturnResult.ok(num);
+    }
+
+    @Override
+    public ReturnResult<Integer> delete(Long id) {
+        int num = orderMapper.deleteByPrimaryKey(id);
+        return ReturnResult.ok(num);
     }
 
 }

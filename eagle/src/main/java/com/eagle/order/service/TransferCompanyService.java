@@ -21,10 +21,12 @@ public interface TransferCompanyService {
 
     ReturnResult<TransferCompany> getDtail(Long id);
 
-    ReturnResult<Integer> saveClient(TransferCompany transferCompany);
+    ReturnResult<Integer> saveTransferCo(TransferCompany transferCompany);
 
-    ReturnResult<Integer> updateClient(TransferCompany transferCompany);
+    ReturnResult<Integer> updateTransferCo(TransferCompany transferCompany);
 
     ReturnResult<List<TransferCoInfo>> getTransferCoInfoList();
+
+    ReturnResult<Integer> delete(Long id);
 
 }

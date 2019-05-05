@@ -20,9 +20,11 @@ public interface GoodsService {
 
     ReturnResult<Goods> getDtail(Long id);
 
-    ReturnResult<Integer> saveClient(Goods goods);
+    ReturnResult<Integer> saveGoods(Goods goods);
 
-    ReturnResult<Integer> updateClient(Goods goods);
+    ReturnResult<Integer> updateGoods(Goods goods);
 
     ReturnResult<List<GoodsInfo>> getGoodsInfoList();
+
+    ReturnResult<Integer> delete(Long id);
 }

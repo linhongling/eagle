@@ -47,11 +47,7 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public ReturnResult<Client> getDtail(Long id) {
         Client client = clientMapper.selectByPrimaryKey(id);
-        Client clientVO = new Client();
-        if (client != null) {
-            BeanUtils.copyProperties(client, clientVO);
-        }
-        return ReturnResult.ok(clientVO);
+        return ReturnResult.ok(client);
     }
 
     @Override
@@ -70,6 +66,12 @@ public class ClientServiceImpl implements ClientService {
     public ReturnResult<List<ClientInfo>> getClientInfoList() {
         List<ClientInfo> clientInfo = clientMapper.getClientInfo();
         return ReturnResult.ok(clientInfo);
+    }
+
+    @Override
+    public ReturnResult<Integer> delete(Long id) {
+        int num = clientMapper.deleteByPrimaryKey(id);
+        return ReturnResult.ok(num);
     }
 
 }

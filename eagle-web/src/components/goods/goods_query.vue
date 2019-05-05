@@ -114,6 +114,8 @@
             this.$message.error(res.msg);
           }
         })
+        this.currentRow = ''
+        this.currentRowId = ''
       },
       createGoods() {
 

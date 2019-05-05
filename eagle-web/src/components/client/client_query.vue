@@ -18,7 +18,7 @@
           <el-button type="primary" size="small" @click="searchClient">查询</el-button>
           <el-button type="primary" size="small" @click="createClient">新增</el-button>
           <el-button type="primary" size="small" @click="updateClient" :disabled=this.visibles.choosed>修改</el-button>
-          <el-button type="primary" size="small" @click="searchDetail" :disabled=this.visibles.choosed>查看详情</el-button>
+          <el-button type="primary" size="small" @click="getDetail" :disabled=this.visibles.choosed>查看详情</el-button>
           <el-button type="primary" size="small" @click="deleteClient" :disabled=this.visibles.choosed>删除</el-button>
         </el-row>
       </el-form>
@@ -127,6 +127,8 @@
             this.$message.error(res.msg);
           }
         })
+        this.currentRow = ''
+        this.currentRowId = ''
       },
       createClient() {
         this.type = 1
@@ -136,7 +138,7 @@
         this.type = 2
         this.dialogVisible = true
       },
-      searchDetail() {
+      getDetail() {
         this.type = 0
         this.dialogVisible = true
       },

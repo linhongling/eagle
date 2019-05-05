@@ -46,7 +46,7 @@
             <el-form-item label="转运公司：">
               <el-select v-model="querys.transferCompanyId" clearable
                          filterable placeholder="请选择">
-                <el-option v-for="item in clientList"
+                <el-option v-for="item in transferCoList"
                            :key="item.id"
                            :value="item.id"
                            :label="item.name">
@@ -70,7 +70,7 @@
           <el-button type="primary" size="small" @click="exportOrder">导出</el-button>
           <el-button type="primary" size="small" @click="createOrder">新增</el-button>
           <el-button type="primary" size="small" @click="updateOrder" :disabled=this.visibles.choosed>修改</el-button>
-          <el-button type="primary" size="small" @click="searchDetail" :disabled=this.visibles.choosed>查看详情</el-button>
+          <el-button type="primary" size="small" @click="getDetail" :disabled=this.visibles.choosed>查看详情</el-button>
           <el-button type="primary" size="small" @click="deleteOrder" :disabled=this.visibles.choosed>删除</el-button>
         </el-row>
       </el-form>
@@ -97,7 +97,7 @@
         <el-table-column prop="no" label="运单号" width="120"></el-table-column>
         <el-table-column prop="clientId" label="客户" width="120"></el-table-column>
         <el-table-column prop="addr" label="目的地" width="120"></el-table-column>
-        <el-table-column prop="goodsType" label="品名" width="120"></el-table-column>
+        <el-table-column prop="goodsId" label="品名" width="120"></el-table-column>
         <el-table-column prop="count" label="件数" width="120"></el-table-column>
         <el-table-column prop="weight" label="重量" width="120"></el-table-column>
         <el-table-column prop="volume" label="体积" width="120"></el-table-column>
@@ -128,15 +128,21 @@
         @current-change=""
         :total="total">
       </el-pagination>
+
+      <el-dialog title="订单信息" :visible.sync="dialogVisible" v-if='dialogVisible' width="80%">
+        <order_detail :id="this.currentRowId" :type="this.type" @close-dialog="closeDialog"></order_detail>
+      </el-dialog>
     </div>
   </div>
 </template>
 
 <script>
   import base from '@/components/base.vue'
-  import {getOrderList, getClientInfoList} from '@/api/api'
+  import {getOrderList, getClientInfoList, getTransferCoInfoList} from '@/api/api'
+  import Order_detail from './order_detail'
 
   export default {
+    components: {Order_detail},
     extends: base,
     data() {
       return {
@@ -155,7 +161,9 @@
         visibles: {
           choosed: true,
         },
+        dialogVisible: false,
         clientList: null,
+        transferCoList: null,
         pageNum: 0,
         total: 0,
       }
@@ -191,15 +199,20 @@
             this.$message.error(res.msg);
           }
         })
+        this.currentRow = ''
+        this.currentRowId = ''
       },
       createOrder() {
-
+        this.type = 1
+        this.dialogVisible = true
       },
       updateOrder() {
-
+        this.type = 2
+        this.dialogVisible = true
       },
-      searchDetail() {
-
+      getDetail() {
+        this.type = 0
+        this.dialogVisible = true
       },
       exportOrder() {
 
@@ -213,11 +226,24 @@
             this.clientList = res.data
           }
         })
-      }
+      },
+      getTransferCoInfoList() {
+        getTransferCoInfoList().then((res) => {
+          if (res.status == 200) {
+            this.transferCoList = res.data
+          }
+        })
+      },
+      closeDialog(refresh) {
+        this.dialogVisible = false
+        if (refresh)
+          this.searchClient()
+      },
     },
     mounted() {
       this.searchOrder();
       this.getClientInfoList();
+      this.getTransferCoInfoList();
     }
   }
 </script>

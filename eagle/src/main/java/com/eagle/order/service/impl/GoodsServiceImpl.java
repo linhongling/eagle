@@ -43,21 +43,31 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     public ReturnResult<Goods> getDtail(Long id) {
-        return null;
+        Goods goods = goodsMapper.selectByPrimaryKey(id);
+        return ReturnResult.ok(goods);
     }
 
     @Override
-    public ReturnResult<Integer> saveClient(Goods goods) {
-        return null;
+    public ReturnResult<Integer> saveGoods(Goods goods) {
+        int num = goodsMapper.insert(goods);
+        return ReturnResult.ok(num);
     }
 
     @Override
-    public ReturnResult<Integer> updateClient(Goods goods) {
-        return null;
+    public ReturnResult<Integer> updateGoods(Goods goods) {
+        int num = goodsMapper.updateByPrimaryKey(goods);
+        return ReturnResult.ok(num);
     }
 
     @Override
     public ReturnResult<List<GoodsInfo>> getGoodsInfoList() {
-        return null;
+        List<GoodsInfo> goodsInfo = goodsMapper.getGoodsInfo();
+        return ReturnResult.ok(goodsInfo);
+    }
+
+    @Override
+    public ReturnResult<Integer> delete(Long id) {
+        int num = goodsMapper.deleteByPrimaryKey(id);
+        return ReturnResult.ok(num);
     }
 }

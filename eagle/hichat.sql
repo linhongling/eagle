@@ -252,7 +252,7 @@ CREATE TABLE "t_order" (
   "order_date" date NOT NULL COMMENT '日期',
   "client_id" bigint(20) DEFAULT NULL COMMENT '客户ID',
   "addr" varchar(255) DEFAULT NULL COMMENT '目的地',
-  "goods_type" bigint(20) DEFAULT NULL COMMENT '品名',
+  "goods_id" bigint(20) DEFAULT NULL COMMENT '品名',
   "count" int(11) DEFAULT NULL COMMENT '件数',
   "weight" decimal(10,0) DEFAULT NULL COMMENT '重量',
   "volume" decimal(10,0) DEFAULT NULL COMMENT '体积',

@@ -44,21 +44,31 @@ public class TransferCompanyServiceImpl implements TransferCompanyService {
 
     @Override
     public ReturnResult<TransferCompany> getDtail(Long id) {
-        return null;
+        TransferCompany transferCompany = transferCompanyMapper.selectByPrimaryKey(id);
+        return ReturnResult.ok(transferCompany);
     }
 
     @Override
-    public ReturnResult<Integer> saveClient(TransferCompany transferCompany) {
-        return null;
+    public ReturnResult<Integer> saveTransferCo(TransferCompany transferCompany) {
+        int num = transferCompanyMapper.insert(transferCompany);
+        return ReturnResult.ok(num);
     }
 
     @Override
-    public ReturnResult<Integer> updateClient(TransferCompany transferCompany) {
-        return null;
+    public ReturnResult<Integer> updateTransferCo(TransferCompany transferCompany) {
+        int num = transferCompanyMapper.updateByPrimaryKey(transferCompany);
+        return ReturnResult.ok(num);
     }
 
     @Override
     public ReturnResult<List<TransferCoInfo>> getTransferCoInfoList() {
-        return null;
+        List<TransferCoInfo> transferCoInfo = transferCompanyMapper.getTransferCoInfo();
+        return ReturnResult.ok(transferCoInfo);
+    }
+
+    @Override
+    public ReturnResult<Integer> delete(Long id) {
+        int num = transferCompanyMapper.deleteByPrimaryKey(id);
+        return ReturnResult.ok(num);
     }
 }

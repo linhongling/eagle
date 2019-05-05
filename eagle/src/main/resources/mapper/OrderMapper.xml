@@ -7,7 +7,7 @@
     <result column="order_date" property="orderDate" jdbcType="DATE" />
     <result column="client_id" property="clientId" jdbcType="BIGINT" />
     <result column="addr" property="addr" jdbcType="VARCHAR" />
-    <result column="goods_type" property="goodsType" jdbcType="BIGINT" />
+    <result column="goods_id" property="goodsId" jdbcType="BIGINT" />
     <result column="count" property="count" jdbcType="INTEGER" />
     <result column="weight" property="weight" jdbcType="DECIMAL" />
     <result column="volume" property="volume" jdbcType="DECIMAL" />
@@ -83,7 +83,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, no, order_date, client_id, addr, goods_type, count, weight, volume, freight_monthly, 
+    id, no, order_date, client_id, addr, goods_id, count, weight, volume, freight_monthly, 
     freight_now, freight_arrive, cost_freight, cost_direct, cost_insurance, transfer_company_id, 
     transfer_no, receipt, remark, create_date, modify_date
   </sql>
@@ -120,7 +120,7 @@
   </delete>
   <insert id="insert" parameterType="com.eagle.order.domain.Order" >
     insert into t_order (id, no, order_date, 
-      client_id, addr, goods_type, 
+      client_id, addr, goods_id, 
       count, weight, volume, 
       freight_monthly, freight_now, freight_arrive, 
       cost_freight, cost_direct, cost_insurance, 
@@ -128,7 +128,7 @@
       remark, create_date, modify_date
       )
     values (#{id,jdbcType=BIGINT}, #{no,jdbcType=VARCHAR}, #{orderDate,jdbcType=DATE}, 
-      #{clientId,jdbcType=BIGINT}, #{addr,jdbcType=VARCHAR}, #{goodsType,jdbcType=BIGINT}, 
+      #{clientId,jdbcType=BIGINT}, #{addr,jdbcType=VARCHAR}, #{goodsId,jdbcType=BIGINT}, 
       #{count,jdbcType=INTEGER}, #{weight,jdbcType=DECIMAL}, #{volume,jdbcType=DECIMAL}, 
       #{freightMonthly,jdbcType=DECIMAL}, #{freightNow,jdbcType=DECIMAL}, #{freightArrive,jdbcType=DECIMAL}, 
       #{costFreight,jdbcType=DECIMAL}, #{costDirect,jdbcType=DECIMAL}, #{costInsurance,jdbcType=DECIMAL}, 
@@ -154,8 +154,8 @@
       <if test="addr != null" >
         addr,
       </if>
-      <if test="goodsType != null" >
-        goods_type,
+      <if test="goodsId != null" >
+        goods_id,
       </if>
       <if test="count != null" >
         count,
@@ -219,8 +219,8 @@
       <if test="addr != null" >
         #{addr,jdbcType=VARCHAR},
       </if>
-      <if test="goodsType != null" >
-        #{goodsType,jdbcType=BIGINT},
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=BIGINT},
       </if>
       <if test="count != null" >
         #{count,jdbcType=INTEGER},
@@ -293,8 +293,8 @@
       <if test="record.addr != null" >
         addr = #{record.addr,jdbcType=VARCHAR},
       </if>
-      <if test="record.goodsType != null" >
-        goods_type = #{record.goodsType,jdbcType=BIGINT},
+      <if test="record.goodsId != null" >
+        goods_id = #{record.goodsId,jdbcType=BIGINT},
       </if>
       <if test="record.count != null" >
         count = #{record.count,jdbcType=INTEGER},
@@ -353,7 +353,7 @@
       order_date = #{record.orderDate,jdbcType=DATE},
       client_id = #{record.clientId,jdbcType=BIGINT},
       addr = #{record.addr,jdbcType=VARCHAR},
-      goods_type = #{record.goodsType,jdbcType=BIGINT},
+      goods_id = #{record.goodsId,jdbcType=BIGINT},
       count = #{record.count,jdbcType=INTEGER},
       weight = #{record.weight,jdbcType=DECIMAL},
       volume = #{record.volume,jdbcType=DECIMAL},
@@ -388,8 +388,8 @@
       <if test="addr != null" >
         addr = #{addr,jdbcType=VARCHAR},
       </if>
-      <if test="goodsType != null" >
-        goods_type = #{goodsType,jdbcType=BIGINT},
+      <if test="goodsId != null" >
+        goods_id = #{goodsId,jdbcType=BIGINT},
       </if>
       <if test="count != null" >
         count = #{count,jdbcType=INTEGER},
@@ -445,7 +445,7 @@
       order_date = #{orderDate,jdbcType=DATE},
       client_id = #{clientId,jdbcType=BIGINT},
       addr = #{addr,jdbcType=VARCHAR},
-      goods_type = #{goodsType,jdbcType=BIGINT},
+      goods_id = #{goodsId,jdbcType=BIGINT},
       count = #{count,jdbcType=INTEGER},
       weight = #{weight,jdbcType=DECIMAL},
       volume = #{volume,jdbcType=DECIMAL},

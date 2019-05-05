@@ -60,4 +60,12 @@ public class ClientController {
     public ReturnResult<List<ClientInfo>> getClientInfoList(){
         return clientService.getClientInfoList();
     }
+
+    @RequestMapping("/delete")
+    public ReturnResult<Integer> delete(@RequestBody Long id) {
+        if(id == null){
+            return ReturnResult.error("参数ID不能为空");
+        }
+        return clientService.delete(id);
+    }
 }

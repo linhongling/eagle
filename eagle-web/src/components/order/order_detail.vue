@@ -1,79 +1,272 @@
 <template>
-  <div>
-    <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/index' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item :to="{ path:'/index/orderQuery'}">订单管理</el-breadcrumb-item>
-      <el-breadcrumb-item>订单详情</el-breadcrumb-item>
-    </el-breadcrumb>
-    <div style="margin-top: 15px">
-      <el-form ref="form" :model="form" label-width="80px">
-        <el-form-item label="活动名称">
-          <el-input v-model="form.name"></el-input>
-        </el-form-item>
-        <el-form-item label="活动区域">
-          <el-select v-model="form.region" placeholder="请选择活动区域">
-            <el-option label="区域一" value="shanghai"></el-option>
-            <el-option label="区域二" value="beijing"></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="活动时间">
-          <el-col :span="11">
-            <el-date-picker type="date" placeholder="选择日期" v-model="form.date1" style="width: 100%;"></el-date-picker>
-          </el-col>
-          <el-col class="line" :span="2">-</el-col>
-          <el-col :span="11">
-            <el-time-picker placeholder="选择时间" v-model="form.date2" style="width: 100%;"></el-time-picker>
-          </el-col>
-        </el-form-item>
-        <el-form-item label="即时配送">
-          <el-switch v-model="form.delivery"></el-switch>
-        </el-form-item>
-        <el-form-item label="活动性质">
-          <el-checkbox-group v-model="form.type">
-            <el-checkbox label="美食/餐厅线上活动" name="type"></el-checkbox>
-            <el-checkbox label="地推活动" name="type"></el-checkbox>
-            <el-checkbox label="线下主题活动" name="type"></el-checkbox>
-            <el-checkbox label="单纯品牌曝光" name="type"></el-checkbox>
-          </el-checkbox-group>
-        </el-form-item>
-        <el-form-item label="特殊资源">
-          <el-radio-group v-model="form.resource">
-            <el-radio label="线上品牌商赞助"></el-radio>
-            <el-radio label="线下场地免费"></el-radio>
-          </el-radio-group>
-        </el-form-item>
-        <el-form-item label="活动形式">
-          <el-input type="textarea" v-model="form.desc"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="onSubmit">立即创建</el-button>
-          <el-button>取消</el-button>
-        </el-form-item>
-      </el-form>
-    </div>
+  <div style="margin-top: 15px">
+    <el-form ref="form" :model="form" :rules="confirmRules" label-width="120px" :disabled=formdisabled>
+      <el-row :span="18">
+        <el-col :span="6">
+          <el-form-item label="日期" prop="no">
+            <el-date-picker
+              v-model="form.orderDate"
+              type="date"
+              placeholder="选择日期">
+            </el-date-picker>
+          </el-form-item>
+        </el-col>
+        <el-col :span="6">
+          <el-form-item label="运单号">
+            <el-input v-model="form.no" style="width:80%;" clearable></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="6">
+          <el-form-item label="客户">
+            <el-select v-model="form.clientId" clearable
+                       filterable placeholder="请选择">
+              <el-option v-for="item in clientList"
+                         :key="item.id"
+                         :value="item.id"
+                         :label="item.name">
+              </el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+      </el-row>
+
+      <el-row :span="18">
+        <el-col :span="12">
+          <el-form-item label="目的地">
+            <el-input v-model="form.addr" style="width:92%;" clearable></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="6">
+          <el-form-item label="品名">
+            <el-select v-model="form.goodsId" clearable
+                       filterable placeholder="请选择">
+              <el-option v-for="item in goodsList"
+                         :key="item.id"
+                         :value="item.id"
+                         :label="item.name">
+              </el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+      </el-row>
+
+      <el-row :span="18">
+        <el-col :span="6">
+            <el-form-item label="件数">
+              <el-input v-model="form.count" style="width:80%;" clearable></el-input>
+            </el-form-item>
+        </el-col>
+        <el-col :span="6">
+          <el-form-item label="重量">
+            <el-input v-model="form.weight" style="width:80%;" clearable></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="6">
+          <el-form-item label="体积">
+            <el-input v-model="form.volume" style="width:80%;" clearable></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+
+      <el-row :span="18">
+        <el-col :span="6">
+          <el-form-item label="月结">
+            <el-input v-model="form.freightMonthly" style="width:80%;" clearable></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="6">
+          <el-form-item label="现付">
+            <el-input v-model="form.freightNow" style="width:80%;" clearable></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="6">
+          <el-form-item label="到付">
+            <el-input v-model="form.freightArrive" style="width:80%;" clearable></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+
+      <el-row :span="18">
+        <el-col :span="6">
+          <el-form-item label="运费">
+            <el-input v-model="form.costFreight" style="width:80%;" clearable></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="6">
+          <el-form-item label="直送">
+            <el-input v-model="form.costDirect" style="width:80%;" clearable></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="6">
+          <el-form-item label="保险">
+            <el-input v-model="form.costInsurance" style="width:80%;" clearable></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+
+      <el-row :span="18">
+        <el-col :span="6">
+          <el-form-item label="转运公司">
+            <el-select v-model="form.transferCompanyId" clearable
+                       filterable placeholder="请选择">
+              <el-option v-for="item in transferCoList"
+                         :key="item.id"
+                         :value="item.id"
+                         :label="item.name">
+              </el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+        <el-col :span="6">
+          <el-form-item label="转运单号">
+            <el-input v-model="form.transferNo" style="width:80%;" clearable></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="6">
+          <el-form-item label="回单">
+            <el-date-picker
+              v-model="form.receipt"
+              type="date"
+              placeholder="选择日期">
+            </el-date-picker>
+          </el-form-item>
+        </el-col>
+      </el-row>
+
+      <el-row :span="18">
+        <el-col :span="12">
+          <el-form-item label="备注">
+            <el-input v-model="form.remark" style="width:92%;" clearable></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+    </el-form>
+
+    <el-row>
+      <el-col align="center">
+        <el-button type="primary" @click="onSubmit">保存</el-button>
+        <el-button @click="close">取消</el-button>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
 <script>
+  import {
+    getClientInfoList,
+    getTransferCoInfoList,
+    getGoodsInfoList,
+    getOrderDetail,
+    saveOrder,
+    updateOrder
+  } from '../../api/api'
+
   export default {
+    props: ['id', 'type'],
     data() {
       return {
         form: {
-          name: '',
-          region: '',
-          date1: '',
-          date2: '',
-          delivery: false,
-          type: [],
-          resource: '',
-          desc: ''
+          orderDate: '',
+          no: '',
+          clientId: '',
+          addr: '',
+          goodsId: '',
+          count: '',
+          weight: '',
+          volume: '',
+          freightMonthly: '',
+          freightNow: '',
+          freightArrive: '',
+          costFreight: '',
+          costDirect: '',
+          costInsurance: '',
+          transferCompanyId: '',
+          transferNo: '',
+          receipt: '',
+          remark: ''
+        },
+        formdisabled: false,
+        clientList: null,
+        transferCoList: null,
+        goodsList: null,
+        confirmRules: {
+          name: [
+            {required: true, message: '请输入名称', trigger: 'blur'}
+          ]
         }
       }
     },
     methods: {
       onSubmit() {
-        console.log('submit!');
+        var json = JSON.stringify(this.form);
+        if (this.type == 1) {
+          saveOrder(json).then((res) => {
+            if (res.status == 200) {
+              this.$message.success("保存成功");
+              this.closeRefresh();
+            } else {
+              this.$message.error(res.msg);
+            }
+          })
+        } else if (this.type == 2) {
+          var json = JSON.stringify(this.form);
+          updateOrder(json).then((res) => {
+            if (res.status == 200) {
+              this.$message.success("保存成功");
+              this.closeRefresh();
+            } else {
+              this.$message.error(res.msg);
+            }
+          })
+        }
+      },
+      close() {
+        this.$emit('close-dialog', false)
+      },
+      closeRefresh() {
+        this.$emit('close-dialog', true)
+      },
+      getOrderDetail() {
+        if (this.id != null && this.id != '') {
+          getOrderDetail(this.id).then((res) => {
+            if (res.status == 200) {
+              this.form = res.data;
+            } else {
+              this.$message.error(res.msg);
+            }
+          })
+        }
+      },
+      getClientInfoList() {
+        getClientInfoList().then((res) => {
+          if (res.status == 200) {
+            this.clientList = res.data
+          }
+        })
+      },
+      getTransferCoInfoList() {
+        getTransferCoInfoList().then((res) => {
+          if (res.status == 200) {
+            this.transferCoList = res.data
+          }
+        })
+      },
+      getGoodsInfoList() {
+        getGoodsInfoList().then((res) => {
+          if (res.status == 200) {
+            this.goodsList = res.data
+          }
+        })
       }
+    },
+    mounted() {
+      if (this.type != 1)
+        this.getOrderDetail();
+      if (this.type == 0)
+        this.formdisabled = true
+      this.getClientInfoList()
+      this.getTransferCoInfoList()
+      this.getGoodsInfoList()
     }
   }
 </script>

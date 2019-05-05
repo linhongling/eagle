@@ -65,7 +65,7 @@
           saveClient(json).then((res) => {
             if (res.status == 200) {
               this.$message.success("保存成功");
-              this.close();
+              this.closeRefresh();
             } else {
               this.$message.error(res.msg);
             }
@@ -75,7 +75,7 @@
           updateClient(json).then((res) => {
             if (res.status == 200) {
               this.$message.success("保存成功");
-              this.close();
+              this.closeRefresh();
             } else {
               this.$message.error(res.msg);
             }
@@ -83,11 +83,10 @@
         }
       },
       close() {
-        if (this.type == 0) {
-          this.$emit('close-dialog', false)
-        } else {
-          this.$emit('close-dialog', true)
-        }
+        this.$emit('close-dialog', false)
+      },
+      closeRefresh() {
+        this.$emit('close-dialog', true)
       },
       searchClient() {
         if (this.id != null && this.id != '') {

@@ -1,5 +1,7 @@
 package com.eagle.order.service;
 
+import com.eagle.order.domain.Client;
+import com.eagle.order.domain.Order;
 import com.eagle.order.domain.Role;
 import com.eagle.order.util.QueryData;
 import com.eagle.order.util.ReturnResult;
@@ -15,7 +17,11 @@ public interface OrderService {
 
     ReturnResult<PageInfo<OrderVO>> queryList(QueryData<OrderVO> queryData);
 
-    ReturnResult<Boolean> saveOrUpdate(Role role);
+    ReturnResult<Order> getDtail(Long id);
 
-    ReturnResult<Boolean> delete(int id);
+    ReturnResult<Integer> saveOrder(Order order);
+
+    ReturnResult<Integer> updateOrder(Order order);
+
+    ReturnResult<Integer> delete(Long id);
 }

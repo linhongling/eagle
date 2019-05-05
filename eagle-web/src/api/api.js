@@ -77,6 +77,18 @@ export function getOrderList(json) {
   return axiosIns.post(url.GET_ORDER_LIST, json);
 }
 
+export function getOrderDetail(json) {
+  return axiosIns.post(url.GET_ORDER_DETAIL, json);
+}
+
+export function saveOrder(json) {
+  return axiosIns.put(url.SAVE_ORDER, json);
+}
+
+export function updateOrder(json) {
+  return axiosIns.put(url.UPDATE_ORDER, json);
+}
+
 export function getClientList(json) {
   return axiosIns.post(url.GET_CLIENT_LIST, json);
 }

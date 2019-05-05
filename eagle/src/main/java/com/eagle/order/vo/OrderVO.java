@@ -15,7 +15,7 @@ public class OrderVO {
 
     private String addr;
 
-    private Long goodsType;
+    private Long goodsId;
 
     private String goodsName;
 
@@ -91,12 +91,12 @@ public class OrderVO {
         this.addr = addr == null ? null : addr.trim();
     }
 
-    public Long getGoodsType() {
-        return goodsType;
+    public Long getGoodsId() {
+        return goodsId;
     }
 
-    public void setGoodsType(Long goodsType) {
-        this.goodsType = goodsType;
+    public void setGoodsId(Long goodsId) {
+        this.goodsId = goodsId;
     }
 
     public Integer getCount() {
