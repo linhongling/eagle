@@ -67,7 +67,7 @@
         </el-row>
         <el-row colspan="24">
           <el-button type="primary" size="small" @click="searchOrder">查询</el-button>
-          <el-button type="primary" size="small" @click="exportOrder">导出</el-button>
+          <el-button type="primary" size="small" @click="exportOrder"  v-loading.fullscreen.lock="fullscreenLoading">导出</el-button>
           <el-button type="primary" size="small" @click="createOrder">新增</el-button>
           <el-button type="primary" size="small" @click="updateOrder" :disabled=this.visibles.choosed>修改</el-button>
           <el-button type="primary" size="small" @click="getDetail" :disabled=this.visibles.choosed>查看详情</el-button>
@@ -95,9 +95,9 @@
           </template>
         </el-table-column>
         <el-table-column prop="no" label="运单号" width="120"></el-table-column>
-        <el-table-column prop="clientId" label="客户" width="120"></el-table-column>
+        <el-table-column prop="clientName" label="客户" width="120"></el-table-column>
         <el-table-column prop="addr" label="目的地" width="120"></el-table-column>
-        <el-table-column prop="goodsId" label="品名" width="120"></el-table-column>
+        <el-table-column prop="goodsName" label="品名" width="120"></el-table-column>
         <el-table-column prop="count" label="件数" width="120"></el-table-column>
         <el-table-column prop="weight" label="重量" width="120"></el-table-column>
         <el-table-column prop="volume" label="体积" width="120"></el-table-column>
@@ -111,7 +111,7 @@
           <el-table-column prop="costDirect" label="直送" width="120"></el-table-column>
           <el-table-column prop="costInsurance" label="保险" width="120"></el-table-column>
         </el-table-column>
-        <el-table-column prop="transferCompanyId" label="转运公司" width="120"></el-table-column>
+        <el-table-column prop="transferCompanyName" label="转运公司" width="120"></el-table-column>
         <el-table-column prop="transferNo" label="转运单号"></el-table-column>
         <el-table-column prop="receipt" label="回单" width="120">
           <template slot-scope="scope">
@@ -129,7 +129,7 @@
         :total="total">
       </el-pagination>
 
-      <el-dialog title="订单信息" :visible.sync="dialogVisible" v-if='dialogVisible' width="80%">
+      <el-dialog title="订单信息" :visible.sync="dialogVisible" v-if='dialogVisible' width="70%">
         <order_detail :id="this.currentRowId" :type="this.type" @close-dialog="closeDialog"></order_detail>
       </el-dialog>
     </div>
@@ -147,6 +147,7 @@
     data() {
       return {
         loading: false,
+        fullscreenLoading: false,
         tableData: [],
         currentRow: {},
         currentRowId: '',
@@ -215,7 +216,35 @@
         this.dialogVisible = true
       },
       exportOrder() {
+        this.fullscreenLoading = true;
 
+        import('@/vendor/Export2Excel').then(excel => {
+          const multiHeader = [['', '', '', '', '', '', '', '', '运费收入', '', '', '出货成本', '', '', '', '', '', '']]
+          const header = ['日期', '运单号', '客户', '目的地', '品名', '件数', '重量', '体积', '月结', '现付', '到付',
+            '运费', '直送', '保险', '转运公司', '转运单号', '回单', '备注']
+          const filterVal = ['orderDate', 'no', 'clientName', 'addr', 'goodsName', 'count', 'weight', 'volume',
+            'freightMonthly', 'freightNow', 'freightArrive', 'costFreight', 'costDirect', 'costInsurance',
+            'transferCompanyName', 'transferNo', 'receipt', 'remark']
+          const list = this.tableData
+          const data = this.formatJson(filterVal, list)
+          const merges = ['I1:K1', 'L1:N1']
+          excel.export_json_to_excel({
+            multiHeader,
+            header,
+            merges,
+            data
+          })
+          this.fullscreenLoading = false
+        })
+      },
+      formatJson(filterVal, jsonData) {
+        return jsonData.map(v => filterVal.map(j => {
+          if (j === 'orderDate' || j === 'receipt') {
+            return formatDateSimple(v[j])
+          } else {
+            return v[j]
+          }
+        }))
       },
       deleteOrder() {
 

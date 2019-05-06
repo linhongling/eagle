@@ -54,9 +54,8 @@ public class OrderServiceImpl implements OrderService {
             criteria.andOrderDateEqualTo(orderVO.getReceipt());
         }
         PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
-        List<Order> orders = orderMapper.selectByExample(orderExample);
-        List<OrderVO> orderVOS = CommonBeanUtils.copyList(orders, OrderVO.class);
-        PageInfo<OrderVO> resultInfo = new PageInfo<OrderVO>(orderVOS);
+        List<OrderVO> orders = orderMapper.selectByExampleNew(orderExample);
+        PageInfo<OrderVO> resultInfo = new PageInfo<OrderVO>(orders);
         return ReturnResult.ok(resultInfo);
     }
 

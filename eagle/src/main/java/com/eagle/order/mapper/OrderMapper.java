@@ -3,6 +3,8 @@ package com.eagle.order.mapper;
 import com.eagle.order.domain.Order;
 import com.eagle.order.domain.OrderExample;
 import java.util.List;
+
+import com.eagle.order.vo.OrderVO;
 import org.apache.ibatis.annotations.Param;
 
 public interface OrderMapper {
@@ -27,4 +29,6 @@ public interface OrderMapper {
     int updateByPrimaryKeySelective(Order record);
 
     int updateByPrimaryKey(Order record);
+
+    List<OrderVO> selectByExampleNew(OrderExample example);
 }

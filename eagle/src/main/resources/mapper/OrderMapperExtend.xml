@@ -2,4 +2,41 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.eagle.order.mapper.OrderMapper">
 
+    <select id="selectByExampleNew" resultType="com.eagle.order.vo.OrderVO" parameterType="com.eagle.order.domain.OrderExample" >
+        select
+        o.id id,
+        o.no no,
+        o.order_date orderDate,
+        o.client_id clientId,
+        o.addr addr,
+        o.goods_id goodsId,
+        o.count count,
+        o.weight weight,
+        o.volume volume,
+        o.freight_monthly freightMonthly,
+        o.freight_now freightNow,
+        o.freight_arrive freightArrive,
+        o.cost_freight costFreight,
+        o.cost_direct costDirect,
+        o.cost_insurance costInsurance,
+        o.transfer_company_id transferCompanyId,
+        o.transfer_no transferNo,
+        o.receipt receipt,
+        o.remark remark,
+        o.create_date createDate,
+        o.modify_date modifyDate,
+        c.name clientName,
+        tc.name transferCompanyName,
+        g.name goodsName
+        from t_order o
+        LEFT JOIN t_client c ON client_id = c.id
+        LEFT JOIN t_transfer_company tc ON transfer_company_id = tc.id
+        LEFT JOIN t_goods g ON goods_id = g.id
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+        <if test="orderByClause != null" >
+            order by ${orderByClause}
+        </if>
+    </select>
 </mapper>
