@@ -130,7 +130,7 @@
         :total="total">
       </el-pagination>
 
-      <el-dialog title="订单信息" :visible.sync="dialogVisible" v-if='dialogVisible' width="70%">
+      <el-dialog title="订单信息" :visible.sync="dialogVisible" v-if='dialogVisible' width="1000px">
         <order_detail :id="this.currentRowId" :type="this.type" @close-dialog="closeDialog"></order_detail>
       </el-dialog>
     </div>
