@@ -2,10 +2,10 @@ package com.eagle.order.mapper;
 
 import com.eagle.order.domain.Client;
 import com.eagle.order.domain.ClientExample;
-import java.util.List;
-
 import com.eagle.order.vo.ClientInfo;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface ClientMapper {
     int countByExample(ClientExample example);

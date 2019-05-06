@@ -14,6 +14,7 @@ import com.google.common.base.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -32,6 +33,7 @@ public class TransferCompanyServiceImpl implements TransferCompanyService {
         PageInfo pageInfo = queryData.getPageInfo();
         TransferCompany transferCompany = queryData.getParam();
         TransferCompanyExample transferCompanyExample = new TransferCompanyExample();
+        transferCompanyExample.setOrderByClause("IS_VALIDATE DESC, CREATE_DATE DESC");
         TransferCompanyExample.Criteria criteria = transferCompanyExample.createCriteria();
         if(!Strings.isNullOrEmpty(transferCompany.getName())){
             criteria.andNameLike("%" + transferCompany.getName() + "%");
@@ -50,12 +52,14 @@ public class TransferCompanyServiceImpl implements TransferCompanyService {
 
     @Override
     public ReturnResult<Integer> saveTransferCo(TransferCompany transferCompany) {
+        transferCompany.setCreateDate(new Date());
         int num = transferCompanyMapper.insert(transferCompany);
         return ReturnResult.ok(num);
     }
 
     @Override
     public ReturnResult<Integer> updateTransferCo(TransferCompany transferCompany) {
+        transferCompany.setModifyDate(new Date());
         int num = transferCompanyMapper.updateByPrimaryKey(transferCompany);
         return ReturnResult.ok(num);
     }

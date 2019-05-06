@@ -77,6 +77,10 @@ export function getOrderList(json) {
   return axiosIns.post(url.GET_ORDER_LIST, json);
 }
 
+export function getExportList(json) {
+  return axiosIns.post(url.GET_EXPORT_LIST, json);
+}
+
 export function getOrderDetail(json) {
   return axiosIns.post(url.GET_ORDER_DETAIL, json);
 }
@@ -89,12 +93,12 @@ export function updateOrder(json) {
   return axiosIns.put(url.UPDATE_ORDER, json);
 }
 
-export function getClientList(json) {
-  return axiosIns.post(url.GET_CLIENT_LIST, json);
+export function deleteOrder(json) {
+  return axiosIns.put(url.DELETE_ORDER, json);
 }
 
-export function getTransferCompanyList(json) {
-  return axiosIns.post(url.GET_TRANSFER_COMPANY_LIST, json);
+export function getClientList(json) {
+  return axiosIns.post(url.GET_CLIENT_LIST, json);
 }
 
 export function getClientDetail(json) {
@@ -109,8 +113,48 @@ export function updateClient(json) {
   return axiosIns.put(url.UPDATE_CLIENT, json);
 }
 
+export function deleteClient(json) {
+  return axiosIns.put(url.DELETE_CLIENT, json);
+}
+
 export function getGoodsList(json) {
   return axiosIns.post(url.GET_GOODS_LIST, json);
+}
+
+export function getGoodsDetail(json) {
+  return axiosIns.post(url.GET_GOODS_DETAIL, json);
+}
+
+export function saveGoods(json) {
+  return axiosIns.put(url.SAVE_GOODS, json);
+}
+
+export function updateGoods(json) {
+  return axiosIns.put(url.UPDATE_GOODS, json);
+}
+
+export function deleteGoods(json) {
+  return axiosIns.put(url.DELETE_GOODS, json);
+}
+
+export function getTransferCompanyList(json) {
+  return axiosIns.post(url.GET_TRANSFER_COMPANY_LIST, json);
+}
+
+export function getTransferCoDetail(json) {
+  return axiosIns.post(url.GET_TRANSFER_CO_DETAIL, json);
+}
+
+export function saveTransferCo(json) {
+  return axiosIns.put(url.SAVE_TRANSFER_CO, json);
+}
+
+export function updateTransferCo(json) {
+  return axiosIns.put(url.UPDATE_TRANSFER_CO, json);
+}
+
+export function deleteTransferCo(json) {
+  return axiosIns.put(url.DELETE_TRANSFER_CO, json);
 }
 
 export function getClientInfoList() {

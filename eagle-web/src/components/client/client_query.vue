@@ -19,7 +19,7 @@
           <el-button type="primary" size="small" @click="createClient">新增</el-button>
           <el-button type="primary" size="small" @click="updateClient" :disabled=this.visibles.choosed>修改</el-button>
           <el-button type="primary" size="small" @click="getDetail" :disabled=this.visibles.choosed>查看详情</el-button>
-          <el-button type="primary" size="small" @click="deleteClient" :disabled=this.visibles.choosed>删除</el-button>
+          <!--<el-button type="primary" size="small" @click="deleteClient" :disabled=this.visibles.choosed>删除</el-button>-->
         </el-row>
       </el-form>
 
@@ -42,6 +42,7 @@
         <el-table-column prop="contact" label="联系人"></el-table-column>
         <el-table-column prop="cellphone" label="联系人手机"></el-table-column>
         <el-table-column prop="addr" label="地址"></el-table-column>
+        <el-table-column prop="isValidate" label="是否有效" :formatter="enumsFormatter"></el-table-column>
         <el-table-column prop="remark" label="备注"></el-table-column>
         <el-table-column prop="createDate" label="创建时间">
           <template slot-scope="scope">
@@ -72,7 +73,7 @@
 
 <script>
   import base from '@/components/base.vue'
-  import {getClientList} from '@/api/api'
+  import {getClientList, deleteClient} from '@/api/api'
   import Client_detail from "./client_detail";
 
   export default {
@@ -148,7 +149,25 @@
           this.searchClient()
       },
       deleteClient() {
-
+        this.$confirm('确认删除?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          deleteClient(this.currentRowId).then((res) => {
+            if (res.status == 200) {
+              this.$message.success("删除成功");
+              this.searchClient()
+            }
+          })
+        })
+      },
+      enumsFormatter(row, column, cellValue) {
+        if (cellValue === 1) {
+          return "是"
+        } else {
+          return "否"
+        }
       }
     },
     mounted() {

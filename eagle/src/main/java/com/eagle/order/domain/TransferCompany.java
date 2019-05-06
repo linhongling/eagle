@@ -21,6 +21,8 @@ public class TransferCompany {
 
     private Date modifyDate;
 
+    private Byte isValidate;
+
     public Long getId() {
         return id;
     }
@@ -91,5 +93,13 @@ public class TransferCompany {
 
     public void setModifyDate(Date modifyDate) {
         this.modifyDate = modifyDate;
+    }
+
+    public Byte getIsValidate() {
+        return isValidate;
+    }
+
+    public void setIsValidate(Byte isValidate) {
+        this.isValidate = isValidate;
     }
 }

@@ -13,6 +13,7 @@ import com.google.common.base.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -31,6 +32,7 @@ public class GoodsServiceImpl implements GoodsService {
         PageInfo pageInfo = queryData.getPageInfo();
         Goods goods = queryData.getParam();
         GoodsExample goodsExample = new GoodsExample();
+        goodsExample.setOrderByClause("IS_VALIDATE DESC, CREATE_DATE DESC");
         GoodsExample.Criteria criteria = goodsExample.createCriteria();
         if (!Strings.isNullOrEmpty(goods.getName())) {
             criteria.andNameLike("%" + goods.getName() + "%");
@@ -49,12 +51,14 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     public ReturnResult<Integer> saveGoods(Goods goods) {
+        goods.setCreateDate(new Date());
         int num = goodsMapper.insert(goods);
         return ReturnResult.ok(num);
     }
 
     @Override
     public ReturnResult<Integer> updateGoods(Goods goods) {
+        goods.setModifyDate(new Date());
         int num = goodsMapper.updateByPrimaryKey(goods);
         return ReturnResult.ok(num);
     }

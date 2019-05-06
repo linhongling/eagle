@@ -34,6 +34,7 @@ public class ClientServiceImpl implements ClientService {
         PageInfo pageInfo = queryData.getPageInfo();
         Client client = queryData.getParam();
         ClientExample clientExample = new ClientExample();
+        clientExample.setOrderByClause("IS_VALIDATE DESC, CREATE_DATE DESC");
         ClientExample.Criteria criteria = clientExample.createCriteria();
         if (!Strings.isNullOrEmpty(client.getName())) {
             criteria.andNameLike("%" + client.getName() + "%");
@@ -52,12 +53,14 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public ReturnResult<Integer> saveClient(Client client) {
+        client.setCreateDate(new Date());
         int insert = clientMapper.insert(client);
         return ReturnResult.ok(insert);
     }
 
     @Override
     public ReturnResult<Integer> updateClient(Client client) {
+        client.setModifyDate(new Date());
         int i = clientMapper.updateByPrimaryKey(client);
         return ReturnResult.ok(i);
     }

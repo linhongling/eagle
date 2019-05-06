@@ -8,7 +8,8 @@ public enum ErrorCodeEnum {
 
     SUCCESS(200),
     REQUEST_INVALID(400),
-    SERVICE_ERROR(500);
+    SERVICE_ERROR(500),
+    BUSINESS_ERROR(-1);
 
     private int code;
 

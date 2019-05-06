@@ -41,7 +41,7 @@ public class ReturnResult<T> {
     }
 
     public static ReturnResult error(String msg) {
-        return new ReturnResult(ErrorCodeEnum.SERVICE_ERROR.getCode(), msg, null);
+        return new ReturnResult(ErrorCodeEnum.BUSINESS_ERROR.getCode(), msg, null);
     }
 
     public ReturnResult(Integer status, String msg, T data) {

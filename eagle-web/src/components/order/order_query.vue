@@ -67,7 +67,8 @@
         </el-row>
         <el-row colspan="24">
           <el-button type="primary" size="small" @click="searchOrder">查询</el-button>
-          <el-button type="primary" size="small" @click="exportOrder"  v-loading.fullscreen.lock="fullscreenLoading">导出</el-button>
+          <el-button type="primary" size="small" @click="exportOrder" v-loading.fullscreen.lock="fullscreenLoading">导出
+          </el-button>
           <el-button type="primary" size="small" @click="createOrder">新增</el-button>
           <el-button type="primary" size="small" @click="updateOrder" :disabled=this.visibles.choosed>修改</el-button>
           <el-button type="primary" size="small" @click="getDetail" :disabled=this.visibles.choosed>查看详情</el-button>
@@ -138,8 +139,9 @@
 
 <script>
   import base from '@/components/base.vue'
-  import {getOrderList, getClientInfoList, getTransferCoInfoList} from '@/api/api'
+  import {getOrderList, getClientInfoList, getTransferCoInfoList, getExportList, deleteOrder} from '@/api/api'
   import Order_detail from './order_detail'
+  import {parseTime} from '@/util/utils'
 
   export default {
     components: {Order_detail},
@@ -149,6 +151,7 @@
         loading: false,
         fullscreenLoading: false,
         tableData: [],
+        exportData: [],
         currentRow: {},
         currentRowId: '',
         querys: {
@@ -216,38 +219,62 @@
         this.dialogVisible = true
       },
       exportOrder() {
-        this.fullscreenLoading = true;
-
-        import('@/vendor/Export2Excel').then(excel => {
-          const multiHeader = [['', '', '', '', '', '', '', '', '运费收入', '', '', '出货成本', '', '', '', '', '', '']]
-          const header = ['日期', '运单号', '客户', '目的地', '品名', '件数', '重量', '体积', '月结', '现付', '到付',
-            '运费', '直送', '保险', '转运公司', '转运单号', '回单', '备注']
-          const filterVal = ['orderDate', 'no', 'clientName', 'addr', 'goodsName', 'count', 'weight', 'volume',
-            'freightMonthly', 'freightNow', 'freightArrive', 'costFreight', 'costDirect', 'costInsurance',
-            'transferCompanyName', 'transferNo', 'receipt', 'remark']
-          const list = this.tableData
-          const data = this.formatJson(filterVal, list)
-          const merges = ['I1:K1', 'L1:N1']
-          excel.export_json_to_excel({
-            multiHeader,
-            header,
-            merges,
-            data
+        this.$confirm('确认导出?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.fullscreenLoading = true;
+          var json = JSON.stringify(this.querys);
+          getExportList(json).then((res) => {
+            if (res.status == 200) {
+              import('@/vendor/Export2Excel').then(excel => {
+                const multiHeader = [['', '', '', '', '', '', '', '', '运费收入', '', '', '出货成本', '', '', '', '', '', '']]
+                const header = ['日期', '运单号', '客户', '目的地', '品名', '件数', '重量', '体积', '月结', '现付', '到付',
+                  '运费', '直送', '保险', '转运公司', '转运单号', '回单', '备注']
+                const filterVal = ['orderDate', 'no', 'clientName', 'addr', 'goodsName', 'count', 'weight', 'volume',
+                  'freightMonthly', 'freightNow', 'freightArrive', 'costFreight', 'costDirect', 'costInsurance',
+                  'transferCompanyName', 'transferNo', 'receipt', 'remark']
+                const list = res.data
+                const data = this.formatJson(filterVal, list)
+                const merges = ['I1:K1', 'L1:N1']
+                excel.export_json_to_excel({
+                  multiHeader,
+                  header,
+                  merges,
+                  data
+                })
+              })
+            } else {
+              this.$message.error(res.msg);
+            }
+          }).finally(() => {
+            this.fullscreenLoading = false
           })
-          this.fullscreenLoading = false
         })
       },
       formatJson(filterVal, jsonData) {
         return jsonData.map(v => filterVal.map(j => {
           if (j === 'orderDate' || j === 'receipt') {
-            return formatDateSimple(v[j])
+            return parseTime(v[j], '{y}-{m}-{d}')
           } else {
             return v[j]
           }
         }))
       },
       deleteOrder() {
-
+        this.$confirm('确认删除?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          deleteOrder(this.currentRowId).then((res) => {
+            if (res.status == 200) {
+              this.$message.success("删除成功");
+              this.searchOrder()
+            }
+          })
+        })
       },
       getClientInfoList() {
         getClientInfoList().then((res) => {
@@ -266,7 +293,7 @@
       closeDialog(refresh) {
         this.dialogVisible = false
         if (refresh)
-          this.searchClient()
+          this.searchOrder()
       },
     },
     mounted() {
@@ -279,6 +306,6 @@
 
 <style>
   .el-table thead.is-group th {
-     background: #FFFFFF;
+    background: #FFFFFF;
   }
 </style>

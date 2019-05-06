@@ -31,6 +31,12 @@ public class OrderController {
         return returnResult;
     }
 
+    @RequestMapping("/exportList")
+    public ReturnResult<OrderVO> exportList(@RequestBody OrderVO orderVO){
+        ReturnResult<OrderVO> returnResult = orderService.exportList(orderVO);
+        return returnResult;
+    }
+
     @RequestMapping("/getDetail")
     public ReturnResult<Order> getDtail(@RequestBody Long id) {
         if(id == null){

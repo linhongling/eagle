@@ -4,7 +4,6 @@ import com.eagle.order.domain.Goods;
 import com.eagle.order.domain.GoodsExample;
 import java.util.List;
 
-import com.eagle.order.vo.ClientInfo;
 import com.eagle.order.vo.GoodsInfo;
 import org.apache.ibatis.annotations.Param;
 

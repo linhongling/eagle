@@ -18,7 +18,7 @@
           <el-button type="primary" size="small" @click="searchGoods">查询</el-button>
           <el-button type="primary" size="small" @click="createGoods">新增</el-button>
           <el-button type="primary" size="small" @click="updateGoods" :disabled=this.visibles.choosed>修改</el-button>
-          <el-button type="primary" size="small" @click="deleteGoods" :disabled=this.visibles.choosed>删除</el-button>
+          <!--<el-button type="primary" size="small" @click="deleteGoods" :disabled=this.visibles.choosed>删除</el-button>-->
         </el-row>
       </el-form>
 
@@ -37,6 +37,7 @@
           </template>
         </el-table-column>
         <el-table-column prop="name" label="品名"></el-table-column>
+        <el-table-column prop="isValidate" label="是否有效" :formatter="enumsFormatter"></el-table-column>
         <el-table-column prop="remark" label="备注"></el-table-column>
         <el-table-column prop="createDate" label="创建时间">
           <template slot-scope="scope">
@@ -57,15 +58,21 @@
         @current-change=""
         :total="total">
       </el-pagination>
+
+      <el-dialog title="品类信息" :visible.sync="dialogVisible" v-if='dialogVisible' width="40%">
+        <goods_detail :id="this.currentRowId" :type="this.type" @close-dialog="closeDialog"></goods_detail>
+      </el-dialog>
     </div>
   </div>
 </template>
 
 <script>
   import base from '@/components/base.vue'
-  import {getGoodsList} from '@/api/api'
+  import {getGoodsList, deleteGoods} from '@/api/api'
+  import Goods_detail from "./goods_detail";
 
   export default {
+    components: {Goods_detail},
     extends: base,
     data() {
       return {
@@ -73,6 +80,7 @@
         tableData: [],
         currentRow: {},
         currentRowId: '',
+        dialogVisible: false,
         querys: {
           name: ''
         },
@@ -118,13 +126,42 @@
         this.currentRowId = ''
       },
       createGoods() {
-
+        this.type = 1
+        this.dialogVisible = true
       },
       updateGoods() {
-
+        this.type = 2
+        this.dialogVisible = true
+      },
+      getDetail() {
+        this.type = 0
+        this.dialogVisible = true
+      },
+      closeDialog(refresh) {
+        this.dialogVisible = false
+        if (refresh)
+          this.searchGoods()
       },
       deleteGoods() {
-
+        this.$confirm('确认删除?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          deleteGoods(this.currentRowId).then((res) => {
+            if (res.status == 200) {
+              this.$message.success("删除成功");
+              this.searchGoods()
+            }
+          })
+        })
+      },
+      enumsFormatter(row, column, cellValue) {
+        if (cellValue === 1) {
+          return "是"
+        } else {
+          return "否"
+        }
       }
     },
     mounted() {

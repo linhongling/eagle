@@ -18,7 +18,7 @@
           <el-button type="primary" size="small" @click="searchCompany">查询</el-button>
           <el-button type="primary" size="small" @click="createCompany">新增</el-button>
           <el-button type="primary" size="small" @click="updateCompany" :disabled=this.visibles.choosed>修改</el-button>
-          <el-button type="primary" size="small" @click="deleteCompany" :disabled=this.visibles.choosed>删除</el-button>
+          <!--<el-button type="primary" size="small" @click="deleteCompany" :disabled=this.visibles.choosed>删除</el-button>-->
         </el-row>
       </el-form>
 
@@ -41,6 +41,7 @@
         <el-table-column prop="contact" label="联系人"></el-table-column>
         <el-table-column prop="cellphone" label="联系人手机"></el-table-column>
         <el-table-column prop="addr" label="地址"></el-table-column>
+        <el-table-column prop="isValidate" label="是否有效" :formatter="enumsFormatter"></el-table-column>
         <el-table-column prop="remark" label="备注"></el-table-column>
         <el-table-column prop="createDate" label="创建时间">
           <template slot-scope="scope">
@@ -61,15 +62,21 @@
         @current-change=""
         :total="total">
       </el-pagination>
+
+      <el-dialog title="转运信息" :visible.sync="dialogVisible" v-if='dialogVisible' width="40%">
+        <transfer_co_detail :id="this.currentRowId" :type="this.type" @close-dialog="closeDialog"></transfer_co_detail>
+      </el-dialog>
     </div>
   </div>
 </template>
 
 <script>
   import base from '@/components/base.vue'
-  import {getTransferCompanyList} from '@/api/api'
+  import {getTransferCompanyList, deleteTransferCo} from '@/api/api'
+  import Transfer_co_detail from "./transfer_co_detail";
 
   export default {
+    components: {Transfer_co_detail},
     extends: base,
     data() {
       return {
@@ -77,6 +84,7 @@
         tableData: [],
         currentRow: {},
         currentRowId: '',
+        dialogVisible: false,
         querys: {
           name: ''
         },
@@ -122,13 +130,42 @@
         this.currentRowId = ''
       },
       createCompany() {
-
+        this.type = 1
+        this.dialogVisible = true
       },
       updateCompany() {
-
+        this.type = 2
+        this.dialogVisible = true
+      },
+      getDetail() {
+        this.type = 0
+        this.dialogVisible = true
+      },
+      closeDialog(refresh) {
+        this.dialogVisible = false
+        if (refresh)
+          this.searchCompany()
       },
       deleteCompany() {
-
+        this.$confirm('确认删除?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          deleteTransferCo(this.currentRowId).then((res) => {
+            if (res.status == 200) {
+              this.$message.success("删除成功");
+              this.searchCompany()
+            }
+          })
+        })
+      },
+      enumsFormatter(row, column, cellValue) {
+        if (cellValue === 1) {
+          return "是"
+        } else {
+          return "否"
+        }
       }
     },
     mounted() {

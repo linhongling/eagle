@@ -424,6 +424,66 @@ public class GoodsExample {
             addCriterion("modify_date not between", value1, value2, "modifyDate");
             return (Criteria) this;
         }
+
+        public Criteria andIsValidateIsNull() {
+            addCriterion("is_validate is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsValidateIsNotNull() {
+            addCriterion("is_validate is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsValidateEqualTo(Byte value) {
+            addCriterion("is_validate =", value, "isValidate");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsValidateNotEqualTo(Byte value) {
+            addCriterion("is_validate <>", value, "isValidate");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsValidateGreaterThan(Byte value) {
+            addCriterion("is_validate >", value, "isValidate");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsValidateGreaterThanOrEqualTo(Byte value) {
+            addCriterion("is_validate >=", value, "isValidate");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsValidateLessThan(Byte value) {
+            addCriterion("is_validate <", value, "isValidate");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsValidateLessThanOrEqualTo(Byte value) {
+            addCriterion("is_validate <=", value, "isValidate");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsValidateIn(List<Byte> values) {
+            addCriterion("is_validate in", values, "isValidate");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsValidateNotIn(List<Byte> values) {
+            addCriterion("is_validate not in", values, "isValidate");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsValidateBetween(Byte value1, Byte value2) {
+            addCriterion("is_validate between", value1, value2, "isValidate");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsValidateNotBetween(Byte value1, Byte value2) {
+            addCriterion("is_validate not between", value1, value2, "isValidate");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

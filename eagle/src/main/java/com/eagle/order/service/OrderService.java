@@ -17,6 +17,8 @@ public interface OrderService {
 
     ReturnResult<PageInfo<OrderVO>> queryList(QueryData<OrderVO> queryData);
 
+    ReturnResult<OrderVO> exportList(OrderVO orderVO);
+
     ReturnResult<Order> getDtail(Long id);
 
     ReturnResult<Integer> saveOrder(Order order);
