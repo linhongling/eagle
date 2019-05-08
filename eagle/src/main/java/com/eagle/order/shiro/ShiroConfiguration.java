@@ -35,10 +35,11 @@ public class ShiroConfiguration {
         filters.put("logout",logoutFilter);
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
         // 配置不会被拦截的链接 顺序判断
-        filterChainDefinitionMap.put("/web/login", "anon");
+        /*filterChainDefinitionMap.put("/web/login", "anon");
         filterChainDefinitionMap.put("/web/to-login", "anon");
 //        filterChainDefinitionMap.put("/web/logout","logout");
-        filterChainDefinitionMap.put("/web/**", "authc");
+        filterChainDefinitionMap.put("/web/**", "authc");*/
+        filterChainDefinitionMap.put("/*", "anon");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         shiroFilterFactoryBean.setFilters(filters);
         return shiroFilterFactoryBean;

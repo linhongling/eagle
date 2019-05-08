@@ -13,9 +13,9 @@ server:
 spring:
   datasource:
         druid:
-            url: jdbc:mysql://192.168.132.128:3306/hichat?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+            url: jdbc:mysql://193.112.109.82:3307/eagle?useUnicode=true&characterEncoding=UTF-8&useSSL=false
             username: root
-            password: 142536
+            password: 123456
             driver-class-name: com.mysql.jdbc.Driver
             filters: stat
             minIdle: 1
