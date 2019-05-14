@@ -4,4 +4,29 @@
   <select id="getClientInfo" resultType="com.eagle.order.vo.ClientInfo">
     SELECT id, name from t_client where is_validate = 1
   </select>
+
+  <select id="selectByExampleNew" resultType="com.eagle.order.vo.ClientVO" parameterType="com.eagle.order.domain.ClientExample" >
+    SELECT
+      c.id id,
+      c.NAME NAME,
+      c.phone phone,
+      c.contact contact,
+      c.cellphone cellphone,
+      c.addr addr,
+      c.remark remark,
+      c.create_date createDate,
+      c.modify_date modifyDate,
+      c.is_validate isValidate,
+      c.salesman_id salesmanId,
+      s.NAME salesmanName
+    FROM
+      t_client c
+      LEFT JOIN t_salesman s ON c.salesman_id = s.id
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
 </mapper>

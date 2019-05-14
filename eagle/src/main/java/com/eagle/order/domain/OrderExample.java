@@ -1431,6 +1431,66 @@ public class OrderExample {
             addCriterion("modify_date not between", value1, value2, "modifyDate");
             return (Criteria) this;
         }
+
+        public Criteria andCommissionIsNull() {
+            addCriterion("commission is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommissionIsNotNull() {
+            addCriterion("commission is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommissionEqualTo(Long value) {
+            addCriterion("commission =", value, "commission");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommissionNotEqualTo(Long value) {
+            addCriterion("commission <>", value, "commission");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommissionGreaterThan(Long value) {
+            addCriterion("commission >", value, "commission");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommissionGreaterThanOrEqualTo(Long value) {
+            addCriterion("commission >=", value, "commission");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommissionLessThan(Long value) {
+            addCriterion("commission <", value, "commission");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommissionLessThanOrEqualTo(Long value) {
+            addCriterion("commission <=", value, "commission");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommissionIn(List<Long> values) {
+            addCriterion("commission in", values, "commission");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommissionNotIn(List<Long> values) {
+            addCriterion("commission not in", values, "commission");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommissionBetween(Long value1, Long value2) {
+            addCriterion("commission between", value1, value2, "commission");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommissionNotBetween(Long value1, Long value2) {
+            addCriterion("commission not between", value1, value2, "commission");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

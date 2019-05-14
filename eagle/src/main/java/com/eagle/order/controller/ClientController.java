@@ -5,6 +5,7 @@ import com.eagle.order.service.ClientService;
 import com.eagle.order.util.QueryData;
 import com.eagle.order.util.ReturnResult;
 import com.eagle.order.vo.ClientInfo;
+import com.eagle.order.vo.ClientVO;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
@@ -27,8 +28,8 @@ public class ClientController {
     private ClientService clientService;
 
     @RequestMapping("/queryList")
-    public ReturnResult<PageInfo<Client>> queryList(@RequestBody QueryData<Client> queryData){
-        ReturnResult<PageInfo<Client>> returnResult = clientService.queryList(queryData);
+    public ReturnResult<PageInfo<ClientVO>> queryList(@RequestBody QueryData<Client> queryData){
+        ReturnResult<PageInfo<ClientVO>> returnResult = clientService.queryList(queryData);
         return returnResult;
     }
 

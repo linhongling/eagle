@@ -32,6 +32,12 @@ export const UPDATE_GOODS="/goods/updateGoods"
 export const DELETE_GOODS="/goods/delete"
 export const GET_GOODS_INFO_LIST ="/goods/getGoodsInfoList"
 
+export const GET_SALESMAN_LIST ="/salesman/queryList"
+export const GET_SALESMAN_DETAIL="/salesman/getDetail"
+export const SAVE_SALESMAN="/salesman/saveSalesman"
+export const UPDATE_SALESMAN="/salesman/updateSalesman"
+export const GET_SALESMAN_INFO_LIST ="/salesman/getSalesmanInfoList"
+
 
 export const IMG_URL="http://localhost:8077"
 export const IDENTI_CODE="/index/captcha-image"

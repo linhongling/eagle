@@ -2,18 +2,12 @@ package com.eagle.order.domain;
 
 import java.util.Date;
 
-public class Client {
+public class Salesman {
     private Long id;
 
     private String name;
 
-    private String phone;
-
-    private String contact;
-
     private String cellphone;
-
-    private String addr;
 
     private String remark;
 
@@ -22,8 +16,6 @@ public class Client {
     private Date modifyDate;
 
     private Byte isValidate;
-
-    private Long salesmanId;
 
     public Long getId() {
         return id;
@@ -41,36 +33,12 @@ public class Client {
         this.name = name == null ? null : name.trim();
     }
 
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone == null ? null : phone.trim();
-    }
-
-    public String getContact() {
-        return contact;
-    }
-
-    public void setContact(String contact) {
-        this.contact = contact == null ? null : contact.trim();
-    }
-
     public String getCellphone() {
         return cellphone;
     }
 
     public void setCellphone(String cellphone) {
         this.cellphone = cellphone == null ? null : cellphone.trim();
-    }
-
-    public String getAddr() {
-        return addr;
-    }
-
-    public void setAddr(String addr) {
-        this.addr = addr == null ? null : addr.trim();
     }
 
     public String getRemark() {
@@ -103,13 +71,5 @@ public class Client {
 
     public void setIsValidate(Byte isValidate) {
         this.isValidate = isValidate;
-    }
-
-    public Long getSalesmanId() {
-        return salesmanId;
-    }
-
-    public void setSalesmanId(Long salesmanId) {
-        this.salesmanId = salesmanId;
     }
 }

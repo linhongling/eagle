@@ -5,6 +5,7 @@ import com.eagle.order.domain.Order;
 import com.eagle.order.service.OrderService;
 import com.eagle.order.util.QueryData;
 import com.eagle.order.util.ReturnResult;
+import com.eagle.order.vo.OrderQuery;
 import com.eagle.order.vo.OrderVO;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,14 +27,14 @@ public class OrderController {
     private OrderService orderService;
 
     @RequestMapping("/queryList")
-    public ReturnResult<PageInfo<OrderVO>> queryList(@RequestBody QueryData<OrderVO> queryData){
+    public ReturnResult<PageInfo<OrderVO>> queryList(@RequestBody QueryData<OrderQuery> queryData){
         ReturnResult<PageInfo<OrderVO>> returnResult = orderService.queryList(queryData);
         return returnResult;
     }
 
     @RequestMapping("/exportList")
-    public ReturnResult<OrderVO> exportList(@RequestBody OrderVO orderVO){
-        ReturnResult<OrderVO> returnResult = orderService.exportList(orderVO);
+    public ReturnResult<OrderVO> exportList(@RequestBody OrderQuery queryData){
+        ReturnResult<OrderVO> returnResult = orderService.exportList(queryData);
         return returnResult;
     }
 

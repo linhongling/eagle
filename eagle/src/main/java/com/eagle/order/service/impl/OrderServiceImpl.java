@@ -9,10 +9,12 @@ import com.eagle.order.service.OrderService;
 import com.eagle.order.util.CommonBeanUtils;
 import com.eagle.order.util.QueryData;
 import com.eagle.order.util.ReturnResult;
+import com.eagle.order.vo.OrderQuery;
 import com.eagle.order.vo.OrderVO;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.base.Strings;
+import org.apache.commons.collections.ListUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,29 +34,31 @@ public class OrderServiceImpl implements OrderService {
     private static final int MAX = 6000;
 
     @Override
-    public ReturnResult<PageInfo<OrderVO>> queryList(QueryData<OrderVO> queryData) {
+    public ReturnResult<PageInfo<OrderVO>> queryList(QueryData<OrderQuery> queryData) {
         PageInfo pageInfo = queryData.getPageInfo();
-        OrderVO orderVO = queryData.getParam();
+        OrderQuery orderQuery = queryData.getParam();
         OrderExample orderExample = new OrderExample();
         orderExample.setOrderByClause("ORDER_DATE DESC");
         OrderExample.Criteria criteria = orderExample.createCriteria();
-        if (!Strings.isNullOrEmpty(orderVO.getNo())) {
-            criteria.andNoEqualTo(orderVO.getNo());
+        if (!Strings.isNullOrEmpty(orderQuery.getNo())) {
+            criteria.andNoEqualTo(orderQuery.getNo());
         }
-        if (null != orderVO.getClientId()) {
-            criteria.andClientIdEqualTo(orderVO.getClientId());
+        if (null != orderQuery.getClientIds() && orderQuery.getClientIds().size() > 0) {
+            criteria.andClientIdIn(orderQuery.getClientIds());
         }
-        if (null != orderVO.getOrderDate()) {
-            criteria.andOrderDateEqualTo(orderVO.getOrderDate());
+        if (null != orderQuery.getStartOrderDate()) {
+            criteria.andOrderDateGreaterThanOrEqualTo(orderQuery.getStartOrderDate());
+            criteria.andOrderDateLessThanOrEqualTo(orderQuery.getEndOrderDate());
         }
-        if (!Strings.isNullOrEmpty(orderVO.getTransferNo())) {
-            criteria.andTransferNoEqualTo(orderVO.getTransferNo());
+        if (!Strings.isNullOrEmpty(orderQuery.getTransferNo())) {
+            criteria.andTransferNoEqualTo(orderQuery.getTransferNo());
         }
-        if (null != orderVO.getTransferCompanyId()) {
-            criteria.andTransferCompanyIdEqualTo(orderVO.getTransferCompanyId());
+        if (null != orderQuery.getTransferCompanyIds() && orderQuery.getTransferCompanyIds().size() > 0) {
+            criteria.andTransferCompanyIdIn(orderQuery.getTransferCompanyIds());
         }
-        if (null != orderVO.getReceipt()) {
-            criteria.andOrderDateEqualTo(orderVO.getReceipt());
+        if (null != orderQuery.getStartReceipt()) {
+            criteria.andReceiptGreaterThanOrEqualTo(orderQuery.getStartReceipt());
+            criteria.andReceiptLessThanOrEqualTo(orderQuery.getEndReceipt());
         }
         PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
         List<OrderVO> orders = orderMapper.selectByExampleNew(orderExample);
@@ -63,27 +67,29 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public ReturnResult<OrderVO> exportList(OrderVO orderVO) {
+    public ReturnResult<OrderVO> exportList(OrderQuery orderQuery) {
         OrderExample orderExample = new OrderExample();
         orderExample.setOrderByClause("ORDER_DATE ASC");
         OrderExample.Criteria criteria = orderExample.createCriteria();
-        if (!Strings.isNullOrEmpty(orderVO.getNo())) {
-            criteria.andNoEqualTo(orderVO.getNo());
+        if (!Strings.isNullOrEmpty(orderQuery.getNo())) {
+            criteria.andNoEqualTo(orderQuery.getNo());
         }
-        if (null != orderVO.getClientId()) {
-            criteria.andClientIdEqualTo(orderVO.getClientId());
+        if (null != orderQuery.getClientIds() && orderQuery.getClientIds().size() > 0) {
+            criteria.andClientIdIn(orderQuery.getClientIds());
         }
-        if (null != orderVO.getOrderDate()) {
-            criteria.andOrderDateEqualTo(orderVO.getOrderDate());
+        if (null != orderQuery.getStartOrderDate()) {
+            criteria.andOrderDateGreaterThanOrEqualTo(orderQuery.getStartOrderDate());
+            criteria.andOrderDateLessThanOrEqualTo(orderQuery.getEndOrderDate());
         }
-        if (!Strings.isNullOrEmpty(orderVO.getTransferNo())) {
-            criteria.andTransferNoEqualTo(orderVO.getTransferNo());
+        if (!Strings.isNullOrEmpty(orderQuery.getTransferNo())) {
+            criteria.andTransferNoEqualTo(orderQuery.getTransferNo());
         }
-        if (null != orderVO.getTransferCompanyId()) {
-            criteria.andTransferCompanyIdEqualTo(orderVO.getTransferCompanyId());
+        if (null != orderQuery.getTransferCompanyIds() && orderQuery.getTransferCompanyIds().size() > 0) {
+            criteria.andTransferCompanyIdIn(orderQuery.getTransferCompanyIds());
         }
-        if (null != orderVO.getReceipt()) {
-            criteria.andOrderDateEqualTo(orderVO.getReceipt());
+        if (null != orderQuery.getStartReceipt()) {
+            criteria.andReceiptGreaterThanOrEqualTo(orderQuery.getStartReceipt());
+            criteria.andReceiptLessThanOrEqualTo(orderQuery.getEndReceipt());
         }
         int count = orderMapper.countByExample(orderExample);
         if(count > MAX){

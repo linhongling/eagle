@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.eagle.order.mapper.ClientMapper" >
-  <resultMap id="BaseResultMap" type="com.eagle.order.domain.Client" >
+<mapper namespace="com.eagle.order.mapper.SalesmanMapper" >
+  <resultMap id="BaseResultMap" type="com.eagle.order.domain.Salesman" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="phone" property="phone" jdbcType="VARCHAR" />
-    <result column="contact" property="contact" jdbcType="VARCHAR" />
     <result column="cellphone" property="cellphone" jdbcType="VARCHAR" />
-    <result column="addr" property="addr" jdbcType="VARCHAR" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
     <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
     <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
     <result column="is_validate" property="isValidate" jdbcType="TINYINT" />
-    <result column="salesman_id" property="salesmanId" jdbcType="BIGINT" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -73,17 +69,16 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, name, phone, contact, cellphone, addr, remark, create_date, modify_date, is_validate, 
-    salesman_id
+    id, name, cellphone, remark, create_date, modify_date, is_validate
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.eagle.order.domain.ClientExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.eagle.order.domain.SalesmanExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     'true' as QUERYID,
     <include refid="Base_Column_List" />
-    from t_client
+    from t_salesman
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -94,31 +89,29 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
-    from t_client
+    from t_salesman
     where id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from t_client
+    delete from t_salesman
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.eagle.order.domain.ClientExample" >
-    delete from t_client
+  <delete id="deleteByExample" parameterType="com.eagle.order.domain.SalesmanExample" >
+    delete from t_salesman
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.eagle.order.domain.Client" >
-    insert into t_client (id, name, phone, 
-      contact, cellphone, addr, 
+  <insert id="insert" parameterType="com.eagle.order.domain.Salesman" >
+    insert into t_salesman (id, name, cellphone, 
       remark, create_date, modify_date, 
-      is_validate, salesman_id)
-    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
-      #{contact,jdbcType=VARCHAR}, #{cellphone,jdbcType=VARCHAR}, #{addr,jdbcType=VARCHAR}, 
+      is_validate)
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{cellphone,jdbcType=VARCHAR}, 
       #{remark,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP}, 
-      #{isValidate,jdbcType=TINYINT}, #{salesmanId,jdbcType=BIGINT})
+      #{isValidate,jdbcType=TINYINT})
   </insert>
-  <insert id="insertSelective" parameterType="com.eagle.order.domain.Client" >
-    insert into t_client
+  <insert id="insertSelective" parameterType="com.eagle.order.domain.Salesman" >
+    insert into t_salesman
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
@@ -126,17 +119,8 @@
       <if test="name != null" >
         name,
       </if>
-      <if test="phone != null" >
-        phone,
-      </if>
-      <if test="contact != null" >
-        contact,
-      </if>
       <if test="cellphone != null" >
         cellphone,
-      </if>
-      <if test="addr != null" >
-        addr,
       </if>
       <if test="remark != null" >
         remark,
@@ -150,9 +134,6 @@
       <if test="isValidate != null" >
         is_validate,
       </if>
-      <if test="salesmanId != null" >
-        salesman_id,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -161,17 +142,8 @@
       <if test="name != null" >
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="phone != null" >
-        #{phone,jdbcType=VARCHAR},
-      </if>
-      <if test="contact != null" >
-        #{contact,jdbcType=VARCHAR},
-      </if>
       <if test="cellphone != null" >
         #{cellphone,jdbcType=VARCHAR},
-      </if>
-      <if test="addr != null" >
-        #{addr,jdbcType=VARCHAR},
       </if>
       <if test="remark != null" >
         #{remark,jdbcType=VARCHAR},
@@ -185,19 +157,16 @@
       <if test="isValidate != null" >
         #{isValidate,jdbcType=TINYINT},
       </if>
-      <if test="salesmanId != null" >
-        #{salesmanId,jdbcType=BIGINT},
-      </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.eagle.order.domain.ClientExample" resultType="java.lang.Integer" >
-    select count(*) from t_client
+  <select id="countByExample" parameterType="com.eagle.order.domain.SalesmanExample" resultType="java.lang.Integer" >
+    select count(*) from t_salesman
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update t_client
+    update t_salesman
     <set >
       <if test="record.id != null" >
         id = #{record.id,jdbcType=BIGINT},
@@ -205,17 +174,8 @@
       <if test="record.name != null" >
         name = #{record.name,jdbcType=VARCHAR},
       </if>
-      <if test="record.phone != null" >
-        phone = #{record.phone,jdbcType=VARCHAR},
-      </if>
-      <if test="record.contact != null" >
-        contact = #{record.contact,jdbcType=VARCHAR},
-      </if>
       <if test="record.cellphone != null" >
         cellphone = #{record.cellphone,jdbcType=VARCHAR},
-      </if>
-      <if test="record.addr != null" >
-        addr = #{record.addr,jdbcType=VARCHAR},
       </if>
       <if test="record.remark != null" >
         remark = #{record.remark,jdbcType=VARCHAR},
@@ -229,48 +189,32 @@
       <if test="record.isValidate != null" >
         is_validate = #{record.isValidate,jdbcType=TINYINT},
       </if>
-      <if test="record.salesmanId != null" >
-        salesman_id = #{record.salesmanId,jdbcType=BIGINT},
-      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update t_client
+    update t_salesman
     set id = #{record.id,jdbcType=BIGINT},
       name = #{record.name,jdbcType=VARCHAR},
-      phone = #{record.phone,jdbcType=VARCHAR},
-      contact = #{record.contact,jdbcType=VARCHAR},
       cellphone = #{record.cellphone,jdbcType=VARCHAR},
-      addr = #{record.addr,jdbcType=VARCHAR},
       remark = #{record.remark,jdbcType=VARCHAR},
       create_date = #{record.createDate,jdbcType=TIMESTAMP},
       modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
-      is_validate = #{record.isValidate,jdbcType=TINYINT},
-      salesman_id = #{record.salesmanId,jdbcType=BIGINT}
+      is_validate = #{record.isValidate,jdbcType=TINYINT}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.eagle.order.domain.Client" >
-    update t_client
+  <update id="updateByPrimaryKeySelective" parameterType="com.eagle.order.domain.Salesman" >
+    update t_salesman
     <set >
       <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="phone != null" >
-        phone = #{phone,jdbcType=VARCHAR},
-      </if>
-      <if test="contact != null" >
-        contact = #{contact,jdbcType=VARCHAR},
-      </if>
       <if test="cellphone != null" >
         cellphone = #{cellphone,jdbcType=VARCHAR},
-      </if>
-      <if test="addr != null" >
-        addr = #{addr,jdbcType=VARCHAR},
       </if>
       <if test="remark != null" >
         remark = #{remark,jdbcType=VARCHAR},
@@ -284,24 +228,17 @@
       <if test="isValidate != null" >
         is_validate = #{isValidate,jdbcType=TINYINT},
       </if>
-      <if test="salesmanId != null" >
-        salesman_id = #{salesmanId,jdbcType=BIGINT},
-      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.eagle.order.domain.Client" >
-    update t_client
+  <update id="updateByPrimaryKey" parameterType="com.eagle.order.domain.Salesman" >
+    update t_salesman
     set name = #{name,jdbcType=VARCHAR},
-      phone = #{phone,jdbcType=VARCHAR},
-      contact = #{contact,jdbcType=VARCHAR},
       cellphone = #{cellphone,jdbcType=VARCHAR},
-      addr = #{addr,jdbcType=VARCHAR},
       remark = #{remark,jdbcType=VARCHAR},
       create_date = #{createDate,jdbcType=TIMESTAMP},
       modify_date = #{modifyDate,jdbcType=TIMESTAMP},
-      is_validate = #{isValidate,jdbcType=TINYINT},
-      salesman_id = #{salesmanId,jdbcType=BIGINT}
+      is_validate = #{isValidate,jdbcType=TINYINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

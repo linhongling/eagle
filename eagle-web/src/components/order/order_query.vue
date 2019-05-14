@@ -14,8 +14,8 @@
           </el-col>
           <el-col :span="8">
             <el-form-item label="客户名称：">
-              <el-select v-model="querys.clientId" clearable
-                         filterable placeholder="请选择">
+              <el-select v-model="querys.clientIds" clearable
+                         multiple filterable placeholder="请选择">
                 <el-option v-for="item in clientList"
                            :key="item.id"
                            :value="item.id"
@@ -26,12 +26,12 @@
           </el-col>
           <el-col :span="8">
             <el-form-item label="日期：">
-              <el-date-picker
-                v-model="querys.orderDate"
-                type="date"
-                format="yyyy-MM-dd"
-                value-format="timestamp">
-              </el-date-picker>
+              <el-date-picker end-placeholder="结束日期"
+                              format="yyyy-MM-dd"
+                              range-separator="至"
+                              start-placeholder="开始日期"
+                              type="datetimerange"
+                              v-model="queryOrderDate"/>
             </el-form-item>
           </el-col>
         </el-row>
@@ -44,8 +44,8 @@
           </el-col>
           <el-col :span="8">
             <el-form-item label="转运公司：">
-              <el-select v-model="querys.transferCompanyId" clearable
-                         filterable placeholder="请选择">
+              <el-select v-model="querys.transferCompanyIds" clearable
+                         multiple filterable placeholder="请选择">
                 <el-option v-for="item in transferCoList"
                            :key="item.id"
                            :value="item.id"
@@ -56,12 +56,12 @@
           </el-col>
           <el-col :span="8">
             <el-form-item label="回单：">
-              <el-date-picker
-                v-model="querys.receipt"
-                type="date"
-                format="yyyy-MM-dd"
-                value-format="timestamp">
-              </el-date-picker>
+              <el-date-picker end-placeholder="结束日期"
+                              format="yyyy-MM-dd"
+                              range-separator="至"
+                              start-placeholder="开始日期"
+                              type="datetimerange"
+                              v-model="queryReceiptDate"/>
             </el-form-item>
           </el-col>
         </el-row>
@@ -119,6 +119,7 @@
             <span>{{scope.row.receipt | formatDateSimple}}</span>
           </template>
         </el-table-column>
+        <el-table-column prop="commission" label="提成" width="120"></el-table-column>
         <el-table-column prop="remark" label="备注"></el-table-column>
       </el-table>
 
@@ -156,12 +157,16 @@
         currentRowId: '',
         querys: {
           no: '',
-          clientId: '',
-          orderDate: '',
+          clientIds: [],
+          startOrderDate: '',
+          endOrderDate: '',
           transferNo: '',
-          transferCompanyId: '',
-          receipt: ''
+          transferCompanyIds: [],
+          startReceipt: '',
+          endReceipt: ''
         },
+        queryOrderDate: '',
+        queryReceiptDate: '',
         visibles: {
           choosed: true,
         },
@@ -185,6 +190,7 @@
       },
       searchOrder() {
         this.loading = true;
+        this.setQueryDateTime()
         var obj = {
           pageInfo: {
             pageNum: this.pageNum,
@@ -294,6 +300,23 @@
         this.dialogVisible = false
         if (refresh)
           this.searchOrder()
+      },
+      setQueryDateTime() {
+        if (this.queryOrderDate) {
+          this.querys.startOrderDate = this.queryOrderDate[0]
+          this.querys.endOrderDate = this.queryOrderDate[1]
+        } else {
+          this.querys.startOrderDate = null
+          this.querys.endOrderDate = null
+        }
+
+        if (this.queryReceiptDate) {
+          this.querys.startReceipt = this.queryReceiptDate[0]
+          this.querys.endReceipt = this.queryReceiptDate[1]
+        } else {
+          this.querys.startReceipt = null
+          this.querys.endReceipt = null
+        }
       },
     },
     mounted() {

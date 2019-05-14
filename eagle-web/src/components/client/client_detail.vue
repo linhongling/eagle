@@ -5,7 +5,7 @@
         <el-input v-model="form.name" style="width:70%;" clearable></el-input>
       </el-form-item>
 
-      <el-form-item label="电话">
+      <el-form-item label="电话" prop="phone">
         <el-input v-model="form.phone" style="width:70%;" clearable></el-input>
       </el-form-item>
 
@@ -13,12 +13,23 @@
         <el-input v-model="form.contact" style="width:70%;" clearable></el-input>
       </el-form-item>
 
-      <el-form-item label="联系人手机">
+      <el-form-item label="联系人手机" prop="cellphone">
         <el-input v-model="form.cellphone" style="width:70%;" clearable></el-input>
       </el-form-item>
 
       <el-form-item label="公司地址">
         <el-input v-model="form.addr" style="width:70%;" clearable></el-input>
+      </el-form-item>
+
+      <el-form-item label="业务员">
+        <el-select v-model="form.salesmanId" clearable
+                   filterable placeholder="请选择">
+          <el-option v-for="item in salesmanList"
+                     :key="item.id"
+                     :value="item.id"
+                     :label="item.name">
+          </el-option>
+        </el-select>
       </el-form-item>
 
       <el-form-item label="是否有效">
@@ -46,7 +57,7 @@
 </template>
 
 <script>
-  import {getClientDetail, saveClient, updateClient} from '../../api/api'
+  import {getClientDetail, saveClient, updateClient, getSalesmanInfoList} from '../../api/api'
 
   export default {
     props: ['id', 'type'],
@@ -58,13 +69,29 @@
           contact: '',
           cellphone: '',
           addr: '',
+          salesmanId: '',
           remark: '',
           isValidate: 1
         },
+        salesmanList: null,
         formdisabled: false,
         confirmRules: {
           name: [
             {required: true, message: '请输入名称', trigger: 'blur'}
+          ],
+          cellphone: [
+            {
+              pattern: /^1[34578]\d{9}$/,
+              message: '请输入正确的手机号码',
+              trigger: 'blur'
+            }
+         ],
+          phone: [
+            {
+              pattern: /^[0-9]*[1-9][0-9]*$/,
+              message: '请输入正确的号码',
+              trigger: 'blur'
+            }
           ]
         }
       }
@@ -114,12 +141,20 @@
           })
         }
       },
+      getSalesmanInfoList() {
+        getSalesmanInfoList().then((res) => {
+          if (res.status == 200) {
+            this.salesmanList = res.data
+          }
+        })
+      }
     },
     mounted() {
       if (this.type != 1)
         this.searchClient();
       if (this.type == 0)
         this.formdisabled = true
+      this.getSalesmanInfoList()
     }
   }
 </script>

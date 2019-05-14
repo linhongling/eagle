@@ -1,24 +1,12 @@
 <template>
   <div style="margin-top: 15px">
-    <el-form ref="transferCoForm" :model="form" :rules="confirmRules" label-width="120px" :disabled=formdisabled>
-      <el-form-item label="品名" prop="name">
+    <el-form ref="salesManForm" :model="form" :rules="confirmRules" label-width="120px" :disabled=formdisabled>
+      <el-form-item label="姓名" prop="name">
         <el-input v-model="form.name" style="width:70%;" clearable></el-input>
       </el-form-item>
 
-      <el-form-item label="电话" prop="phone">
-        <el-input v-model="form.phone" style="width:70%;" clearable></el-input>
-      </el-form-item>
-
-      <el-form-item label="联系人">
-        <el-input v-model="form.contact" style="width:70%;" clearable></el-input>
-      </el-form-item>
-
-      <el-form-item label="联系人手机" prop="cellphone">
+      <el-form-item label="手机" prop="cellphone">
         <el-input v-model="form.cellphone" style="width:70%;" clearable></el-input>
-      </el-form-item>
-
-      <el-form-item label="公司地址">
-        <el-input v-model="form.addr" style="width:70%;" clearable></el-input>
       </el-form-item>
 
       <el-form-item label="是否有效">
@@ -46,7 +34,7 @@
 </template>
 
 <script>
-  import {getTransferCoDetail, saveTransferCo, updateTransferCo} from '../../api/api'
+  import {getSalesmanDetail, saveSalesman, updateSalesman} from '../../api/api'
 
   export default {
     props: ['id', 'type'],
@@ -54,10 +42,7 @@
       return {
         form: {
           name: '',
-          phone: '',
-          contact: '',
           cellphone: '',
-          addr: '',
           remark: '',
           isValidate: 1
         },
@@ -72,24 +57,17 @@
               message: '请输入正确的手机号码',
               trigger: 'blur'
             }
-          ],
-          phone: [
-            {
-              pattern: /^[0-9]*[1-9][0-9]*$/,
-              message: '请输入正确的号码',
-              trigger: 'blur'
-            }
           ]
         }
       }
     },
     methods: {
       onSubmit() {
-        this.$refs.transferCoForm.validate((valid) => {
+        this.$refs.salesManForm.validate((valid) => {
           if (valid) {
             var json = JSON.stringify(this.form);
             if (this.type == 1) {
-              saveTransferCo(json).then((res) => {
+              saveSalesman(json).then((res) => {
                 if (res.status == 200) {
                   this.$message.success("保存成功");
                   this.closeRefresh();
@@ -99,7 +77,7 @@
               })
             } else if (this.type == 2) {
               var json = JSON.stringify(this.form);
-              updateTransferCo(json).then((res) => {
+              updateSalesman(json).then((res) => {
                 if (res.status == 200) {
                   this.$message.success("保存成功");
                   this.closeRefresh();
@@ -117,9 +95,9 @@
       closeRefresh() {
         this.$emit('close-dialog', true)
       },
-      searchTransferCo() {
+      searchSalesman() {
         if (this.id != null && this.id != '') {
-          getTransferCoDetail(this.id).then((res) => {
+          getSalesmanDetail(this.id).then((res) => {
             if (res.status == 200) {
               this.form = res.data;
             } else {
@@ -131,7 +109,7 @@
     },
     mounted() {
       if (this.type != 1)
-        this.searchTransferCo();
+        this.searchSalesman();
       if (this.type == 0)
         this.formdisabled = true
     }

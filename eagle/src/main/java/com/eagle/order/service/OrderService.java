@@ -5,6 +5,7 @@ import com.eagle.order.domain.Order;
 import com.eagle.order.domain.Role;
 import com.eagle.order.util.QueryData;
 import com.eagle.order.util.ReturnResult;
+import com.eagle.order.vo.OrderQuery;
 import com.eagle.order.vo.OrderVO;
 import com.github.pagehelper.PageInfo;
 
@@ -15,9 +16,9 @@ import com.github.pagehelper.PageInfo;
  */
 public interface OrderService {
 
-    ReturnResult<PageInfo<OrderVO>> queryList(QueryData<OrderVO> queryData);
+    ReturnResult<PageInfo<OrderVO>> queryList(QueryData<OrderQuery> queryData);
 
-    ReturnResult<OrderVO> exportList(OrderVO orderVO);
+    ReturnResult<OrderVO> exportList(OrderQuery queryData);
 
     ReturnResult<Order> getDtail(Long id);
 

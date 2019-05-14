@@ -3,6 +3,7 @@ package com.eagle.order.mapper;
 import com.eagle.order.domain.Client;
 import com.eagle.order.domain.ClientExample;
 import com.eagle.order.vo.ClientInfo;
+import com.eagle.order.vo.ClientVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -31,4 +32,6 @@ public interface ClientMapper {
     int updateByPrimaryKey(Client record);
 
     List<ClientInfo> getClientInfo();
+
+    List<ClientVO> selectByExampleNew(ClientExample example);
 }

@@ -4,6 +4,7 @@ import com.eagle.order.domain.Client;
 import com.eagle.order.util.QueryData;
 import com.eagle.order.util.ReturnResult;
 import com.eagle.order.vo.ClientInfo;
+import com.eagle.order.vo.ClientVO;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
@@ -15,7 +16,7 @@ import java.util.List;
  */
 public interface ClientService {
 
-    ReturnResult<PageInfo<Client>> queryList(QueryData<Client> queryData);
+    ReturnResult<PageInfo<ClientVO>> queryList(QueryData<Client> queryData);
 
     ReturnResult<Client> getDtail(Long id);
 

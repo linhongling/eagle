@@ -50,7 +50,7 @@ public class TransferCompanyController {
     @RequestMapping("/saveTransferCo")
     public ReturnResult<Integer> saveTransferCo(@RequestBody TransferCompany transferCompany) {
         if(transferCompany == null || StringUtils.isEmpty(transferCompany.getName())) {
-            return ReturnResult.error("参数order不能为空");
+            return ReturnResult.error("参数transferCompany不能为空");
         }
         return transferCompanyService.saveTransferCo(transferCompany);
     }
@@ -58,7 +58,7 @@ public class TransferCompanyController {
     @RequestMapping("/updateTransferCo")
     public ReturnResult<Integer> updateTransferCo(@RequestBody TransferCompany transferCompany) {
         if(transferCompany == null || StringUtils.isEmpty(transferCompany.getName())) {
-            return ReturnResult.error("参数order不能为空");
+            return ReturnResult.error("参数transferCompany不能为空");
         }
         return transferCompanyService.updateTransferCo(transferCompany);
     }

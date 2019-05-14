@@ -50,7 +50,7 @@ public class GoodsController {
     @RequestMapping("/saveGoods")
     public ReturnResult<Integer> saveGoods(@RequestBody Goods goods) {
         if(goods == null || StringUtils.isEmpty(goods.getName())) {
-            return ReturnResult.error("参数order不能为空");
+            return ReturnResult.error("参数goods不能为空");
         }
         return goodsService.saveGoods(goods);
     }
@@ -58,7 +58,7 @@ public class GoodsController {
     @RequestMapping("/updateGoods")
     public ReturnResult<Integer> updateGoods(@RequestBody Goods goods) {
         if(goods == null || StringUtils.isEmpty(goods.getName())) {
-            return ReturnResult.error("参数order不能为空");
+            return ReturnResult.error("参数goods不能为空");
         }
         return goodsService.updateGoods(goods);
     }

@@ -2,24 +2,22 @@
   <div>
     <el-breadcrumb separator-class="el-icon-arrow-right">
       <el-breadcrumb-item :to="{ path: '/index' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>客户管理</el-breadcrumb-item>
+      <el-breadcrumb-item>业务员管理</el-breadcrumb-item>
     </el-breadcrumb>
     <div style="margin-top: 15px">
       <el-form ref="querys" :model="querys" label-width="100px">
         <el-row>
           <el-col :span="8">
-            <el-form-item label="客户名称：">
+            <el-form-item label="业务员名称：">
               <el-input v-model="querys.name" style="width:200px;" clearable></el-input>
             </el-form-item>
           </el-col>
         </el-row>
 
         <el-row colspan="24">
-          <el-button type="primary" size="small" @click="searchClient">查询</el-button>
-          <el-button type="primary" size="small" @click="createClient">新增</el-button>
-          <el-button type="primary" size="small" @click="updateClient" :disabled=this.visibles.choosed>修改</el-button>
-          <el-button type="primary" size="small" @click="getDetail" :disabled=this.visibles.choosed>查看详情</el-button>
-          <!--<el-button type="primary" size="small" @click="deleteClient" :disabled=this.visibles.choosed>删除</el-button>-->
+          <el-button type="primary" size="small" @click="searchSalesman">查询</el-button>
+          <el-button type="primary" size="small" @click="createSalesman">新增</el-button>
+          <el-button type="primary" size="small" @click="updateSalesman" :disabled=this.visibles.choosed>修改</el-button>
         </el-row>
       </el-form>
 
@@ -37,12 +35,8 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column prop="name" label="客户名称"></el-table-column>
-        <el-table-column prop="phone" label="电话"></el-table-column>
-        <el-table-column prop="contact" label="联系人"></el-table-column>
-        <el-table-column prop="cellphone" label="联系人手机"></el-table-column>
-        <el-table-column prop="addr" label="地址"></el-table-column>
-        <el-table-column prop="salesmanName" label="业务员名称"></el-table-column>
+        <el-table-column prop="name" label="姓名"></el-table-column>
+        <el-table-column prop="cellphone" label="手机号码"></el-table-column>
         <el-table-column prop="isValidate" label="是否有效" :formatter="enumsFormatter"></el-table-column>
         <el-table-column prop="remark" label="备注"></el-table-column>
         <el-table-column prop="createDate" label="创建时间">
@@ -65,8 +59,8 @@
         :total="total">
       </el-pagination>
 
-      <el-dialog title="客户信息" :visible.sync="dialogVisible" v-if='dialogVisible' width="40%">
-        <client_detail :id="this.currentRowId" :type="this.type" @close-dialog="closeDialog"></client_detail>
+      <el-dialog title="业务员信息" :visible.sync="dialogVisible" v-if='dialogVisible' width="40%">
+        <salesman_detail :id="this.currentRowId" :type="this.type" @close-dialog="closeDialog"></salesman_detail>
       </el-dialog>
     </div>
   </div>
@@ -74,11 +68,11 @@
 
 <script>
   import base from '@/components/base.vue'
-  import {getClientList, deleteClient} from '@/api/api'
-  import Client_detail from "./client_detail";
+  import {getSalesmanList} from '@/api/api'
+  import Salesman_detail from "./salesman_detail";
 
   export default {
-    components: {Client_detail},
+    components: {Salesman_detail},
     extends: base,
     data() {
       return {
@@ -87,7 +81,6 @@
         currentRow: {},
         currentRowId: '',
         dialogVisible: false,
-        type: '',
         querys: {
           name: ''
         },
@@ -109,7 +102,7 @@
         this.currentRowId = val.id
         this.visibles.choosed = false
       },
-      searchClient() {
+      searchSalesman() {
         this.loading = true;
         var obj = {
           pageInfo: {
@@ -119,7 +112,7 @@
           param: this.querys
         }
         var json = JSON.stringify(obj);
-        getClientList(json).then((res) => {
+        getSalesmanList(json).then((res) => {
           this.loading = false;
           if (res.status == 200) {
             this.tableData = res.data.list;
@@ -132,11 +125,11 @@
         this.currentRow = ''
         this.currentRowId = ''
       },
-      createClient() {
+      createSalesman() {
         this.type = 1
         this.dialogVisible = true
       },
-      updateClient() {
+      updateSalesman() {
         this.type = 2
         this.dialogVisible = true
       },
@@ -147,21 +140,7 @@
       closeDialog(refresh) {
         this.dialogVisible = false
         if (refresh)
-          this.searchClient()
-      },
-      deleteClient() {
-        this.$confirm('确认删除?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          deleteClient(this.currentRowId).then((res) => {
-            if (res.status == 200) {
-              this.$message.success("删除成功");
-              this.searchClient()
-            }
-          })
-        })
+          this.searchSalesman()
       },
       enumsFormatter(row, column, cellValue) {
         if (cellValue === 1) {
@@ -172,7 +151,7 @@
       }
     },
     mounted() {
-      this.searchClient();
+      this.searchSalesman();
     }
   }
 </script>

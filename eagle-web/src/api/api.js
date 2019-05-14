@@ -169,5 +169,25 @@ export function getGoodsInfoList() {
   return axiosIns.get(url.GET_GOODS_INFO_LIST);
 }
 
+export function getSalesmanList(json) {
+  return axiosIns.post(url.GET_SALESMAN_LIST, json);
+}
+
+export function getSalesmanDetail(json) {
+  return axiosIns.post(url.GET_SALESMAN_DETAIL, json);
+}
+
+export function saveSalesman(json) {
+  return axiosIns.put(url.SAVE_SALESMAN, json);
+}
+
+export function updateSalesman(json) {
+  return axiosIns.put(url.UPDATE_SALESMAN, json);
+}
+
+export function getSalesmanInfoList() {
+  return axiosIns.get(url.GET_SALESMAN_INFO_LIST);
+}
+
 
 

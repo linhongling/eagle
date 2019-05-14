@@ -45,6 +45,8 @@ public class Order {
 
     private Date modifyDate;
 
+    private Long commission;
+
     public Long getId() {
         return id;
     }
@@ -211,5 +213,13 @@ public class Order {
 
     public void setModifyDate(Date modifyDate) {
         this.modifyDate = modifyDate;
+    }
+
+    public Long getCommission() {
+        return commission;
+    }
+
+    public void setCommission(Long commission) {
+        this.commission = commission;
     }
 }

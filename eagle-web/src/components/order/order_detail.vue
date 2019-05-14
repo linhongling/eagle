@@ -60,12 +60,12 @@
 
       <el-row :span="24">
         <el-col :span="12">
-          <el-form-item label="件数">
+          <el-form-item label="件数" prop="count">
             <el-input v-model="form.count" style="width: 220px" clearable></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="重量">
+          <el-form-item label="重量" prop="weight">
             <el-input v-model="form.weight" style="width: 220px" clearable></el-input>
           </el-form-item>
         </el-col>
@@ -73,12 +73,12 @@
 
       <el-row :span="24">
         <el-col :span="12">
-          <el-form-item label="体积">
+          <el-form-item label="体积" prop="volume">
             <el-input v-model="form.volume" style="width: 220px" clearable></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="月结">
+          <el-form-item label="月结" prop="freightMonthly">
             <el-input v-model="form.freightMonthly" style="width: 220px" clearable></el-input>
           </el-form-item>
         </el-col>
@@ -86,12 +86,12 @@
 
       <el-row :span="24">
         <el-col :span="12">
-          <el-form-item label="现付">
+          <el-form-item label="现付" prop="freightNow">
             <el-input v-model="form.freightNow" style="width: 220px" clearable></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="6">
-          <el-form-item label="到付">
+          <el-form-item label="到付" prop="freightArrive">
             <el-input v-model="form.freightArrive" style="width: 220px" clearable></el-input>
           </el-form-item>
         </el-col>
@@ -99,12 +99,12 @@
 
       <el-row :span="24">
         <el-col :span="12">
-          <el-form-item label="运费">
+          <el-form-item label="运费" prop="costFreight">
             <el-input v-model="form.costFreight" style="width: 220px" clearable></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="直送">
+          <el-form-item label="直送" prop="costDirect">
             <el-input v-model="form.costDirect" style="width: 220px" clearable></el-input>
           </el-form-item>
         </el-col>
@@ -112,7 +112,7 @@
 
       <el-row :span="24">
         <el-col :span="12">
-          <el-form-item label="保险">
+          <el-form-item label="保险" prop="costInsurance">
             <el-input v-model="form.costInsurance" style="width: 220px" clearable></el-input>
           </el-form-item>
         </el-col>
@@ -143,6 +143,14 @@
               type="date"
               placeholder="选择日期">
             </el-date-picker>
+          </el-form-item>
+        </el-col>
+      </el-row>
+
+      <el-row :span="24">
+        <el-col :span="12">
+          <el-form-item label="提成" prop="commission">
+            <el-input v-model="form.commission" style="width: 220px" clearable></el-input>
           </el-form-item>
         </el-col>
       </el-row>
@@ -190,6 +198,7 @@
           transferCompanyId: '',
           transferNo: '',
           receipt: '',
+          commission: '',
           remark: ''
         },
         formdisabled: false,
@@ -203,6 +212,76 @@
           ],
           orderDate: [
             {required: true, message: '请输入日期', trigger: 'blur'}
+          ],
+          count: [
+            {
+              pattern: /^[0-9]*[1-9][0-9]*$/,
+              message: '请输入正整数',
+              trigger: 'blur'
+            }
+          ],
+          weight: [
+            {
+              pattern: /^(([1-9]{1}\d*)|(0{1}))(\.\d+)?$/,
+              message: '请输入整数或小数',
+              trigger: 'blur'
+            }
+          ],
+          volume: [
+            {
+              pattern: /^(([1-9]{1}\d*)|(0{1}))(\.\d+)?$/,
+              message: '请输入整数或小数',
+              trigger: 'blur'
+            }
+          ],
+          freightMonthly: [
+            {
+              pattern: /^(([1-9]{1}\d*)|(0{1}))(\.\d+)?$/,
+              message: '请输入整数或小数',
+              trigger: 'blur'
+            }
+          ],
+          freightNow: [
+            {
+              pattern: /^(([1-9]{1}\d*)|(0{1}))(\.\d+)?$/,
+              message: '请输入整数或小数',
+              trigger: 'blur'
+            }
+          ],
+          freightArrive: [
+            {
+              pattern: /^(([1-9]{1}\d*)|(0{1}))(\.\d+)?$/,
+              message: '请输入整数或小数',
+              trigger: 'blur'
+            }
+          ],
+          costFreight: [
+            {
+              pattern: /^(([1-9]{1}\d*)|(0{1}))(\.\d+)?$/,
+              message: '请输入整数或小数',
+              trigger: 'blur'
+            }
+          ],
+          costDirect: [
+            {
+              pattern: /^(([1-9]{1}\d*)|(0{1}))(\.\d+)?$/,
+              message: '请输入整数或小数',
+              trigger: 'blur'
+            }
+          ],
+          costInsurance: [
+            {
+              pattern: /^(([1-9]{1}\d*)|(0{1}))(\.\d+)?$/,
+              message: '请输入整数或小数',
+              trigger: 'blur'
+            }
+          ],
+          commission: [
+            {
+              pattern: /^(([1-9]{1}\d*)|(0{1}))(\.\d+)?$/,
+              message: '请输入整数或小数',
+              trigger: 'blur'
+            }
           ]
         }
       }

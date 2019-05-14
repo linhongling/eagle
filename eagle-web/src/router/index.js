@@ -8,6 +8,7 @@ import clientQuery from '@/components/client/client_query'
 import clientDetail from '@/components/client/client_detail'
 import transferCompany from '@/components/transfercompany/transfer_company'
 import goodsQuery from '@/components/goods/goods_query'
+import salesmanQuery from '@/components/salesman/salesman_query'
 import essaydetail from '@/components/essaydetail'
 import employee from '@/components/employee'
 import role from '@/components/role'
@@ -86,6 +87,15 @@ export const asyncRouterMap = [
         menu:"goodsQuery",
         meta:{
           title:"品类管理",
+        },
+      },
+      {
+        path: 'salesmanQuery',
+        name: 'salesmanQuery',
+        component: salesmanQuery,
+        menu:"salesmanQuery",
+        meta:{
+          title:"业务员管理",
         },
       },
       {

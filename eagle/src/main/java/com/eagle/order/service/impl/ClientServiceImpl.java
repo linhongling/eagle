@@ -8,6 +8,7 @@ import com.eagle.order.util.CommonBeanUtils;
 import com.eagle.order.util.QueryData;
 import com.eagle.order.util.ReturnResult;
 import com.eagle.order.vo.ClientInfo;
+import com.eagle.order.vo.ClientVO;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.base.Strings;
@@ -30,18 +31,18 @@ public class ClientServiceImpl implements ClientService {
     private ClientMapper clientMapper;
 
     @Override
-    public ReturnResult<PageInfo<Client>> queryList(QueryData<Client> queryData) {
+    public ReturnResult<PageInfo<ClientVO>> queryList(QueryData<Client> queryData) {
         PageInfo pageInfo = queryData.getPageInfo();
         Client client = queryData.getParam();
         ClientExample clientExample = new ClientExample();
-        clientExample.setOrderByClause("IS_VALIDATE DESC, CREATE_DATE DESC");
+        clientExample.setOrderByClause("c.IS_VALIDATE DESC, c.CREATE_DATE DESC");
         ClientExample.Criteria criteria = clientExample.createCriteria();
         if (!Strings.isNullOrEmpty(client.getName())) {
             criteria.andNameLike("%" + client.getName() + "%");
         }
         PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
-        List<Client> clients = clientMapper.selectByExample(clientExample);
-        PageInfo<Client> resultInfo = new PageInfo<Client>(clients);
+        List<ClientVO> clients = clientMapper.selectByExampleNew(clientExample);
+        PageInfo<ClientVO> resultInfo = new PageInfo<ClientVO>(clients);
         return ReturnResult.ok(resultInfo);
     }
 

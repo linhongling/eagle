@@ -23,6 +23,7 @@
     <result column="remark" property="remark" jdbcType="VARCHAR" />
     <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
     <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+    <result column="commission" property="commission" jdbcType="DECIMAL" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -85,7 +86,7 @@
   <sql id="Base_Column_List" >
     id, no, order_date, client_id, addr, goods_id, count, weight, volume, freight_monthly, 
     freight_now, freight_arrive, cost_freight, cost_direct, cost_insurance, transfer_company_id, 
-    transfer_no, receipt, remark, create_date, modify_date
+    transfer_no, receipt, remark, create_date, modify_date, commission
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.eagle.order.domain.OrderExample" >
     select
@@ -125,16 +126,16 @@
       freight_monthly, freight_now, freight_arrive, 
       cost_freight, cost_direct, cost_insurance, 
       transfer_company_id, transfer_no, receipt, 
-      remark, create_date, modify_date
-      )
+      remark, create_date, modify_date, 
+      commission)
     values (#{id,jdbcType=BIGINT}, #{no,jdbcType=VARCHAR}, #{orderDate,jdbcType=DATE}, 
       #{clientId,jdbcType=BIGINT}, #{addr,jdbcType=VARCHAR}, #{goodsId,jdbcType=BIGINT}, 
       #{count,jdbcType=INTEGER}, #{weight,jdbcType=DECIMAL}, #{volume,jdbcType=DECIMAL}, 
       #{freightMonthly,jdbcType=DECIMAL}, #{freightNow,jdbcType=DECIMAL}, #{freightArrive,jdbcType=DECIMAL}, 
       #{costFreight,jdbcType=DECIMAL}, #{costDirect,jdbcType=DECIMAL}, #{costInsurance,jdbcType=DECIMAL}, 
       #{transferCompanyId,jdbcType=BIGINT}, #{transferNo,jdbcType=VARCHAR}, #{receipt,jdbcType=DATE}, 
-      #{remark,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP}
-      )
+      #{remark,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP}, 
+      #{commission,jdbcType=DECIMAL})
   </insert>
   <insert id="insertSelective" parameterType="com.eagle.order.domain.Order" >
     insert into t_order
@@ -202,6 +203,9 @@
       <if test="modifyDate != null" >
         modify_date,
       </if>
+      <if test="commission != null" >
+        commission,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -266,6 +270,9 @@
       </if>
       <if test="modifyDate != null" >
         #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="commission != null" >
+        #{commission,jdbcType=DECIMAL},
       </if>
     </trim>
   </insert>
@@ -341,6 +348,9 @@
       <if test="record.modifyDate != null" >
         modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.commission != null" >
+        commission = #{record.commission,jdbcType=DECIMAL},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -368,7 +378,8 @@
       receipt = #{record.receipt,jdbcType=DATE},
       remark = #{record.remark,jdbcType=VARCHAR},
       create_date = #{record.createDate,jdbcType=TIMESTAMP},
-      modify_date = #{record.modifyDate,jdbcType=TIMESTAMP}
+      modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+      commission = #{record.commission,jdbcType=DECIMAL}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -436,6 +447,9 @@
       <if test="modifyDate != null" >
         modify_date = #{modifyDate,jdbcType=TIMESTAMP},
       </if>
+      <if test="commission != null" >
+        commission = #{commission,jdbcType=DECIMAL},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -460,7 +474,8 @@
       receipt = #{receipt,jdbcType=DATE},
       remark = #{remark,jdbcType=VARCHAR},
       create_date = #{createDate,jdbcType=TIMESTAMP},
-      modify_date = #{modifyDate,jdbcType=TIMESTAMP}
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      commission = #{commission,jdbcType=DECIMAL}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>
