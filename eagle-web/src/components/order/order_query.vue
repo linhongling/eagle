@@ -261,7 +261,7 @@
       },
       formatJson(filterVal, jsonData) {
         return jsonData.map(v => filterVal.map(j => {
-          if (j === 'orderDate' || j === 'receipt') {
+          if ((j === 'orderDate' || j === 'receipt') && v[j])  {
             return parseTime(v[j], '{y}-{m}-{d}')
           } else {
             return v[j]

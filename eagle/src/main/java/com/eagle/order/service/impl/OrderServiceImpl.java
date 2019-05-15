@@ -38,7 +38,7 @@ public class OrderServiceImpl implements OrderService {
         PageInfo pageInfo = queryData.getPageInfo();
         OrderQuery orderQuery = queryData.getParam();
         OrderExample orderExample = new OrderExample();
-        orderExample.setOrderByClause("ORDER_DATE DESC");
+        orderExample.setOrderByClause("ORDER_DATE DESC, o.create_date DESC");
         OrderExample.Criteria criteria = orderExample.createCriteria();
         if (!Strings.isNullOrEmpty(orderQuery.getNo())) {
             criteria.andNoEqualTo(orderQuery.getNo());
@@ -69,7 +69,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public ReturnResult<OrderVO> exportList(OrderQuery orderQuery) {
         OrderExample orderExample = new OrderExample();
-        orderExample.setOrderByClause("ORDER_DATE ASC");
+        orderExample.setOrderByClause("ORDER_DATE ASC, o.create_date ASC");
         OrderExample.Criteria criteria = orderExample.createCriteria();
         if (!Strings.isNullOrEmpty(orderQuery.getNo())) {
             criteria.andNoEqualTo(orderQuery.getNo());
