@@ -1,5 +1,6 @@
 package com.eagle.order.domain;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class Order {
@@ -17,21 +18,21 @@ public class Order {
 
     private Integer count;
 
-    private Long weight;
+    private BigDecimal weight;
 
-    private Long volume;
+    private BigDecimal volume;
 
-    private Long freightMonthly;
+    private BigDecimal freightMonthly;
 
-    private Long freightNow;
+    private BigDecimal freightNow;
 
-    private Long freightArrive;
+    private BigDecimal freightArrive;
 
-    private Long costFreight;
+    private BigDecimal costFreight;
 
-    private Long costDirect;
+    private BigDecimal costDirect;
 
-    private Long costInsurance;
+    private BigDecimal costInsurance;
 
     private Long transferCompanyId;
 
@@ -103,67 +104,67 @@ public class Order {
         this.count = count;
     }
 
-    public Long getWeight() {
+    public BigDecimal getWeight() {
         return weight;
     }
 
-    public void setWeight(Long weight) {
+    public void setWeight(BigDecimal weight) {
         this.weight = weight;
     }
 
-    public Long getVolume() {
+    public BigDecimal getVolume() {
         return volume;
     }
 
-    public void setVolume(Long volume) {
+    public void setVolume(BigDecimal volume) {
         this.volume = volume;
     }
 
-    public Long getFreightMonthly() {
+    public BigDecimal getFreightMonthly() {
         return freightMonthly;
     }
 
-    public void setFreightMonthly(Long freightMonthly) {
+    public void setFreightMonthly(BigDecimal freightMonthly) {
         this.freightMonthly = freightMonthly;
     }
 
-    public Long getFreightNow() {
+    public BigDecimal getFreightNow() {
         return freightNow;
     }
 
-    public void setFreightNow(Long freightNow) {
+    public void setFreightNow(BigDecimal freightNow) {
         this.freightNow = freightNow;
     }
 
-    public Long getFreightArrive() {
+    public BigDecimal getFreightArrive() {
         return freightArrive;
     }
 
-    public void setFreightArrive(Long freightArrive) {
+    public void setFreightArrive(BigDecimal freightArrive) {
         this.freightArrive = freightArrive;
     }
 
-    public Long getCostFreight() {
+    public BigDecimal getCostFreight() {
         return costFreight;
     }
 
-    public void setCostFreight(Long costFreight) {
+    public void setCostFreight(BigDecimal costFreight) {
         this.costFreight = costFreight;
     }
 
-    public Long getCostDirect() {
+    public BigDecimal getCostDirect() {
         return costDirect;
     }
 
-    public void setCostDirect(Long costDirect) {
+    public void setCostDirect(BigDecimal costDirect) {
         this.costDirect = costDirect;
     }
 
-    public Long getCostInsurance() {
+    public BigDecimal getCostInsurance() {
         return costInsurance;
     }
 
-    public void setCostInsurance(Long costInsurance) {
+    public void setCostInsurance(BigDecimal costInsurance) {
         this.costInsurance = costInsurance;
     }
 

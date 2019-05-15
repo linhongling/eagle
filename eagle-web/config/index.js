@@ -6,7 +6,7 @@ const path = require('path')
 
 var proxyRoute = {
   '/web': {
-    target:'http://localhost:8320/web/',
+    target:'http://localhost:8888/web/',
     changeOrigin: true,
     pathRewrite: {
       '^/web': ''

@@ -2,6 +2,7 @@ package com.eagle.order.vo;
 
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
@@ -24,21 +25,21 @@ public class OrderVO {
 
     private Integer count;
 
-    private Long weight;
+    private BigDecimal weight;
 
-    private Long volume;
+    private BigDecimal volume;
 
-    private Long freightMonthly;
+    private BigDecimal freightMonthly;
 
-    private Long freightNow;
+    private BigDecimal freightNow;
 
-    private Long freightArrive;
+    private BigDecimal freightArrive;
 
-    private Long costFreight;
+    private BigDecimal costFreight;
 
-    private Long costDirect;
+    private BigDecimal costDirect;
 
-    private Long costInsurance;
+    private BigDecimal costInsurance;
 
     private Long transferCompanyId;
 

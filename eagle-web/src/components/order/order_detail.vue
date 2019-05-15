@@ -222,64 +222,64 @@
           ],
           weight: [
             {
-              pattern: /^(([1-9]{1}\d*)|(0{1}))(\.\d+)?$/,
-              message: '请输入整数或小数',
+              pattern: /^(([1-9]{1}\d*)|(0{1}))(\.\d{1,3})?$/,
+              message: '只支持3位小数点',
               trigger: 'blur'
             }
           ],
           volume: [
             {
-              pattern: /^(([1-9]{1}\d*)|(0{1}))(\.\d+)?$/,
-              message: '请输入整数或小数',
+              pattern: /^(([1-9]{1}\d*)|(0{1}))(\.\d{1,3})?$/,
+              message: '只支持3位小数点',
               trigger: 'blur'
             }
           ],
           freightMonthly: [
             {
-              pattern: /^(([1-9]{1}\d*)|(0{1}))(\.\d+)?$/,
-              message: '请输入整数或小数',
+              pattern: /^(([1-9]{1}\d*)|(0{1}))(\.\d{1,3})?$/,
+              message: '只支持3位小数点',
               trigger: 'blur'
             }
           ],
           freightNow: [
             {
-              pattern: /^(([1-9]{1}\d*)|(0{1}))(\.\d+)?$/,
-              message: '请输入整数或小数',
+              pattern: /^(([1-9]{1}\d*)|(0{1}))(\.\d{1,3})?$/,
+              message: '只支持3位小数点',
               trigger: 'blur'
             }
           ],
           freightArrive: [
             {
-              pattern: /^(([1-9]{1}\d*)|(0{1}))(\.\d+)?$/,
-              message: '请输入整数或小数',
+              pattern: /^(([1-9]{1}\d*)|(0{1}))(\.\d{1,3})?$/,
+              message: '只支持3位小数点',
               trigger: 'blur'
             }
           ],
           costFreight: [
             {
-              pattern: /^(([1-9]{1}\d*)|(0{1}))(\.\d+)?$/,
-              message: '请输入整数或小数',
+              pattern: /^(([1-9]{1}\d*)|(0{1}))(\.\d{1,3})?$/,
+              message: '只支持3位小数点',
               trigger: 'blur'
             }
           ],
           costDirect: [
             {
-              pattern: /^(([1-9]{1}\d*)|(0{1}))(\.\d+)?$/,
-              message: '请输入整数或小数',
+              pattern: /^(([1-9]{1}\d*)|(0{1}))(\.\d{1,3})?$/,
+              message: '只支持3位小数点',
               trigger: 'blur'
             }
           ],
           costInsurance: [
             {
-              pattern: /^(([1-9]{1}\d*)|(0{1}))(\.\d+)?$/,
-              message: '请输入整数或小数',
+              pattern: /^(([1-9]{1}\d*)|(0{1}))(\.\d{1,3})?$/,
+              message: '只支持3位小数点',
               trigger: 'blur'
             }
           ],
           commission: [
             {
-              pattern: /^(([1-9]{1}\d*)|(0{1}))(\.\d+)?$/,
-              message: '请输入整数或小数',
+              pattern: /^(([1-9]{1}\d*)|(0{1}))(\.\d{1,3})?$/,
+              message: '只支持3位小数点',
               trigger: 'blur'
             }
           ]
