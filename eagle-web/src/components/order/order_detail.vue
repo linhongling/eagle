@@ -231,6 +231,7 @@
           ],
           count: [
             {
+              required: true,
               pattern: /^[0-9]*[1-9][0-9]*$/,
               message: '请输入正整数',
               trigger: 'blur'
@@ -238,6 +239,7 @@
           ],
           weight: [
             {
+              required: true,
               pattern: /^(([1-9]{1}\d*)|(0{1}))(\.\d{1,3})?$/,
               message: '只支持3位小数点',
               trigger: 'blur'
@@ -245,6 +247,7 @@
           ],
           volume: [
             {
+              required: true,
               pattern: /^(([1-9]{1}\d*)|(0{1}))(\.\d{1,3})?$/,
               message: '只支持3位小数点',
               trigger: 'blur'
