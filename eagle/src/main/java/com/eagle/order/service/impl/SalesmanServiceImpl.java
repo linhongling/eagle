@@ -1,7 +1,5 @@
 package com.eagle.order.service.impl;
 
-import com.eagle.order.domain.Goods;
-import com.eagle.order.domain.GoodsExample;
 import com.eagle.order.domain.Salesman;
 import com.eagle.order.domain.SalesmanExample;
 import com.eagle.order.mapper.SalesmanMapper;
@@ -53,6 +51,13 @@ public class SalesmanServiceImpl implements SalesmanService {
 
     @Override
     public ReturnResult<Integer> saveSalesman(Salesman salesman) {
+        SalesmanExample salesmanExample = new SalesmanExample();
+        SalesmanExample.Criteria criteria = salesmanExample.createCriteria();
+        criteria.andNameEqualTo(salesman.getName());
+        List<Salesman> salesmens = salesmanMapper.selectByExample(salesmanExample);
+        if(salesmens != null && salesmens.size() > 0){
+            return ReturnResult.error("此业务员名称重复");
+        }
         salesman.setCreateDate(new Date());
         int num = salesmanMapper.insert(salesman);
         return ReturnResult.ok(num);
@@ -60,6 +65,13 @@ public class SalesmanServiceImpl implements SalesmanService {
 
     @Override
     public ReturnResult<Integer> updateSalesman(Salesman salesman) {
+        SalesmanExample salesmanExample = new SalesmanExample();
+        SalesmanExample.Criteria criteria = salesmanExample.createCriteria();
+        criteria.andNameEqualTo(salesman.getName()).andIdNotEqualTo(salesman.getId());
+        List<Salesman> salesmens = salesmanMapper.selectByExample(salesmanExample);
+        if(salesmens != null && salesmens.size() > 0){
+            return ReturnResult.error("此业务员名称重复");
+        }
         salesman.setModifyDate(new Date());
         int num = salesmanMapper.updateByPrimaryKey(salesman);
         return ReturnResult.ok(num);

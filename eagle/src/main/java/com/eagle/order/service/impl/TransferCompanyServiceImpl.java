@@ -1,5 +1,7 @@
 package com.eagle.order.service.impl;
 
+import com.eagle.order.domain.Salesman;
+import com.eagle.order.domain.SalesmanExample;
 import com.eagle.order.mapper.TransferCompanyMapper;
 import com.eagle.order.domain.TransferCompany;
 import com.eagle.order.domain.TransferCompanyExample;
@@ -52,6 +54,13 @@ public class TransferCompanyServiceImpl implements TransferCompanyService {
 
     @Override
     public ReturnResult<Integer> saveTransferCo(TransferCompany transferCompany) {
+        TransferCompanyExample transferCoExample = new TransferCompanyExample();
+        TransferCompanyExample.Criteria criteria = transferCoExample.createCriteria();
+        criteria.andNameEqualTo(transferCompany.getName());
+        List<TransferCompany> transferCompanies = transferCompanyMapper.selectByExample(transferCoExample);
+        if(transferCompanies != null && transferCompanies.size() > 0){
+            return ReturnResult.error("此转运公司名称重复");
+        }
         transferCompany.setCreateDate(new Date());
         int num = transferCompanyMapper.insert(transferCompany);
         return ReturnResult.ok(num);
@@ -59,6 +68,13 @@ public class TransferCompanyServiceImpl implements TransferCompanyService {
 
     @Override
     public ReturnResult<Integer> updateTransferCo(TransferCompany transferCompany) {
+        TransferCompanyExample transferCoExample = new TransferCompanyExample();
+        TransferCompanyExample.Criteria criteria = transferCoExample.createCriteria();
+        criteria.andNameEqualTo(transferCompany.getName()).andIdNotEqualTo(transferCompany.getId());
+        List<TransferCompany> transferCompanies = transferCompanyMapper.selectByExample(transferCoExample);
+        if(transferCompanies != null && transferCompanies.size() > 0){
+            return ReturnResult.error("此转运公司名称重复");
+        }
         transferCompany.setModifyDate(new Date());
         int num = transferCompanyMapper.updateByPrimaryKey(transferCompany);
         return ReturnResult.ok(num);

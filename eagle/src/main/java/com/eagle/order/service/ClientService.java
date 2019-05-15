@@ -27,4 +27,6 @@ public interface ClientService {
     ReturnResult<List<ClientInfo>> getClientInfoList();
 
     ReturnResult<Integer> delete(Long id);
+
+    ReturnResult<Long> getSalesmanIdByClientId(Long id);
 }

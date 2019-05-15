@@ -65,6 +65,22 @@
             </el-form-item>
           </el-col>
         </el-row>
+
+        <el-row colspan="24">
+          <el-col :span="8">
+            <el-form-item label="业务员：">
+              <el-select v-model="querys.salesManIds" clearable style="width:200px;"
+                         multiple filterable placeholder="请选择">
+                <el-option v-for="item in salesmanList"
+                           :key="item.id"
+                           :value="item.id"
+                           :label="item.name">
+                </el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+        </el-row>
+
         <el-row colspan="24">
           <el-button type="primary" size="small" @click="searchOrder">查询</el-button>
           <el-button type="primary" size="small" @click="exportOrder" v-loading.fullscreen.lock="fullscreenLoading">导出
@@ -119,6 +135,7 @@
             <span>{{scope.row.receipt | formatDateSimple}}</span>
           </template>
         </el-table-column>
+        <el-table-column prop="salesmanName" label="业务员"></el-table-column>
         <el-table-column prop="commission" label="提成" width="120"></el-table-column>
         <el-table-column prop="remark" label="备注"></el-table-column>
       </el-table>
@@ -140,7 +157,7 @@
 
 <script>
   import base from '@/components/base.vue'
-  import {getOrderList, getClientInfoList, getTransferCoInfoList, getExportList, deleteOrder} from '@/api/api'
+  import {getOrderList, getClientInfoList, getTransferCoInfoList, getExportList, deleteOrder, getSalesmanInfoList} from '@/api/api'
   import Order_detail from './order_detail'
   import {parseTime} from '@/util/utils'
 
@@ -163,7 +180,8 @@
           transferNo: '',
           transferCompanyIds: [],
           startReceipt: '',
-          endReceipt: ''
+          endReceipt: '',
+          salesManIds: []
         },
         queryOrderDate: '',
         queryReceiptDate: '',
@@ -173,6 +191,7 @@
         dialogVisible: false,
         clientList: null,
         transferCoList: null,
+        salesmanList: null,
         pageNum: 0,
         total: 0,
       }
@@ -235,12 +254,12 @@
           getExportList(json).then((res) => {
             if (res.status == 200) {
               import('@/vendor/Export2Excel').then(excel => {
-                const multiHeader = [['', '', '', '', '', '', '', '', '运费收入', '', '', '出货成本', '', '', '', '', '', '']]
+                const multiHeader = [['', '', '', '', '', '', '', '', '运费收入', '', '', '出货成本', '', '', '', '', '', '', '', '']]
                 const header = ['日期', '运单号', '客户', '目的地', '品名', '件数', '重量', '体积', '月结', '现付', '到付',
-                  '运费', '直送', '保险', '转运公司', '转运单号', '回单', '备注']
+                  '运费', '直送', '保险', '转运公司', '转运单号', '回单', '业务员', '提成', '备注']
                 const filterVal = ['orderDate', 'no', 'clientName', 'addr', 'goodsName', 'count', 'weight', 'volume',
                   'freightMonthly', 'freightNow', 'freightArrive', 'costFreight', 'costDirect', 'costInsurance',
-                  'transferCompanyName', 'transferNo', 'receipt', 'remark']
+                  'transferCompanyName', 'transferNo', 'receipt', 'salesmanName', 'commission', 'remark']
                 const list = res.data
                 const data = this.formatJson(filterVal, list)
                 const merges = ['I1:K1', 'L1:N1']
@@ -318,11 +337,19 @@
           this.querys.endReceipt = null
         }
       },
+      getSalesmanInfoList() {
+        getSalesmanInfoList().then((res) => {
+          if (res.status == 200) {
+            this.salesmanList = res.data
+          }
+        })
+      }
     },
     mounted() {
       this.searchOrder();
       this.getClientInfoList();
       this.getTransferCoInfoList();
+      this.getSalesmanInfoList();
     }
   }
 </script>

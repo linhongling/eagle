@@ -1,10 +1,9 @@
 package com.eagle.order.service.impl;
 
-import com.eagle.order.mapper.ClientMapper;
 import com.eagle.order.domain.Client;
 import com.eagle.order.domain.ClientExample;
+import com.eagle.order.mapper.ClientMapper;
 import com.eagle.order.service.ClientService;
-import com.eagle.order.util.CommonBeanUtils;
 import com.eagle.order.util.QueryData;
 import com.eagle.order.util.ReturnResult;
 import com.eagle.order.vo.ClientInfo;
@@ -12,7 +11,6 @@ import com.eagle.order.vo.ClientVO;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.base.Strings;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -54,6 +52,13 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public ReturnResult<Integer> saveClient(Client client) {
+        ClientExample clientExample = new ClientExample();
+        ClientExample.Criteria criteria = clientExample.createCriteria();
+        criteria.andNameEqualTo(client.getName());
+        List<Client> clients = clientMapper.selectByExample(clientExample);
+        if(clients != null && clients.size() > 0){
+            return ReturnResult.error("此客户名称重复");
+        }
         client.setCreateDate(new Date());
         int insert = clientMapper.insert(client);
         return ReturnResult.ok(insert);
@@ -61,6 +66,13 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public ReturnResult<Integer> updateClient(Client client) {
+        ClientExample clientExample = new ClientExample();
+        ClientExample.Criteria criteria = clientExample.createCriteria();
+        criteria.andNameEqualTo(client.getName()).andIdNotEqualTo(client.getId());
+        List<Client> clients = clientMapper.selectByExample(clientExample);
+        if(clients != null && clients.size() > 0){
+            return ReturnResult.error("此客户名称重复");
+        }
         client.setModifyDate(new Date());
         int i = clientMapper.updateByPrimaryKey(client);
         return ReturnResult.ok(i);
@@ -76,6 +88,12 @@ public class ClientServiceImpl implements ClientService {
     public ReturnResult<Integer> delete(Long id) {
         int num = clientMapper.deleteByPrimaryKey(id);
         return ReturnResult.ok(num);
+    }
+
+    @Override
+    public ReturnResult<Long> getSalesmanIdByClientId(Long id) {
+        Long salesmanId= clientMapper.getSalesmanIdByClientId(id);
+        return ReturnResult.ok(salesmanId);
     }
 
 }

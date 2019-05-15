@@ -12,10 +12,31 @@
           </el-form-item>
         </el-col>
         <el-col :span="12">
+          <el-form-item label="运单号" prop="no">
+            <el-input v-model="form.no" style="width: 220px" clearable></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+
+      <el-row :span="24">
+
+        <el-col :span="12">
           <el-form-item label="客户">
             <el-select v-model="form.clientId" clearable
-                       filterable placeholder="请选择">
+                       filterable placeholder="请选择" @change="clientChange">
               <el-option v-for="item in clientList"
+                         :key="item.id"
+                         :value="item.id"
+                         :label="item.name">
+              </el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="业务员">
+            <el-select v-model="form.salesmanId" clearable
+                       filterable placeholder="请选择">
+              <el-option v-for="item in salesmanList"
                          :key="item.id"
                          :value="item.id"
                          :label="item.name">
@@ -27,11 +48,6 @@
 
       <el-row :span="24">
         <el-col :span="12">
-          <el-form-item label="运单号" prop="no">
-            <el-input v-model="form.no" style="width: 220px" clearable></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
           <el-form-item label="品名">
             <el-select v-model="form.goodsId" clearable
                        filterable placeholder="请选择">
@@ -41,6 +57,100 @@
                          :label="item.name">
               </el-option>
             </el-select>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="件数" prop="count">
+            <el-input v-model="form.count" style="width: 220px" clearable></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+
+      <el-row :span="24">
+        <el-col :span="12">
+          <el-form-item label="重量" prop="weight">
+            <el-input v-model="form.weight" style="width: 220px" clearable></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="体积" prop="volume">
+            <el-input v-model="form.volume" style="width: 220px" clearable></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+
+      <el-row :span="24">
+        <el-col :span="12">
+          <el-form-item label="月结" prop="freightMonthly">
+            <el-input v-model="form.freightMonthly" style="width: 220px" clearable></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="现付" prop="freightNow">
+            <el-input v-model="form.freightNow" style="width: 220px" clearable></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+
+      <el-row :span="24">
+        <el-col :span="12">
+          <el-form-item label="到付" prop="freightArrive">
+            <el-input v-model="form.freightArrive" style="width: 220px" clearable></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="运费" prop="costFreight">
+            <el-input v-model="form.costFreight" style="width: 220px" clearable></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+
+      <el-row :span="24">
+        <el-col :span="12">
+          <el-form-item label="直送" prop="costDirect">
+            <el-input v-model="form.costDirect" style="width: 220px" clearable></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="保险" prop="costInsurance">
+            <el-input v-model="form.costInsurance" style="width: 220px" clearable></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+
+      <el-row :span="24">
+        <el-col :span="12">
+          <el-form-item label="转运公司">
+            <el-select v-model="form.transferCompanyId" clearable
+                       filterable placeholder="请选择">
+              <el-option v-for="item in transferCoList"
+                         :key="item.id"
+                         :value="item.id"
+                         :label="item.name">
+              </el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="转运单号">
+            <el-input v-model="form.transferNo" style="width: 220px" clearable></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+
+      <el-row :span="24">
+        <el-col :span="12">
+          <el-form-item label="回单">
+            <el-date-picker
+              v-model="form.receipt"
+              type="date"
+              placeholder="选择日期">
+            </el-date-picker>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="提成" prop="commission">
+            <el-input v-model="form.commission" style="width: 220px" clearable></el-input>
           </el-form-item>
         </el-col>
       </el-row>
@@ -57,104 +167,6 @@
           </el-form-item>
         </el-col>
       </el-row>
-
-      <el-row :span="24">
-        <el-col :span="12">
-          <el-form-item label="件数" prop="count">
-            <el-input v-model="form.count" style="width: 220px" clearable></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item label="重量" prop="weight">
-            <el-input v-model="form.weight" style="width: 220px" clearable></el-input>
-          </el-form-item>
-        </el-col>
-      </el-row>
-
-      <el-row :span="24">
-        <el-col :span="12">
-          <el-form-item label="体积" prop="volume">
-            <el-input v-model="form.volume" style="width: 220px" clearable></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item label="月结" prop="freightMonthly">
-            <el-input v-model="form.freightMonthly" style="width: 220px" clearable></el-input>
-          </el-form-item>
-        </el-col>
-      </el-row>
-
-      <el-row :span="24">
-        <el-col :span="12">
-          <el-form-item label="现付" prop="freightNow">
-            <el-input v-model="form.freightNow" style="width: 220px" clearable></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="6">
-          <el-form-item label="到付" prop="freightArrive">
-            <el-input v-model="form.freightArrive" style="width: 220px" clearable></el-input>
-          </el-form-item>
-        </el-col>
-      </el-row>
-
-      <el-row :span="24">
-        <el-col :span="12">
-          <el-form-item label="运费" prop="costFreight">
-            <el-input v-model="form.costFreight" style="width: 220px" clearable></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item label="直送" prop="costDirect">
-            <el-input v-model="form.costDirect" style="width: 220px" clearable></el-input>
-          </el-form-item>
-        </el-col>
-      </el-row>
-
-      <el-row :span="24">
-        <el-col :span="12">
-          <el-form-item label="保险" prop="costInsurance">
-            <el-input v-model="form.costInsurance" style="width: 220px" clearable></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item label="转运公司">
-            <el-select v-model="form.transferCompanyId" clearable
-                       filterable placeholder="请选择">
-              <el-option v-for="item in transferCoList"
-                         :key="item.id"
-                         :value="item.id"
-                         :label="item.name">
-              </el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
-      </el-row>
-
-      <el-row :span="24">
-        <el-col :span="12">
-          <el-form-item label="转运单号">
-            <el-input v-model="form.transferNo" style="width: 220px" clearable></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item label="回单">
-            <el-date-picker
-              v-model="form.receipt"
-              type="date"
-              placeholder="选择日期">
-            </el-date-picker>
-          </el-form-item>
-        </el-col>
-      </el-row>
-
-      <el-row :span="24">
-        <el-col :span="12">
-          <el-form-item label="提成" prop="commission">
-            <el-input v-model="form.commission" style="width: 220px" clearable></el-input>
-          </el-form-item>
-        </el-col>
-      </el-row>
-
     </el-form>
 
     <el-row>
@@ -173,7 +185,9 @@
     getGoodsInfoList,
     getOrderDetail,
     saveOrder,
-    updateOrder
+    updateOrder,
+    getSalesmanInfoList,
+    getSalesmanIdByClientId
   } from '../../api/api'
 
   export default {
@@ -199,12 +213,14 @@
           transferNo: '',
           receipt: '',
           commission: '',
-          remark: ''
+          remark: '',
+          salesmanId: ''
         },
         formdisabled: false,
         saveDisabled: false,
         clientList: null,
         transferCoList: null,
+        salesmanList: null,
         goodsList: null,
         confirmRules: {
           no: [
@@ -351,6 +367,20 @@
             this.goodsList = res.data
           }
         })
+      },
+      getSalesmanInfoList() {
+        getSalesmanInfoList().then((res) => {
+          if (res.status == 200) {
+            this.salesmanList = res.data
+          }
+        })
+      },
+      clientChange() {
+        getSalesmanIdByClientId(this.form.clientId).then((res) => {
+          if (res.status == 200) {
+            this.form.salesmanId = res.data
+          }
+        })
       }
     },
     mounted() {
@@ -364,6 +394,7 @@
       this.getClientInfoList()
       this.getTransferCoInfoList()
       this.getGoodsInfoList()
+      this.getSalesmanInfoList()
     }
   }
 </script>

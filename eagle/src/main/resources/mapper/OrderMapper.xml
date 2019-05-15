@@ -24,6 +24,7 @@
     <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
     <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
     <result column="commission" property="commission" jdbcType="DECIMAL" />
+    <result column="salesman_id" property="salesmanId" jdbcType="BIGINT" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -86,7 +87,7 @@
   <sql id="Base_Column_List" >
     id, no, order_date, client_id, addr, goods_id, count, weight, volume, freight_monthly, 
     freight_now, freight_arrive, cost_freight, cost_direct, cost_insurance, transfer_company_id, 
-    transfer_no, receipt, remark, create_date, modify_date, commission
+    transfer_no, receipt, remark, create_date, modify_date, commission, salesman_id
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.eagle.order.domain.OrderExample" >
     select
@@ -127,7 +128,7 @@
       cost_freight, cost_direct, cost_insurance, 
       transfer_company_id, transfer_no, receipt, 
       remark, create_date, modify_date, 
-      commission)
+      commission, salesman_id)
     values (#{id,jdbcType=BIGINT}, #{no,jdbcType=VARCHAR}, #{orderDate,jdbcType=DATE}, 
       #{clientId,jdbcType=BIGINT}, #{addr,jdbcType=VARCHAR}, #{goodsId,jdbcType=BIGINT}, 
       #{count,jdbcType=INTEGER}, #{weight,jdbcType=DECIMAL}, #{volume,jdbcType=DECIMAL}, 
@@ -135,7 +136,7 @@
       #{costFreight,jdbcType=DECIMAL}, #{costDirect,jdbcType=DECIMAL}, #{costInsurance,jdbcType=DECIMAL}, 
       #{transferCompanyId,jdbcType=BIGINT}, #{transferNo,jdbcType=VARCHAR}, #{receipt,jdbcType=DATE}, 
       #{remark,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP}, 
-      #{commission,jdbcType=DECIMAL})
+      #{commission,jdbcType=DECIMAL}, #{salesmanId,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.eagle.order.domain.Order" >
     insert into t_order
@@ -206,6 +207,9 @@
       <if test="commission != null" >
         commission,
       </if>
+      <if test="salesmanId != null" >
+        salesman_id,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -273,6 +277,9 @@
       </if>
       <if test="commission != null" >
         #{commission,jdbcType=DECIMAL},
+      </if>
+      <if test="salesmanId != null" >
+        #{salesmanId,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
@@ -351,6 +358,9 @@
       <if test="record.commission != null" >
         commission = #{record.commission,jdbcType=DECIMAL},
       </if>
+      <if test="record.salesmanId != null" >
+        salesman_id = #{record.salesmanId,jdbcType=BIGINT},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -379,7 +389,8 @@
       remark = #{record.remark,jdbcType=VARCHAR},
       create_date = #{record.createDate,jdbcType=TIMESTAMP},
       modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
-      commission = #{record.commission,jdbcType=DECIMAL}
+      commission = #{record.commission,jdbcType=DECIMAL},
+      salesman_id = #{record.salesmanId,jdbcType=BIGINT}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -450,6 +461,9 @@
       <if test="commission != null" >
         commission = #{commission,jdbcType=DECIMAL},
       </if>
+      <if test="salesmanId != null" >
+        salesman_id = #{salesmanId,jdbcType=BIGINT},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -475,7 +489,8 @@
       remark = #{remark,jdbcType=VARCHAR},
       create_date = #{createDate,jdbcType=TIMESTAMP},
       modify_date = #{modifyDate,jdbcType=TIMESTAMP},
-      commission = #{commission,jdbcType=DECIMAL}
+      commission = #{commission,jdbcType=DECIMAL},
+      salesman_id = #{salesmanId,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

@@ -31,4 +31,6 @@ public interface OrderMapper {
     int updateByPrimaryKey(Order record);
 
     List<OrderVO> selectByExampleNew(OrderExample example);
+
+    int countByExampleNew(OrderExample example);
 }

@@ -34,4 +34,6 @@ public interface ClientMapper {
     List<ClientInfo> getClientInfo();
 
     List<ClientVO> selectByExampleNew(ClientExample example);
+
+    Long getSalesmanIdByClientId(Long id);
 }

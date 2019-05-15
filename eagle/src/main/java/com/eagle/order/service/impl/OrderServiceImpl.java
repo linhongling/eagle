@@ -1,12 +1,9 @@
 package com.eagle.order.service.impl;
 
-import com.eagle.order.domain.Client;
-import com.eagle.order.mapper.OrderMapper;
 import com.eagle.order.domain.Order;
 import com.eagle.order.domain.OrderExample;
-import com.eagle.order.domain.Role;
+import com.eagle.order.mapper.OrderMapper;
 import com.eagle.order.service.OrderService;
-import com.eagle.order.util.CommonBeanUtils;
 import com.eagle.order.util.QueryData;
 import com.eagle.order.util.ReturnResult;
 import com.eagle.order.vo.OrderQuery;
@@ -14,7 +11,6 @@ import com.eagle.order.vo.OrderVO;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.base.Strings;
-import org.apache.commons.collections.ListUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -60,6 +56,9 @@ public class OrderServiceImpl implements OrderService {
             criteria.andReceiptGreaterThanOrEqualTo(orderQuery.getStartReceipt());
             criteria.andReceiptLessThanOrEqualTo(orderQuery.getEndReceipt());
         }
+        if (null != orderQuery.getSalesManIds() && orderQuery.getSalesManIds().size() > 0) {
+            criteria.andSalesmanIdIn(orderQuery.getSalesManIds());
+        }
         PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
         List<OrderVO> orders = orderMapper.selectByExampleNew(orderExample);
         PageInfo<OrderVO> resultInfo = new PageInfo<OrderVO>(orders);
@@ -91,8 +90,11 @@ public class OrderServiceImpl implements OrderService {
             criteria.andReceiptGreaterThanOrEqualTo(orderQuery.getStartReceipt());
             criteria.andReceiptLessThanOrEqualTo(orderQuery.getEndReceipt());
         }
-        int count = orderMapper.countByExample(orderExample);
-        if(count > MAX){
+        if (null != orderQuery.getSalesManIds() && orderQuery.getSalesManIds().size() > 0) {
+            criteria.andSalesmanIdIn(orderQuery.getSalesManIds());
+        }
+        int count = orderMapper.countByExampleNew(orderExample);
+        if (count > MAX) {
             return ReturnResult.error("超过导出数量上限");
         }
         List<OrderVO> orders = orderMapper.selectByExampleNew(orderExample);
@@ -111,7 +113,7 @@ public class OrderServiceImpl implements OrderService {
         OrderExample.Criteria criteria = orderExample.createCriteria();
         criteria.andNoEqualTo(order.getNo());
         List<Order> orders = orderMapper.selectByExample(orderExample);
-        if(orders != null && orders.size() > 0){
+        if (orders != null && orders.size() > 0) {
             return ReturnResult.error("此运单号重复");
         }
         int num = orderMapper.insert(order);

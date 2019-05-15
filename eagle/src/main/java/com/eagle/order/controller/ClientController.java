@@ -69,4 +69,12 @@ public class ClientController {
         }
         return clientService.delete(id);
     }
+
+    @RequestMapping("getSalesmanIdByClientId")
+    public ReturnResult<Long> getSalesmanIdByClientId(@RequestBody Long id){
+        if(id == null){
+            return ReturnResult.error("参数ID不能为空");
+        }
+        return clientService.getSalesmanIdByClientId(id);
+    }
 }

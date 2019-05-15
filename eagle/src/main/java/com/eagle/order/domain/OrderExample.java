@@ -1443,53 +1443,113 @@ public class OrderExample {
             return (Criteria) this;
         }
 
-        public Criteria andCommissionEqualTo(Long value) {
+        public Criteria andCommissionEqualTo(BigDecimal value) {
             addCriterion("commission =", value, "commission");
             return (Criteria) this;
         }
 
-        public Criteria andCommissionNotEqualTo(Long value) {
+        public Criteria andCommissionNotEqualTo(BigDecimal value) {
             addCriterion("commission <>", value, "commission");
             return (Criteria) this;
         }
 
-        public Criteria andCommissionGreaterThan(Long value) {
+        public Criteria andCommissionGreaterThan(BigDecimal value) {
             addCriterion("commission >", value, "commission");
             return (Criteria) this;
         }
 
-        public Criteria andCommissionGreaterThanOrEqualTo(Long value) {
+        public Criteria andCommissionGreaterThanOrEqualTo(BigDecimal value) {
             addCriterion("commission >=", value, "commission");
             return (Criteria) this;
         }
 
-        public Criteria andCommissionLessThan(Long value) {
+        public Criteria andCommissionLessThan(BigDecimal value) {
             addCriterion("commission <", value, "commission");
             return (Criteria) this;
         }
 
-        public Criteria andCommissionLessThanOrEqualTo(Long value) {
+        public Criteria andCommissionLessThanOrEqualTo(BigDecimal value) {
             addCriterion("commission <=", value, "commission");
             return (Criteria) this;
         }
 
-        public Criteria andCommissionIn(List<Long> values) {
+        public Criteria andCommissionIn(List<BigDecimal> values) {
             addCriterion("commission in", values, "commission");
             return (Criteria) this;
         }
 
-        public Criteria andCommissionNotIn(List<Long> values) {
+        public Criteria andCommissionNotIn(List<BigDecimal> values) {
             addCriterion("commission not in", values, "commission");
             return (Criteria) this;
         }
 
-        public Criteria andCommissionBetween(Long value1, Long value2) {
+        public Criteria andCommissionBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("commission between", value1, value2, "commission");
             return (Criteria) this;
         }
 
-        public Criteria andCommissionNotBetween(Long value1, Long value2) {
+        public Criteria andCommissionNotBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("commission not between", value1, value2, "commission");
+            return (Criteria) this;
+        }
+
+        public Criteria andSalesmanIdIsNull() {
+            addCriterion("salesman_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSalesmanIdIsNotNull() {
+            addCriterion("salesman_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSalesmanIdEqualTo(Long value) {
+            addCriterion("salesman_id =", value, "salesmanId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSalesmanIdNotEqualTo(Long value) {
+            addCriterion("salesman_id <>", value, "salesmanId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSalesmanIdGreaterThan(Long value) {
+            addCriterion("salesman_id >", value, "salesmanId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSalesmanIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("salesman_id >=", value, "salesmanId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSalesmanIdLessThan(Long value) {
+            addCriterion("salesman_id <", value, "salesmanId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSalesmanIdLessThanOrEqualTo(Long value) {
+            addCriterion("salesman_id <=", value, "salesmanId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSalesmanIdIn(List<Long> values) {
+            addCriterion("o.salesman_id in", values, "salesmanId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSalesmanIdNotIn(List<Long> values) {
+            addCriterion("salesman_id not in", values, "salesmanId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSalesmanIdBetween(Long value1, Long value2) {
+            addCriterion("salesman_id between", value1, value2, "salesmanId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSalesmanIdNotBetween(Long value1, Long value2) {
+            addCriterion("salesman_id not between", value1, value2, "salesmanId");
             return (Criteria) this;
         }
     }

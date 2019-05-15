@@ -51,6 +51,13 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     public ReturnResult<Integer> saveGoods(Goods goods) {
+        GoodsExample goodsExample = new GoodsExample();
+        GoodsExample.Criteria criteria = goodsExample.createCriteria();
+        criteria.andNameEqualTo(goods.getName());
+        List<Goods> goodsList = goodsMapper.selectByExample(goodsExample);
+        if(goodsList != null && goodsList.size() > 0){
+            return ReturnResult.error("此品类名称重复");
+        }
         goods.setCreateDate(new Date());
         int num = goodsMapper.insert(goods);
         return ReturnResult.ok(num);
@@ -58,6 +65,13 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     public ReturnResult<Integer> updateGoods(Goods goods) {
+        GoodsExample goodsExample = new GoodsExample();
+        GoodsExample.Criteria criteria = goodsExample.createCriteria();
+        criteria.andNameEqualTo(goods.getName()).andIdNotEqualTo(goods.getId());
+        List<Goods> goodsList = goodsMapper.selectByExample(goodsExample);
+        if(goodsList != null && goodsList.size() > 0){
+            return ReturnResult.error("此品类名称重复");
+        }
         goods.setModifyDate(new Date());
         int num = goodsMapper.updateByPrimaryKey(goods);
         return ReturnResult.ok(num);

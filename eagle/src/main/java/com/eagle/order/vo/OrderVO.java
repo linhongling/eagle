@@ -55,5 +55,7 @@ public class OrderVO {
 
     private Date modifyDate;
 
-    private Long commission;
+    private BigDecimal commission;
+
+    private String salesmanName;
 }

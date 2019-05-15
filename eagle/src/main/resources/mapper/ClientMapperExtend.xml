@@ -29,4 +29,8 @@
       order by ${orderByClause}
     </if>
   </select>
+
+  <select id="getSalesmanIdByClientId" resultType="java.lang.Long" parameterType="java.lang.Long">
+    SELECT salesman_id from t_client where id = #{id,jdbcType=BIGINT}
+  </select>
 </mapper>

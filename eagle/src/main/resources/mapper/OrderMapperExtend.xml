@@ -28,16 +28,25 @@
         o.commission commission,
         c.name clientName,
         tc.name transferCompanyName,
-        g.name goodsName
+        g.name goodsName,
+        s.name salesmanName
         from t_order o
         LEFT JOIN t_client c ON client_id = c.id
         LEFT JOIN t_transfer_company tc ON transfer_company_id = tc.id
         LEFT JOIN t_goods g ON goods_id = g.id
+        LEFT JOIN t_salesman s ON s.id = o.salesman_id
         <if test="_parameter != null" >
             <include refid="Example_Where_Clause" />
         </if>
         <if test="orderByClause != null" >
             order by ${orderByClause}
+        </if>
+    </select>
+
+    <select id="countByExampleNew" parameterType="com.eagle.order.domain.OrderExample" resultType="java.lang.Integer" >
+        select count(*) from t_order o
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
         </if>
     </select>
 </mapper>

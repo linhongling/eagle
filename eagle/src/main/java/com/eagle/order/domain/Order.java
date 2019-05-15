@@ -46,7 +46,9 @@ public class Order {
 
     private Date modifyDate;
 
-    private Long commission;
+    private BigDecimal commission;
+
+    private Long salesmanId;
 
     public Long getId() {
         return id;
@@ -216,11 +218,19 @@ public class Order {
         this.modifyDate = modifyDate;
     }
 
-    public Long getCommission() {
+    public BigDecimal getCommission() {
         return commission;
     }
 
-    public void setCommission(Long commission) {
+    public void setCommission(BigDecimal commission) {
         this.commission = commission;
+    }
+
+    public Long getSalesmanId() {
+        return salesmanId;
+    }
+
+    public void setSalesmanId(Long salesmanId) {
+        this.salesmanId = salesmanId;
     }
 }

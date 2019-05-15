@@ -189,5 +189,10 @@ export function getSalesmanInfoList() {
   return axiosIns.get(url.GET_SALESMAN_INFO_LIST);
 }
 
+export function getSalesmanIdByClientId(json) {
+  return axiosIns.post(url.GET_SALESMAN_ID_BY_CLIENT, json);
+}
+
+
 
 
