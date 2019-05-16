@@ -257,7 +257,7 @@
                 const multiHeader = [['', '', '', '', '', '', '', '', '运费收入', '', '', '出货成本', '', '', '', '', '', '', '', '']]
                 const header = ['日期', '运单号', '客户', '目的地', '品名', '件数', '重量', '体积', '月结', '现付', '到付',
                   '运费', '直送', '保险', '转运公司', '转运单号', '回单', '业务员', '提成', '备注']
-                const filterVal = ['orderDate', 'no', 'clientName', 'addr', 'goodsName', 'count', 'weight', 'volume',
+                const filterVal = ['orderDate', 'no', 'clientName', 'destination', 'goodsName', 'count', 'weight', 'volume',
                   'freightMonthly', 'freightNow', 'freightArrive', 'costFreight', 'costDirect', 'costInsurance',
                   'transferCompanyName', 'transferNo', 'receipt', 'salesmanName', 'commission', 'remark']
                 const list = res.data

@@ -132,4 +132,9 @@ public class OrderServiceImpl implements OrderService {
         return ReturnResult.ok(num);
     }
 
+    @Override
+    public ReturnResult<String> getDestination() {
+        List<String> destination = orderMapper.getDestination();
+        return ReturnResult.ok(destination);
+    }
 }

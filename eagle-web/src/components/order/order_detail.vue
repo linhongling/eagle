@@ -19,7 +19,40 @@
       </el-row>
 
       <el-row :span="24">
+        <el-col :span="12">
+          <el-form-item label="件数" prop="count">
+            <el-input v-model="form.count" style="width: 220px" clearable></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="重量" prop="weight">
+            <el-input v-model="form.weight" style="width: 220px" clearable></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
 
+      <el-row :span="24">
+        <el-col :span="12">
+          <el-form-item label="体积" prop="volume">
+            <el-input v-model="form.volume" style="width: 220px" clearable></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="品名">
+            <el-select v-model="form.goodsId" clearable
+                       filterable placeholder="请选择">
+              <el-option v-for="item in goodsList"
+                         :key="item.id"
+                         :value="item.id"
+                         :label="item.name">
+              </el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+
+      </el-row>
+
+      <el-row :span="24">
         <el-col :span="12">
           <el-form-item label="客户">
             <el-select v-model="form.clientId" clearable
@@ -42,39 +75,6 @@
                          :label="item.name">
               </el-option>
             </el-select>
-          </el-form-item>
-        </el-col>
-      </el-row>
-
-      <el-row :span="24">
-        <el-col :span="12">
-          <el-form-item label="品名">
-            <el-select v-model="form.goodsId" clearable
-                       filterable placeholder="请选择">
-              <el-option v-for="item in goodsList"
-                         :key="item.id"
-                         :value="item.id"
-                         :label="item.name">
-              </el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item label="件数" prop="count">
-            <el-input v-model="form.count" style="width: 220px" clearable></el-input>
-          </el-form-item>
-        </el-col>
-      </el-row>
-
-      <el-row :span="24">
-        <el-col :span="12">
-          <el-form-item label="重量" prop="weight">
-            <el-input v-model="form.weight" style="width: 220px" clearable></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item label="体积" prop="volume">
-            <el-input v-model="form.volume" style="width: 220px" clearable></el-input>
           </el-form-item>
         </el-col>
       </el-row>
@@ -158,9 +158,58 @@
       <el-row :span="24">
         <el-col :span="12">
           <el-form-item label="目的地">
+            <!--<el-select
+              v-model="form.destination"
+              filterable
+              allow-create
+              clearable
+              default-first-option>
+              <el-option
+                v-for="item in destinationList"
+                :key="item"
+                :label="item"
+                :value="item">
+              </el-option>
+            </el-select>-->
+            <el-select
+              v-model="form.destination"
+              filterable
+              allow-create
+              clearable
+              remote
+              reserve-keyword
+              :remote-method="remoteMethod"
+              :loading="loading">
+              <el-option
+                v-for="item in destinationOption"
+                :key="item"
+                :label="item"
+                :value="item">
+              </el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="收件人" prop="recipient">
+            <el-input v-model="form.recipient" style="width: 220px" clearable></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+
+      <el-row :span="24">
+        <el-col :span="12">
+          <el-form-item label="收件人号码" prop="recipientPhone">
+            <el-input v-model="form.recipientPhone" style="width: 220px" clearable></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="地址">
             <el-input type="textarea" autosize v-model="form.addr" style="width: 220px" clearable></el-input>
           </el-form-item>
         </el-col>
+      </el-row>
+
+      <el-row :span="24">
         <el-col :span="12">
           <el-form-item label="备注">
             <el-input type="textarea" autosize v-model="form.remark" style="width: 220px" clearable></el-input>
@@ -187,7 +236,8 @@
     saveOrder,
     updateOrder,
     getSalesmanInfoList,
-    getSalesmanIdByClientId
+    getSalesmanIdByClientId,
+    getDestination
   } from '../../api/api'
 
   export default {
@@ -195,7 +245,7 @@
     data() {
       return {
         form: {
-          orderDate: '',
+          orderDate: new Date(),
           no: '',
           clientId: '',
           addr: '',
@@ -214,7 +264,10 @@
           receipt: '',
           commission: '',
           remark: '',
-          salesmanId: ''
+          salesmanId: '',
+          destination: '',
+          recipient: '',
+          recipientPhone: ''
         },
         formdisabled: false,
         saveDisabled: false,
@@ -222,6 +275,9 @@
         transferCoList: null,
         salesmanList: null,
         goodsList: null,
+        destinationList: null,
+        destinationOption: null,
+        loading: false,
         confirmRules: {
           no: [
             {required: true, message: '请输入运单号', trigger: 'blur'}
@@ -230,14 +286,15 @@
             {required: true, message: '请输入日期', trigger: 'blur'}
           ],
           count: [
+            {required: true, message: '请输入件数', trigger: 'blur'},
             {
-              required: true,
               pattern: /^[0-9]*[1-9][0-9]*$/,
               message: '请输入正整数',
               trigger: 'blur'
             }
           ],
           weight: [
+            {required: true, message: '请输入重量', trigger: 'blur'},
             {
               required: true,
               pattern: /^(([1-9]{1}\d*)|(0{1}))(\.\d{1,3})?$/,
@@ -246,6 +303,7 @@
             }
           ],
           volume: [
+            {required: true, message: '请输入体积', trigger: 'blur'},
             {
               required: true,
               pattern: /^(([1-9]{1}\d*)|(0{1}))(\.\d{1,3})?$/,
@@ -299,6 +357,13 @@
             {
               pattern: /^(([1-9]{1}\d*)|(0{1}))(\.\d{1,3})?$/,
               message: '只支持3位小数点',
+              trigger: 'blur'
+            }
+          ],
+          recipientPhone: [
+            {
+              pattern: /^[0-9]*[1-9][0-9]*$/,
+              message: '请输入正确的号码',
               trigger: 'blur'
             }
           ]
@@ -384,6 +449,26 @@
             this.form.salesmanId = res.data
           }
         })
+      },
+      getDestination() {
+        getDestination().then((res) => {
+          if (res.status == 200) {
+            this.destinationList = res.data
+          }
+        })
+      },
+      remoteMethod(query) {
+        if (query !== '') {
+          this.loading = true;
+          setTimeout(() => {
+            this.loading = false;
+            this.destinationOption = this.destinationList.filter(item => {
+              return item.indexOf(query) > -1;
+            });
+          }, 200);
+        } else {
+          this.destinationOption = [];
+        }
       }
     },
     mounted() {
@@ -398,6 +483,7 @@
       this.getTransferCoInfoList()
       this.getGoodsInfoList()
       this.getSalesmanInfoList()
+      this.getDestination()
     }
   }
 </script>

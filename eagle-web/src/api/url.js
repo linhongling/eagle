@@ -38,7 +38,7 @@ export const SAVE_SALESMAN="/salesman/saveSalesman"
 export const UPDATE_SALESMAN="/salesman/updateSalesman"
 export const GET_SALESMAN_INFO_LIST ="/salesman/getSalesmanInfoList"
 export const GET_SALESMAN_ID_BY_CLIENT="/client/getSalesmanIdByClientId"
-
+export const GET_DESTINATION  = "/order/getDestination"
 
 export const IMG_URL="http://localhost:8077"
 export const IDENTI_CODE="/index/captcha-image"

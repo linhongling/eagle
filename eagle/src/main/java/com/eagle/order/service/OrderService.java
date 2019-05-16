@@ -27,4 +27,6 @@ public interface OrderService {
     ReturnResult<Integer> updateOrder(Order order);
 
     ReturnResult<Integer> delete(Long id);
+
+    ReturnResult<String> getDestination();
 }

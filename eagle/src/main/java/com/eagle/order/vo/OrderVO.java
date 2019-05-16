@@ -58,4 +58,10 @@ public class OrderVO {
     private BigDecimal commission;
 
     private String salesmanName;
+
+    private String destination;
+
+    private String recipient;
+
+    private String recipientPhone;
 }

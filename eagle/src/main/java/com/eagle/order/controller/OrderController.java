@@ -70,4 +70,8 @@ public class OrderController {
         return orderService.delete(id);
     }
 
+    @RequestMapping("/getDestination")
+    public ReturnResult<String> getDestination(){
+        return orderService.getDestination();
+    }
 }

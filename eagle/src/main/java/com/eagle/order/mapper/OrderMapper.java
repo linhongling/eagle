@@ -2,6 +2,7 @@ package com.eagle.order.mapper;
 
 import com.eagle.order.domain.Order;
 import com.eagle.order.domain.OrderExample;
+
 import java.util.List;
 
 import com.eagle.order.vo.OrderVO;
@@ -33,4 +34,6 @@ public interface OrderMapper {
     List<OrderVO> selectByExampleNew(OrderExample example);
 
     int countByExampleNew(OrderExample example);
+
+    List<String> getDestination();
 }

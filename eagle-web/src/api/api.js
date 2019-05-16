@@ -193,6 +193,10 @@ export function getSalesmanIdByClientId(json) {
   return axiosIns.post(url.GET_SALESMAN_ID_BY_CLIENT, json);
 }
 
+export function getDestination() {
+  return axiosIns.get(url.GET_DESTINATION);
+}
+
 
 
 
