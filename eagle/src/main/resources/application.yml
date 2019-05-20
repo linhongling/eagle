@@ -33,7 +33,7 @@ spring:
 
 mybatis:
     mapper-locations: classpath:mapper/*.xml
-    type-aliases-package: com.eagle.order.po
+    type-aliases-package: com.eagle.order.domain
     configuration:
       map-underscore-to-camel-case: true
 
