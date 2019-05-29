@@ -44,7 +44,7 @@ public class SalesmanServiceImpl implements SalesmanService {
     }
 
     @Override
-    public ReturnResult<Salesman> getDtail(Long id) {
+    public ReturnResult<Salesman> getDetail(Long id) {
         Salesman salesman = salesmanMapper.selectByPrimaryKey(id);
         return ReturnResult.ok(salesman);
     }

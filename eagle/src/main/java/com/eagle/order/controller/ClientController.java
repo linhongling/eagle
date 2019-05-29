@@ -34,11 +34,11 @@ public class ClientController {
     }
 
     @RequestMapping("/getDetail")
-    public ReturnResult<Client> getDtail(@RequestBody Long id) {
+    public ReturnResult<Client> getDetail(@RequestBody Long id) {
         if(id == null){
             return ReturnResult.error("参数ID不能为空");
         }
-        return clientService.getDtail(id);
+        return clientService.getDetail(id);
     }
 
     @RequestMapping("/saveClient")

@@ -197,6 +197,21 @@ export function getDestination() {
   return axiosIns.get(url.GET_DESTINATION);
 }
 
+export function getTaskList(id) {
+  return axiosIns.post(url.GET_TASK_LIST, id);
+}
+
+export function getTaskDetail(json) {
+  return axiosIns.get(url.ORDER_TASK + '/' + json);
+}
+
+export function saveTask(json) {
+  return axiosIns.post(url.ORDER_TASK, json);
+}
+
+export function updateTask(id, json) {
+  return axiosIns.put(url.ORDER_TASK + '/' + id, json);
+}
 
 
 

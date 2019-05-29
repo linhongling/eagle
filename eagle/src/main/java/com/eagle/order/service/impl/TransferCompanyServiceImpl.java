@@ -47,7 +47,7 @@ public class TransferCompanyServiceImpl implements TransferCompanyService {
     }
 
     @Override
-    public ReturnResult<TransferCompany> getDtail(Long id) {
+    public ReturnResult<TransferCompany> getDetail(Long id) {
         TransferCompany transferCompany = transferCompanyMapper.selectByPrimaryKey(id);
         return ReturnResult.ok(transferCompany);
     }

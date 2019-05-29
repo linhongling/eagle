@@ -20,7 +20,7 @@ public interface OrderService {
 
     ReturnResult<OrderVO> exportList(OrderQuery queryData);
 
-    ReturnResult<Order> getDtail(Long id);
+    ReturnResult<Order> getDetail(Long id);
 
     ReturnResult<Integer> saveOrder(Order order);
 

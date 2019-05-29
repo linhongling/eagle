@@ -19,7 +19,7 @@ public interface SalesmanService {
 
     ReturnResult<PageInfo<Salesman>> queryList(QueryData<Salesman> queryData);
 
-    ReturnResult<Salesman> getDtail(Long id);
+    ReturnResult<Salesman> getDetail(Long id);
 
     ReturnResult<Integer> saveSalesman(Salesman salesman);
 

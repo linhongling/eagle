@@ -39,11 +39,11 @@ public class OrderController {
     }
 
     @RequestMapping("/getDetail")
-    public ReturnResult<Order> getDtail(@RequestBody Long id) {
+    public ReturnResult<Order> getDetail(@RequestBody Long id) {
         if(id == null){
             return ReturnResult.error("参数ID不能为空");
         }
-        return orderService.getDtail(id);
+        return orderService.getDetail(id);
     }
 
     @RequestMapping("/saveOrder")
@@ -55,7 +55,7 @@ public class OrderController {
     }
 
     @RequestMapping("/updateOrder")
-    public ReturnResult<Integer> updateClient(@RequestBody Order order) {
+    public ReturnResult<Integer> updateOrder(@RequestBody Order order) {
         if(order == null || StringUtils.isEmpty(order.getNo())) {
             return ReturnResult.error("参数order不能为空");
         }

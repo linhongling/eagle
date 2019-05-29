@@ -19,7 +19,7 @@ public interface TransferCompanyService {
 
     ReturnResult<PageInfo<TransferCompany>> queryList(QueryData<TransferCompany> queryData);
 
-    ReturnResult<TransferCompany> getDtail(Long id);
+    ReturnResult<TransferCompany> getDetail(Long id);
 
     ReturnResult<Integer> saveTransferCo(TransferCompany transferCompany);
 

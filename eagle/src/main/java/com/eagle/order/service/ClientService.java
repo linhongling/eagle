@@ -18,7 +18,7 @@ public interface ClientService {
 
     ReturnResult<PageInfo<ClientVO>> queryList(QueryData<Client> queryData);
 
-    ReturnResult<Client> getDtail(Long id);
+    ReturnResult<Client> getDetail(Long id);
 
     ReturnResult<Integer> saveClient(Client client);
 

@@ -18,7 +18,7 @@ public interface GoodsService {
 
     ReturnResult<PageInfo<Goods>> queryList(QueryData<Goods> queryData);
 
-    ReturnResult<Goods> getDtail(Long id);
+    ReturnResult<Goods> getDetail(Long id);
 
     ReturnResult<Integer> saveGoods(Goods goods);
 

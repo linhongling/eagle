@@ -40,11 +40,11 @@ public class TransferCompanyController {
     }
 
     @RequestMapping("/getDetail")
-    public ReturnResult<TransferCompany> getDtail(@RequestBody Long id) {
+    public ReturnResult<TransferCompany> getDetail(@RequestBody Long id) {
         if(id == null){
             return ReturnResult.error("参数ID不能为空");
         }
-        return transferCompanyService.getDtail(id);
+        return transferCompanyService.getDetail(id);
     }
 
     @RequestMapping("/saveTransferCo")

@@ -40,11 +40,11 @@ public class SalesmanController {
     }
 
     @RequestMapping("/getDetail")
-    public ReturnResult<Salesman> getDtail(@RequestBody Long id) {
+    public ReturnResult<Salesman> getDetail(@RequestBody Long id) {
         if(id == null){
             return ReturnResult.error("参数ID不能为空");
         }
-        return salesmanService.getDtail(id);
+        return salesmanService.getDetail(id);
     }
 
     @RequestMapping("/saveSalesman")

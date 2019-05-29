@@ -102,7 +102,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public ReturnResult<Order> getDtail(Long id) {
+    public ReturnResult<Order> getDetail(Long id) {
         Order order = orderMapper.selectByPrimaryKey(id);
         return ReturnResult.ok(order);
     }

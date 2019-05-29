@@ -31,6 +31,9 @@ export const SAVE_GOODS="/goods/saveGoods"
 export const UPDATE_GOODS="/goods/updateGoods"
 export const DELETE_GOODS="/goods/delete"
 export const GET_GOODS_INFO_LIST ="/goods/getGoodsInfoList"
+export const ORDER_TASK = "/orderTask";
+export const GET_TASK_LIST = "/orderTask/getList";
+
 
 export const GET_SALESMAN_LIST ="/salesman/queryList"
 export const GET_SALESMAN_DETAIL="/salesman/getDetail"

@@ -45,7 +45,7 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public ReturnResult<Client> getDtail(Long id) {
+    public ReturnResult<Client> getDetail(Long id) {
         Client client = clientMapper.selectByPrimaryKey(id);
         return ReturnResult.ok(client);
     }
