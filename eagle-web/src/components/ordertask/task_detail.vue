@@ -23,7 +23,7 @@
 
     <el-row>
       <el-col align="center">
-        <el-button type="primary" @click="onSubmit">保存</el-button>
+        <el-button type="primary" @click="onSubmit" :disabled=saveDisabled>保存</el-button>
         <el-button @click="close">取消</el-button>
       </el-col>
     </el-row>
@@ -44,23 +44,14 @@
         },
         salesmanList: null,
         formdisabled: false,
+        saveDisabled: false,
         confirmRules: {
-          name: [
-            {required: true, message: '请输入名称', trigger: 'blur'}
+          taskDesc: [
+            {required: true, message: '请输入问题描述', trigger: 'blur'},
+            {max: 255, message: '问题描述最多255个字符', trigger: 'blur'}
           ],
-          cellphone: [
-            {
-              pattern: /^1[34578]\d{9}$/,
-              message: '请输入正确的手机号码',
-              trigger: 'blur'
-            }
-         ],
-          phone: [
-            {
-              pattern: /^[0-9]*[1-9][0-9]*$/,
-              message: '请输入正确的号码',
-              trigger: 'blur'
-            }
+          orderNo: [
+            {required: true, message: '请输入订单号', trigger: 'blur'},
           ]
         }
       }
@@ -115,7 +106,10 @@
       if (this.type != 1)
         this.searchTask();
       if (this.type == 0)
-        this.formdisabled = true
+        if (this.type == 0) {
+          this.formdisabled = true
+          this.saveDisabled = true
+        }
     }
   }
 </script>

@@ -8,8 +8,10 @@ import com.eagle.order.util.ReturnResult;
 import com.eagle.order.vo.OrderQuery;
 import com.eagle.order.vo.OrderVO;
 import com.github.pagehelper.PageInfo;
+import com.google.common.base.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,20 +29,20 @@ public class OrderController {
     private OrderService orderService;
 
     @RequestMapping("/queryList")
-    public ReturnResult<PageInfo<OrderVO>> queryList(@RequestBody QueryData<OrderQuery> queryData){
+    public ReturnResult<PageInfo<OrderVO>> queryList(@RequestBody QueryData<OrderQuery> queryData) {
         ReturnResult<PageInfo<OrderVO>> returnResult = orderService.queryList(queryData);
         return returnResult;
     }
 
     @RequestMapping("/exportList")
-    public ReturnResult<OrderVO> exportList(@RequestBody OrderQuery queryData){
+    public ReturnResult<OrderVO> exportList(@RequestBody OrderQuery queryData) {
         ReturnResult<OrderVO> returnResult = orderService.exportList(queryData);
         return returnResult;
     }
 
     @RequestMapping("/getDetail")
     public ReturnResult<Order> getDetail(@RequestBody Long id) {
-        if(id == null){
+        if (id == null) {
             return ReturnResult.error("参数ID不能为空");
         }
         return orderService.getDetail(id);
@@ -48,7 +50,7 @@ public class OrderController {
 
     @RequestMapping("/saveOrder")
     public ReturnResult<Integer> saveOrder(@RequestBody Order order) {
-        if(order == null || StringUtils.isEmpty(order.getNo())) {
+        if (order == null || StringUtils.isEmpty(order.getNo())) {
             return ReturnResult.error("参数order不能为空");
         }
         return orderService.saveOrder(order);
@@ -56,7 +58,7 @@ public class OrderController {
 
     @RequestMapping("/updateOrder")
     public ReturnResult<Integer> updateOrder(@RequestBody Order order) {
-        if(order == null || StringUtils.isEmpty(order.getNo())) {
+        if (order == null || StringUtils.isEmpty(order.getNo())) {
             return ReturnResult.error("参数order不能为空");
         }
         return orderService.updateOrder(order);
@@ -64,14 +66,22 @@ public class OrderController {
 
     @RequestMapping("/delete")
     public ReturnResult<Integer> delete(@RequestBody Long id) {
-        if(id == null){
+        if (id == null) {
             return ReturnResult.error("参数ID不能为空");
         }
         return orderService.delete(id);
     }
 
     @RequestMapping("/getDestination")
-    public ReturnResult<String> getDestination(){
+    public ReturnResult<String> getDestination() {
         return orderService.getDestination();
+    }
+
+    @PostMapping("/getIdByOrderNo")
+    public ReturnResult<Long> getIdByOrderNo(@RequestBody String orderNo) {
+        if (Strings.isNullOrEmpty(orderNo)) {
+            return ReturnResult.error("参数orderNo不能为空");
+        }
+        return orderService.getIdByOrderNo(orderNo);
     }
 }

@@ -137,4 +137,15 @@ public class OrderServiceImpl implements OrderService {
         List<String> destination = orderMapper.getDestination();
         return ReturnResult.ok(destination);
     }
+
+    @Override
+    public ReturnResult<Long> getIdByOrderNo(String orderNo) {
+        OrderExample orderExample = new OrderExample();
+        orderExample.createCriteria().andNoEqualTo(orderNo);
+        List<Order> orders = orderMapper.selectByExample(orderExample);
+        if (orders == null || orders.size() == 0) {
+            return ReturnResult.error("未获取到订单信息");
+        }
+        return ReturnResult.ok(orders.get(0).getId());
+    }
 }

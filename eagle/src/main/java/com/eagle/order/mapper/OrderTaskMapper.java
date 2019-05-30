@@ -2,8 +2,9 @@ package com.eagle.order.mapper;
 
 import com.eagle.order.domain.OrderTask;
 import com.eagle.order.domain.OrderTaskExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface OrderTaskMapper {
     int countByExample(OrderTaskExample example);
@@ -27,4 +28,6 @@ public interface OrderTaskMapper {
     int updateByPrimaryKeySelective(OrderTask record);
 
     int updateByPrimaryKey(OrderTask record);
+
+    int updateTaskStatus(Long id);
 }

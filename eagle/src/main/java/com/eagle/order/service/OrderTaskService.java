@@ -23,4 +23,5 @@ public interface OrderTaskService {
 
     ReturnResult<Integer> delete(Long id);
 
+    ReturnResult<Integer> updateTaskStatus(Long id);
 }

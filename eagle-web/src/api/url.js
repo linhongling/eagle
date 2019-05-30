@@ -13,6 +13,7 @@ export const GET_ORDER_DETAIL="/order/getDetail"
 export const SAVE_ORDER="/order/saveOrder"
 export const UPDATE_ORDER="/order/updateOrder"
 export const DELETE_ORDER="/order/delete"
+export const GET_ID_BY_ORDER_NO = "/order/getIdByOrderNo";
 export const GET_CLIENT_LIST="/client/queryList"
 export const GET_CLIENT_DETAIL="/client/getDetail"
 export const SAVE_CLIENT="/client/saveClient"
@@ -33,6 +34,7 @@ export const DELETE_GOODS="/goods/delete"
 export const GET_GOODS_INFO_LIST ="/goods/getGoodsInfoList"
 export const ORDER_TASK = "/orderTask";
 export const GET_TASK_LIST = "/orderTask/getList";
+export const UPDATE_TASK_STATUS = "/orderTask/updateTaskStatus";
 
 
 export const GET_SALESMAN_LIST ="/salesman/queryList"

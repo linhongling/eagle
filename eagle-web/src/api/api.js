@@ -94,7 +94,11 @@ export function updateOrder(json) {
 }
 
 export function deleteOrder(json) {
-  return axiosIns.put(url.DELETE_ORDER, json);
+  return axiosIns.delete(url.DELETE_ORDER, json);
+}
+
+export function getIdByOrderNo(json) {
+  return axiosIns.post(url.GET_ID_BY_ORDER_NO, json)
 }
 
 export function getClientList(json) {
@@ -213,5 +217,8 @@ export function updateTask(id, json) {
   return axiosIns.put(url.ORDER_TASK + '/' + id, json);
 }
 
+export function updateTaskStatus(json) {
+  return axiosIns.post(url.UPDATE_TASK_STATUS, json);
+}
 
 

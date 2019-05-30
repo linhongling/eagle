@@ -33,16 +33,22 @@ public class OrderTaskController {
 
     @PostMapping
     public ReturnResult<Integer> save(@RequestBody OrderTask orderTask) {
-        if (orderTask == null || StringUtils.isEmpty(orderTask.getTaskDesc())) {
-            return ReturnResult.error("参数orderTask不能为空");
+        if (StringUtils.isEmpty(orderTask.getTaskDesc())) {
+            return ReturnResult.error("问题描述不能为空");
+        }
+        if (StringUtils.isEmpty(orderTask.getOrderNo())) {
+            return ReturnResult.error("订单号不能为空");
         }
         return orderTaskService.saveOrderTask(orderTask);
     }
 
     @PutMapping("/{id}")
     public ReturnResult<Integer> update(@RequestBody OrderTask orderTask) {
-        if (orderTask == null || StringUtils.isEmpty(orderTask.getTaskDesc())) {
-            return ReturnResult.error("参数orderTask不能为空");
+        if (StringUtils.isEmpty(orderTask.getTaskDesc())) {
+            return ReturnResult.error("问题描述不能为空");
+        }
+        if (StringUtils.isEmpty(orderTask.getOrderNo())) {
+            return ReturnResult.error("订单号不能为空");
         }
         return orderTaskService.updateOrderTask(orderTask);
     }
@@ -53,5 +59,13 @@ public class OrderTaskController {
             return ReturnResult.error("参数ID不能为空");
         }
         return orderTaskService.delete(id);
+    }
+
+    @PostMapping("/updateTaskStatus")
+    public ReturnResult<Integer> updateTaskStatus(@RequestBody Long id) {
+        if (id == null) {
+            return ReturnResult.error("参数ID不能为空");
+        }
+        return orderTaskService.updateTaskStatus(id);
     }
 }

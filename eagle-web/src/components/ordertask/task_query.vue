@@ -9,7 +9,7 @@
         <el-row>
           <el-col :span="8">
             <el-form-item label="订单号：">
-              <el-input v-model="querys.no" style="width:200px;" clearable></el-input>
+              <el-input v-model="querys.no" style="width:220px;" clearable></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
@@ -24,11 +24,27 @@
           </el-col>
         </el-row>
 
-
+        <el-row>
+          <el-col :span="8">
+            <el-form-item label="状态：">
+              <el-select v-model="querys.status" clearable
+                         filterable placeholder="请选择">
+                <el-option v-for="item in statusList"
+                           :key="item.id"
+                           :value="item.id"
+                           :label="item.name">
+                </el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+        </el-row>
         <el-row colspan="24">
           <el-button type="primary" size="small" @click="searchTask">查询</el-button>
           <el-button type="primary" size="small" @click="createTask">新增</el-button>
+          <el-button type="primary" size="small" @click="getDetail" :disabled=this.visibles.choosed>查看详情</el-button>
           <el-button type="primary" size="small" @click="updateTask" :disabled=this.visibles.choosed>修改</el-button>
+          <el-button type="primary" size="small" @click="updateTaskStatus" :disabled=this.visibles.choosed>已解决
+          </el-button>
         </el-row>
       </el-form>
 
@@ -51,7 +67,11 @@
             <span>{{scope.row.createDate | formatDateSimple}}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="orderNo" label="运单号" width="180"></el-table-column>
+        <el-table-column label="运单号" width="180">
+          <template slot-scope="scope">
+            <span style="text-decoration:underline;cursor:pointer"  @click="getOrderDetail">{{scope.row.orderNo}}</span>
+          </template>
+        </el-table-column>
         <el-table-column prop="taskDesc" label="问题单描述"></el-table-column>
         <el-table-column prop="status" label="状态" :formatter="enumsFormatter" width="120"></el-table-column>
       </el-table>
@@ -68,17 +88,21 @@
         <task_detail :id="this.currentRowId" :type="this.type" @close-dialog="closeDialog"></task_detail>
       </el-dialog>
 
+      <el-dialog title="订单信息" :visible.sync="orderDialogVisible" v-if='orderDialogVisible' width="1000px">
+        <order_detail :id="this.currentRowOrderId" :type="this.type" @close-dialog="closeDialog"></order_detail>
+      </el-dialog>
     </div>
   </div>
 </template>
 
 <script>
   import base from '@/components/base.vue'
-  import {getTaskList} from '@/api/api'
+  import {getTaskList, updateTaskStatus, getIdByOrderNo} from '@/api/api'
   import Task_detail from "./task_detail";
+  import Order_detail from "../order/order_detail";
 
   export default {
-    components: {Task_detail},
+    components: {Order_detail, Task_detail},
     extends: base,
     data() {
       return {
@@ -87,16 +111,20 @@
         exportData: [],
         currentRow: {},
         currentRowId: '',
+        currentRowOrderId: '',
         querys: {
           no: '',
           startCreateDate: '',
-          endCreateDate: ''
+          endCreateDate: '',
+          status: ''
         },
         queryCreateDate: '',
+        statusList: [{id: '', name: '全部'}, {id: 0, name: '未解决'}, {id: 1, name: '已解决'}],
         visibles: {
           choosed: true,
         },
         dialogVisible: false,
+        orderDialogVisible: false,
         pageNum: 0,
         total: 0,
       }
@@ -144,6 +172,10 @@
         this.type = 2
         this.dialogVisible = true
       },
+      getDetail() {
+        this.type = 0
+        this.dialogVisible = true
+      },
       closeDialog(refresh) {
         this.dialogVisible = false
         if (refresh)
@@ -165,7 +197,30 @@
         } else {
           return "未解决"
         }
-      }
+      },
+      updateTaskStatus() {
+        this.$confirm('确认已解决问题?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          updateTaskStatus(this.currentRowId).then((res) => {
+            if (res.status == 200) {
+              this.$message.success("修改成功");
+              this.searchTask()
+            }
+          })
+        })
+      },
+      getOrderDetail() {
+        getIdByOrderNo(this.currentRow.orderNo).then((res) => {
+          if (res.status == 200) {
+            this.currentRowOrderId = res.data
+            this.type = 0
+            this.orderDialogVisible = true
+          }
+        })
+      },
     },
     mounted() {
       this.searchTask();
