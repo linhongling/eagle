@@ -40,8 +40,8 @@ public class OrderTaskServiceImpl implements OrderTaskService {
         OrderTaskExample orderTaskExample = new OrderTaskExample();
         orderTaskExample.setOrderByClause("status ASC, CREATE_DATE DESC");
         OrderTaskExample.Criteria criteria = orderTaskExample.createCriteria();
-        if (!Strings.isNullOrEmpty(orderTaskVO.getOrderNO())) {
-            criteria.andOrderNoEqualTo(orderTaskVO.getOrderNO());
+        if (!Strings.isNullOrEmpty(orderTaskVO.getOrderNo())) {
+            criteria.andOrderNoEqualTo(orderTaskVO.getOrderNo());
         }
         if (null != orderTaskVO.getStartCreateDate()) {
             criteria.andCreateDateGreaterThanOrEqualTo(orderTaskVO.getStartCreateDate());

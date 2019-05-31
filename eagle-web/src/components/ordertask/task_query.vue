@@ -69,7 +69,7 @@
         </el-table-column>
         <el-table-column label="运单号" width="180">
           <template slot-scope="scope">
-            <span style="text-decoration:underline;cursor:pointer"  @click="getOrderDetail">{{scope.row.orderNo}}</span>
+            <span style="text-decoration:underline;cursor:pointer"  @click="getOrderDetail(scope.row.orderNo)">{{scope.row.orderNo}}</span>
           </template>
         </el-table-column>
         <el-table-column prop="taskDesc" label="问题单描述"></el-table-column>
@@ -85,7 +85,7 @@
       </el-pagination>
 
       <el-dialog title="问题单" :visible.sync="dialogVisible" v-if='dialogVisible' width="1000px">
-        <task_detail :id="this.currentRowId" :type="this.type" @close-dialog="closeDialog"></task_detail>
+        <task_detail :id="this.currentRowId" :type="this.type" @close-dialog="closeTaskDialog"></task_detail>
       </el-dialog>
 
       <el-dialog title="订单信息" :visible.sync="orderDialogVisible" v-if='orderDialogVisible' width="1000px">
@@ -177,6 +177,9 @@
         this.dialogVisible = true
       },
       closeDialog(refresh) {
+        this.orderDialogVisible = false
+      },
+      closeTaskDialog(refresh) {
         this.dialogVisible = false
         if (refresh)
           this.searchTask()
@@ -212,8 +215,8 @@
           })
         })
       },
-      getOrderDetail() {
-        getIdByOrderNo(this.currentRow.orderNo).then((res) => {
+      getOrderDetail(orderNo) {
+        getIdByOrderNo(orderNo).then((res) => {
           if (res.status == 200) {
             this.currentRowOrderId = res.data
             this.type = 0

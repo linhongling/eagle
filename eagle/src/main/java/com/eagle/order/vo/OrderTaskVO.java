@@ -10,7 +10,7 @@ public class OrderTaskVO {
 
     private String taskDesc;
 
-    private String orderNO;
+    private String orderNo;
 
     private Byte status;
 
