@@ -10,7 +10,6 @@ import transferCompany from '@/components/transfercompany/transfer_company'
 import goodsQuery from '@/components/goods/goods_query'
 import salesmanQuery from '@/components/salesman/salesman_query'
 import taskQuery from '@/components/ordertask/task_query'
-import essaydetail from '@/components/essaydetail'
 import employee from '@/components/employee'
 import role from '@/components/role'
 import system from '@/components/system'
@@ -42,7 +41,6 @@ export const asyncRouterMap = [
         component: indexmain,
         meta:{
           title:"首页",
-          icon:"el-icon-location"
         },
       },
       {
@@ -107,12 +105,6 @@ export const asyncRouterMap = [
         meta:{
           title:"问题单管理",
         },
-      },
-      {
-        path: 'essaydetail',
-        name: 'essaydetail',
-        component: essaydetail,
-        hidden:true
       },
       {
         path:'system',

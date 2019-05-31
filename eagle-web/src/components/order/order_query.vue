@@ -82,7 +82,7 @@
         </el-row>
 
         <el-row colspan="24">
-          <el-button type="primary" size="small" @click="searchOrder">查询</el-button>
+          <el-button type="primary" size="small" @click="resetAndSearch">查询</el-button>
           <el-button type="primary" size="small" @click="exportOrder" v-loading.fullscreen.lock="fullscreenLoading">导出
           </el-button>
           <el-button type="primary" size="small" @click="createOrder">新增</el-button>
@@ -206,6 +206,10 @@
         this.currentRow = val
         this.currentRowId = val.id
         this.visibles.choosed = false
+      },
+      resetAndSearch() {
+        this.pageNum = 1
+        this.searchOrder()
       },
       searchOrder() {
         this.loading = true;

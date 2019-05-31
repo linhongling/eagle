@@ -213,12 +213,20 @@ export function saveTask(json) {
   return axiosIns.post(url.ORDER_TASK, json);
 }
 
+export function deleteTask(json) {
+  return axiosIns.delete(url.ORDER_TASK + '/' + json);
+}
+
 export function updateTask(id, json) {
   return axiosIns.put(url.ORDER_TASK + '/' + id, json);
 }
 
 export function updateTaskStatus(json) {
   return axiosIns.post(url.UPDATE_TASK_STATUS, json);
+}
+
+export function getUnFinishTask() {
+  return axiosIns.get(url.GET_UN_FINISH_TASK);
 }
 
 

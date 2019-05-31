@@ -4,4 +4,17 @@
   <update id="updateTaskStatus" parameterType="java.lang.Long">
     UPDATE t_order_task SET status = 1, modify_date = now() where id = #{id,jdbcType=BIGINT}
   </update>
+
+  <select id="getUnFinishTask" resultType="com.eagle.order.domain.OrderTask">
+    SELECT
+      id,
+      task_desc
+    FROM
+      t_order_task
+    WHERE
+      STATUS = 0
+    ORDER BY
+      create_date DESC
+    LIMIT 10
+  </select>
 </mapper>

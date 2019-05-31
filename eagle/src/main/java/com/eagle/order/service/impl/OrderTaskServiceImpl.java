@@ -101,4 +101,10 @@ public class OrderTaskServiceImpl implements OrderTaskService {
         int num = orderTaskMapper.updateTaskStatus(id);
         return ReturnResult.ok(num);
     }
+
+    @Override
+    public ReturnResult<List<OrderTask>> getUnFinishTask() {
+        List<OrderTask> unFinishTask = orderTaskMapper.getUnFinishTask();
+        return ReturnResult.ok(unFinishTask);
+    }
 }

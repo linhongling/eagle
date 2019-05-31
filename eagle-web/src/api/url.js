@@ -35,6 +35,7 @@ export const GET_GOODS_INFO_LIST ="/goods/getGoodsInfoList"
 export const ORDER_TASK = "/orderTask";
 export const GET_TASK_LIST = "/orderTask/getList";
 export const UPDATE_TASK_STATUS = "/orderTask/updateTaskStatus";
+export const GET_UN_FINISH_TASK = "/orderTask/getUnFinishTask"
 
 
 export const GET_SALESMAN_LIST ="/salesman/queryList"

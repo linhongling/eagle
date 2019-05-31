@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/web/orderTask")
 public class OrderTaskController {
@@ -67,5 +69,10 @@ public class OrderTaskController {
             return ReturnResult.error("参数ID不能为空");
         }
         return orderTaskService.updateTaskStatus(id);
+    }
+
+    @GetMapping("/getUnFinishTask")
+    public ReturnResult<List<OrderTask>> getUnFinishTask(){
+        return orderTaskService.getUnFinishTask();
     }
 }

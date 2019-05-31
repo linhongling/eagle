@@ -6,6 +6,8 @@ import com.eagle.order.util.ReturnResult;
 import com.eagle.order.vo.OrderTaskVO;
 import com.github.pagehelper.PageInfo;
 
+import java.util.List;
+
 /**
  * @Description
  * @Author hongling.lin
@@ -24,4 +26,6 @@ public interface OrderTaskService {
     ReturnResult<Integer> delete(Long id);
 
     ReturnResult<Integer> updateTaskStatus(Long id);
+
+    ReturnResult<List<OrderTask>> getUnFinishTask();
 }

@@ -30,4 +30,6 @@ public interface OrderTaskMapper {
     int updateByPrimaryKey(OrderTask record);
 
     int updateTaskStatus(Long id);
+
+    List<OrderTask> getUnFinishTask();
 }

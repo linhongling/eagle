@@ -39,12 +39,14 @@
           </el-col>
         </el-row>
         <el-row colspan="24">
-          <el-button type="primary" size="small" @click="searchTask">查询</el-button>
+          <el-button type="primary" size="small" @click="resetAndSearch">查询</el-button>
           <el-button type="primary" size="small" @click="createTask">新增</el-button>
           <el-button type="primary" size="small" @click="getDetail" :disabled=this.visibles.choosed>查看详情</el-button>
           <el-button type="primary" size="small" @click="updateTask" :disabled=this.visibles.choosed>修改</el-button>
           <el-button type="primary" size="small" @click="updateTaskStatus" :disabled=this.visibles.choosed>已解决
           </el-button>
+          <el-button type="primary" size="small" @click="deleteTask" :disabled=this.visibles.choosed>删除</el-button>
+
         </el-row>
       </el-form>
 
@@ -69,7 +71,7 @@
         </el-table-column>
         <el-table-column label="运单号" width="180">
           <template slot-scope="scope">
-            <span style="text-decoration:underline;cursor:pointer"  @click="getOrderDetail(scope.row.orderNo)">{{scope.row.orderNo}}</span>
+            <span style="text-decoration:underline;cursor:pointer" @click="getOrderDetail(scope.row.orderNo)">{{scope.row.orderNo}}</span>
           </template>
         </el-table-column>
         <el-table-column prop="taskDesc" label="问题单描述"></el-table-column>
@@ -97,7 +99,7 @@
 
 <script>
   import base from '@/components/base.vue'
-  import {getTaskList, updateTaskStatus, getIdByOrderNo} from '@/api/api'
+  import {getTaskList, updateTaskStatus, getIdByOrderNo, deleteTask} from '@/api/api'
   import Task_detail from "./task_detail";
   import Order_detail from "../order/order_detail";
 
@@ -139,6 +141,10 @@
         this.currentRow = val
         this.currentRowId = val.id
         this.visibles.choosed = false
+      },
+      resetAndSearch() {
+        this.pageNum = 1
+        this.searchTask()
       },
       searchTask() {
         this.loading = true;
@@ -224,9 +230,25 @@
           }
         })
       },
+      deleteTask() {
+        this.$confirm('确认删除?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          deleteTask(this.currentRowId).then((res) => {
+            if (res.status == 200) {
+              this.$message.success("删除成功");
+              this.searchTask()
+            }
+          })
+        })
+
+      }
     },
     mounted() {
       this.searchTask();
+      this.currentRowId = this.$route.query.taskId
     }
   }
 </script>

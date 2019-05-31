@@ -15,7 +15,7 @@
         </el-row>
 
         <el-row colspan="24">
-          <el-button type="primary" size="small" @click="searchClient">查询</el-button>
+          <el-button type="primary" size="small" @click="resetAndSearch">查询</el-button>
           <el-button type="primary" size="small" @click="createClient">新增</el-button>
           <el-button type="primary" size="small" @click="updateClient" :disabled=this.visibles.choosed>修改</el-button>
           <el-button type="primary" size="small" @click="getDetail" :disabled=this.visibles.choosed>查看详情</el-button>
@@ -108,6 +108,10 @@
         this.currentRow = val
         this.currentRowId = val.id
         this.visibles.choosed = false
+      },
+      resetAndSearch() {
+        this.pageNum = 1
+        this.searchClient()
       },
       searchClient() {
         this.loading = true;
