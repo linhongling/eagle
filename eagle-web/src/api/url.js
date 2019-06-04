@@ -12,7 +12,7 @@ export const GET_EXPORT_LIST="/order/exportList"
 export const GET_ORDER_DETAIL="/order/getDetail"
 export const SAVE_ORDER="/order/saveOrder"
 export const UPDATE_ORDER="/order/updateOrder"
-export const DELETE_ORDER="/order/delete"
+export const ORDER="/order"
 export const GET_ID_BY_ORDER_NO = "/order/getIdByOrderNo";
 export const GET_CLIENT_LIST="/client/queryList"
 export const GET_CLIENT_DETAIL="/client/getDetail"
@@ -36,17 +36,16 @@ export const ORDER_TASK = "/orderTask";
 export const GET_TASK_LIST = "/orderTask/getList";
 export const UPDATE_TASK_STATUS = "/orderTask/updateTaskStatus";
 export const GET_UN_FINISH_TASK = "/orderTask/getUnFinishTask"
-
-
 export const GET_SALESMAN_LIST ="/salesman/queryList"
 export const GET_SALESMAN_DETAIL="/salesman/getDetail"
 export const SAVE_SALESMAN="/salesman/saveSalesman"
 export const UPDATE_SALESMAN="/salesman/updateSalesman"
 export const GET_SALESMAN_INFO_LIST ="/salesman/getSalesmanInfoList"
 export const GET_SALESMAN_ID_BY_CLIENT="/client/getSalesmanIdByClientId"
-export const GET_DESTINATION  = "/order/getDestination"
+export const DESTINATION  = "/destination"
+export const QUERY_DESTINATION_LIST = "/destination/queryList"
 
-export const IMG_URL="http://localhost:8077"
+
 export const IDENTI_CODE="/index/captcha-image"
 export const IS_ONLINE="/is-online"
 export const GET_USER_LIST="/user/getUserList"

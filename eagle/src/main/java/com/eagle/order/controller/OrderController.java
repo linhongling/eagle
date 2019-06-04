@@ -11,10 +11,7 @@ import com.github.pagehelper.PageInfo;
 import com.google.common.base.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @Description
@@ -64,17 +61,12 @@ public class OrderController {
         return orderService.updateOrder(order);
     }
 
-    @RequestMapping("/delete")
-    public ReturnResult<Integer> delete(@RequestBody Long id) {
+    @DeleteMapping("/{id}")
+    public ReturnResult<Integer> delete(@PathVariable("id") Long id) {
         if (id == null) {
             return ReturnResult.error("参数ID不能为空");
         }
         return orderService.delete(id);
-    }
-
-    @RequestMapping("/getDestination")
-    public ReturnResult<String> getDestination() {
-        return orderService.getDestination();
     }
 
     @PostMapping("/getIdByOrderNo")

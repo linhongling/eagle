@@ -113,7 +113,7 @@
         </el-table-column>
         <el-table-column prop="no" label="运单号" width="120"></el-table-column>
         <el-table-column prop="clientName" label="客户" width="120"></el-table-column>
-        <el-table-column prop="addr" label="目的地" width="120"></el-table-column>
+        <el-table-column prop="destination" label="目的地" width="120"></el-table-column>
         <el-table-column prop="goodsName" label="品名" width="120"></el-table-column>
         <el-table-column prop="count" label="件数" width="120"></el-table-column>
         <el-table-column prop="weight" label="重量" width="120"></el-table-column>

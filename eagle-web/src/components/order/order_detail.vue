@@ -158,19 +158,6 @@
       <el-row :span="24">
         <el-col :span="12">
           <el-form-item label="目的地">
-            <!--<el-select
-              v-model="form.destination"
-              filterable
-              allow-create
-              clearable
-              default-first-option>
-              <el-option
-                v-for="item in destinationList"
-                :key="item"
-                :label="item"
-                :value="item">
-              </el-option>
-            </el-select>-->
             <el-select
               v-model="form.destination"
               filterable
@@ -179,12 +166,13 @@
               remote
               reserve-keyword
               :remote-method="remoteMethod"
-              :loading="loading">
+              :loading="loading"
+              @change="changeMethod">
               <el-option
                 v-for="item in destinationOption"
-                :key="item"
-                :label="item"
-                :value="item">
+                :key="item.id"
+                :label="item.name"
+                :value="item.id">
               </el-option>
             </el-select>
           </el-form-item>
@@ -237,7 +225,8 @@
     updateOrder,
     getSalesmanInfoList,
     getSalesmanIdByClientId,
-    getDestination
+    getDestination,
+    getDestinationDetail
   } from '../../api/api'
 
   export default {
@@ -463,11 +452,28 @@
           setTimeout(() => {
             this.loading = false;
             this.destinationOption = this.destinationList.filter(item => {
-              return item.indexOf(query) > -1;
+              return item.name.indexOf(query) > -1;
             });
           }, 200);
         } else {
           this.destinationOption = [];
+        }
+      },
+      changeMethod(val) {
+        this.form.addr = ''
+        this.form.recipient = ''
+        this.form.recipientPhone = ''
+        if (val != null) {
+          var re = /^[0-9]+.?[0-9]*$/
+          if (re.test(val)) {
+            getDestinationDetail(val).then((res) => {
+              if (res.status == 200) {
+                this.form.addr = res.data.addr
+                this.form.recipient = res.data.recipient
+                this.form.recipientPhone = res.data.phone
+              }
+            })
+          }
         }
       }
     },

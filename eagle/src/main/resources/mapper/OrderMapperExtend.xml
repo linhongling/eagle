@@ -50,8 +50,4 @@
         </if>
     </select>
 
-    <select id="getDestination"  resultType="java.lang.String" >
-        SELECT destination from v_destination
-    </select>
-
 </mapper>

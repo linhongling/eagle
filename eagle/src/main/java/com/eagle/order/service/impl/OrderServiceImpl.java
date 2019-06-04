@@ -1,8 +1,10 @@
 package com.eagle.order.service.impl;
 
+import com.eagle.order.domain.Destination;
 import com.eagle.order.domain.Order;
 import com.eagle.order.domain.OrderExample;
 import com.eagle.order.mapper.OrderMapper;
+import com.eagle.order.service.DestinationService;
 import com.eagle.order.service.OrderService;
 import com.eagle.order.util.QueryData;
 import com.eagle.order.util.ReturnResult;
@@ -26,6 +28,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private OrderMapper orderMapper;
+
+    @Autowired
+    private DestinationService destinationService;
 
     private static final int MAX = 6000;
 
@@ -117,12 +122,14 @@ public class OrderServiceImpl implements OrderService {
             return ReturnResult.error("此运单号重复");
         }
         int num = orderMapper.insert(order);
+        this.saveDestination(order);
         return ReturnResult.ok(num);
     }
 
     @Override
     public ReturnResult<Integer> updateOrder(Order order) {
         int num = orderMapper.updateByPrimaryKey(order);
+        this.saveDestination(order);
         return ReturnResult.ok(num);
     }
 
@@ -147,5 +154,14 @@ public class OrderServiceImpl implements OrderService {
             return ReturnResult.error("未获取到订单信息");
         }
         return ReturnResult.ok(orders.get(0).getId());
+    }
+
+    private void saveDestination(Order order){
+        Destination destination = new Destination();
+        destination.setDestination(order.getDestination());
+        destination.setAddr(order.getAddr());
+        destination.setPhone(order.getRecipientPhone());
+        destination.setRecipient(order.getRecipient());
+        destinationService.saveDestination(destination);
     }
 }

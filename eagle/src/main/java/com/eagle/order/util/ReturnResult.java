@@ -57,7 +57,6 @@ public class ReturnResult<T> {
     }
 
 
-
     public Integer getStatus() {
         return status;
     }
@@ -82,4 +81,7 @@ public class ReturnResult<T> {
         this.data = data;
     }
 
+    public boolean isSuccess() {
+        return this.status.equals(ErrorCodeEnum.SUCCESS) ? true : false;
+    }
 }

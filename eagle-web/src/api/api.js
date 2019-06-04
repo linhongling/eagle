@@ -94,7 +94,7 @@ export function updateOrder(json) {
 }
 
 export function deleteOrder(json) {
-  return axiosIns.delete(url.DELETE_ORDER, json);
+  return axiosIns.delete(url.ORDER + '/' + json);
 }
 
 export function getIdByOrderNo(json) {
@@ -198,7 +198,7 @@ export function getSalesmanIdByClientId(json) {
 }
 
 export function getDestination() {
-  return axiosIns.get(url.GET_DESTINATION);
+  return axiosIns.get(url.DESTINATION);
 }
 
 export function getTaskList(id) {
@@ -229,4 +229,22 @@ export function getUnFinishTask() {
   return axiosIns.get(url.GET_UN_FINISH_TASK);
 }
 
+export function queryDestinationList(json) {
+  return axiosIns.post(url.QUERY_DESTINATION_LIST, json);
+}
 
+export function saveDestination(json) {
+  return axiosIns.post(url.DESTINATION, json);
+}
+
+export function deleteDestination(json) {
+  return axiosIns.delete(url.DESTINATION + '/' + json);
+}
+
+export function updateDestination(id, json) {
+  return axiosIns.put(url.DESTINATION + '/' + id, json);
+}
+
+export function getDestinationDetail(json) {
+  return axiosIns.get(url.DESTINATION + '/' + json);
+}

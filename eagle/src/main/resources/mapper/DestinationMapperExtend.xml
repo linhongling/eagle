@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.eagle.order.mapper.DestinationMapper">
+    <select id="getDestinationList" resultType="com.eagle.order.vo.DestinationInfo">
+        SELECT id, destination as name from t_destination where 1=1
+    </select>
+</mapper>

@@ -10,6 +10,7 @@ import transferCompany from '@/components/transfercompany/transfer_company'
 import goodsQuery from '@/components/goods/goods_query'
 import salesmanQuery from '@/components/salesman/salesman_query'
 import taskQuery from '@/components/ordertask/task_query'
+import destination from '@/components/destination/destination_query'
 import employee from '@/components/employee'
 import role from '@/components/role'
 import system from '@/components/system'
@@ -104,6 +105,15 @@ export const asyncRouterMap = [
         menu:"taskQuery",
         meta:{
           title:"问题单管理",
+        },
+      },
+      {
+        path: 'destination',
+        name: 'destination',
+        component: destination,
+        menu:"destination",
+        meta:{
+          title:"目的地管理",
         },
       },
       {
