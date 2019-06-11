@@ -15,7 +15,7 @@ spring:
         druid:
             url: jdbc:mysql://193.112.109.82:3307/eagle?useUnicode=true&characterEncoding=UTF-8&useSSL=false
             username: root
-            password: 123456
+            password: ea!@gle*123
             driver-class-name: com.mysql.jdbc.Driver
             filters: stat
             minIdle: 1
