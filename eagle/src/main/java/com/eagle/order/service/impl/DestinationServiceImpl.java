@@ -52,7 +52,11 @@ public class DestinationServiceImpl implements DestinationService {
     @Override
     public ReturnResult<Integer> saveDestination(Destination destination) {
         DestinationExample destinationExample = new DestinationExample();
-        DestinationExample.Criteria criteria = destinationExample.createCriteria().andDestinationEqualTo(destination.getDestination());
+        DestinationExample.Criteria criteria = destinationExample.createCriteria()
+                .andDestinationEqualTo(destination.getDestination())
+                .andRecipientEqualTo(destination.getRecipient())
+                .andPhoneEqualTo(destination.getPhone())
+                .andAddrEqualTo(destination.getAddr());
         List<Destination> destinations = destinationMapper.selectByExample(destinationExample);
         int num = 0;
         if (destinations != null && destinations.size() == 0) {

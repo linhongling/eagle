@@ -160,9 +160,10 @@
   import {getOrderList, getClientInfoList, getTransferCoInfoList, getExportList, deleteOrder, getSalesmanInfoList} from '@/api/api'
   import Order_detail from './order_detail'
   import {parseTime} from '@/util/utils'
+  import Destination_query from "../destination/destination_query";
 
   export default {
-    components: {Order_detail},
+    components: {Destination_query, Order_detail},
     extends: base,
     data() {
       return {

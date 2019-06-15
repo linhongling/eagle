@@ -26,6 +26,7 @@
         o.create_date createDate,
         o.modify_date modifyDate,
         o.commission commission,
+        o.destination destination,
         c.name clientName,
         tc.name transferCompanyName,
         g.name goodsName,

@@ -158,7 +158,7 @@
       <el-row :span="24">
         <el-col :span="12">
           <el-form-item label="目的地">
-            <el-select
+            <!--<el-select
               v-model="form.destination"
               filterable
               allow-create
@@ -174,7 +174,10 @@
                 :label="item.name"
                 :value="item.id">
               </el-option>
-            </el-select>
+            </el-select>-->
+            <el-input v-model="form.destination" style="width: 220px" clearable>
+              <el-button slot="append" @click="choseDestination" icon="el-icon-search"></el-button>
+            </el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -212,6 +215,14 @@
         <el-button @click="close">取消</el-button>
       </el-col>
     </el-row>
+
+    <el-dialog title="选择目的地" :visible.sync="dialogVisible" v-if='dialogVisible' width="1200px" append-to-body>
+      <destination_choose_query ref="destinationChoose"></destination_choose_query>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="getDestination">确认</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -225,11 +236,12 @@
     updateOrder,
     getSalesmanInfoList,
     getSalesmanIdByClientId,
-    getDestination,
     getDestinationDetail
   } from '../../api/api'
+  import Destination_choose_query from "./destination_choose_query";
 
   export default {
+    components: {Destination_choose_query},
     props: ['id', 'type'],
     data() {
       return {
@@ -267,6 +279,7 @@
         destinationList: null,
         destinationOption: null,
         loading: false,
+        dialogVisible: false,
         confirmRules: {
           no: [
             {required: true, message: '请输入运单号', trigger: 'blur'}
@@ -439,7 +452,7 @@
           }
         })
       },
-      getDestination() {
+      /*getDestination() {
         getDestination().then((res) => {
           if (res.status == 200) {
             this.destinationList = res.data
@@ -475,6 +488,29 @@
             })
           }
         }
+      },*/
+      closeDialog() {
+        this.dialogVisible = false
+      },
+      choseDestination() {
+        this.dialogVisible = true
+      },
+      getDestination() {
+        if(this.$refs.destinationChoose.currentRowId) {
+          this.form.addr = ''
+          this.form.recipient = ''
+          this.form.recipientPhone = ''
+          this.form.destination = ''
+          getDestinationDetail(this.$refs.destinationChoose.currentRowId).then((res) => {
+            if (res.status == 200) {
+              this.form.addr = res.data.addr
+              this.form.recipient = res.data.recipient
+              this.form.recipientPhone = res.data.phone
+              this.form.destination = res.data.destination
+            }
+          })
+        }
+        this.dialogVisible = false
       }
     },
     mounted() {
