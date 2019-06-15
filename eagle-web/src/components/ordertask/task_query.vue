@@ -82,7 +82,7 @@
         :page-size="10"
         :current-page.sync="pageNum"
         layout="total, prev, pager, next"
-        @current-change=""
+        @current-change="searchTask"
         :total="total">
       </el-pagination>
 

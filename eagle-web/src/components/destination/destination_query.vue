@@ -46,7 +46,7 @@
         :page-size="10"
         :current-page.sync="pageNum"
         layout="total, prev, pager, next"
-        @current-change=""
+        @current-change="search"
         :total="total">
       </el-pagination>
 

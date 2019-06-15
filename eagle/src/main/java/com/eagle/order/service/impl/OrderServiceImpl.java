@@ -157,11 +157,13 @@ public class OrderServiceImpl implements OrderService {
     }
 
     private void saveDestination(Order order){
-        Destination destination = new Destination();
-        destination.setDestination(order.getDestination());
-        destination.setAddr(order.getAddr());
-        destination.setPhone(order.getRecipientPhone());
-        destination.setRecipient(order.getRecipient());
-        destinationService.saveDestination(destination);
+        if(!Strings.isNullOrEmpty(order.getDestination())) {
+            Destination destination = new Destination();
+            destination.setDestination(order.getDestination());
+            destination.setAddr(order.getAddr());
+            destination.setPhone(order.getRecipientPhone());
+            destination.setRecipient(order.getRecipient());
+            destinationService.saveDestination(destination);
+        }
     }
 }
