@@ -16,6 +16,7 @@ import com.google.common.base.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -62,7 +63,10 @@ public class OrderServiceImpl implements OrderService {
             criteria.andReceiptLessThanOrEqualTo(orderQuery.getEndReceipt());
         }
         if (null != orderQuery.getSalesManIds() && orderQuery.getSalesManIds().size() > 0) {
-            criteria.andSalesmanIdIn(orderQuery.getSalesManIds());
+            criteria.andSalesmansIdIn(orderQuery.getSalesManIds());
+        }
+        if (!Strings.isNullOrEmpty(orderQuery.getDeliveryman())) {
+            criteria.andDeliverymanEqualTo(orderQuery.getDeliveryman());
         }
         PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
         List<OrderVO> orders = orderMapper.selectByExampleNew(orderExample);
@@ -96,7 +100,10 @@ public class OrderServiceImpl implements OrderService {
             criteria.andReceiptLessThanOrEqualTo(orderQuery.getEndReceipt());
         }
         if (null != orderQuery.getSalesManIds() && orderQuery.getSalesManIds().size() > 0) {
-            criteria.andSalesmanIdIn(orderQuery.getSalesManIds());
+            criteria.andSalesmansIdIn(orderQuery.getSalesManIds());
+        }
+        if (!Strings.isNullOrEmpty(orderQuery.getDeliveryman())) {
+            criteria.andDeliverymanEqualTo(orderQuery.getDeliveryman());
         }
         int count = orderMapper.countByExampleNew(orderExample);
         if (count > MAX) {
@@ -104,6 +111,41 @@ public class OrderServiceImpl implements OrderService {
         }
         List<OrderVO> orders = orderMapper.selectByExampleNew(orderExample);
         return ReturnResult.ok(orders);
+    }
+
+    @Override
+    public ReturnResult<BigDecimal> countDirectByDelivery(OrderQuery orderQuery) {
+        OrderExample orderExample = new OrderExample();
+        orderExample.setOrderByClause("ORDER_DATE ASC, o.create_date ASC");
+        OrderExample.Criteria criteria = orderExample.createCriteria();
+        if (!Strings.isNullOrEmpty(orderQuery.getNo())) {
+            criteria.andNoEqualTo(orderQuery.getNo());
+        }
+        if (null != orderQuery.getClientIds() && orderQuery.getClientIds().size() > 0) {
+            criteria.andClientIdIn(orderQuery.getClientIds());
+        }
+        if (null != orderQuery.getStartOrderDate()) {
+            criteria.andOrderDateGreaterThanOrEqualTo(orderQuery.getStartOrderDate());
+            criteria.andOrderDateLessThanOrEqualTo(orderQuery.getEndOrderDate());
+        }
+        if (!Strings.isNullOrEmpty(orderQuery.getTransferNo())) {
+            criteria.andTransferNoEqualTo(orderQuery.getTransferNo());
+        }
+        if (null != orderQuery.getTransferCompanyIds() && orderQuery.getTransferCompanyIds().size() > 0) {
+            criteria.andTransferCompanyIdIn(orderQuery.getTransferCompanyIds());
+        }
+        if (null != orderQuery.getStartReceipt()) {
+            criteria.andReceiptGreaterThanOrEqualTo(orderQuery.getStartReceipt());
+            criteria.andReceiptLessThanOrEqualTo(orderQuery.getEndReceipt());
+        }
+        if (null != orderQuery.getSalesManIds() && orderQuery.getSalesManIds().size() > 0) {
+            criteria.andSalesmansIdIn(orderQuery.getSalesManIds());
+        }
+        if (!Strings.isNullOrEmpty(orderQuery.getDeliveryman())) {
+            criteria.andDeliverymanEqualTo(orderQuery.getDeliveryman());
+        }
+        BigDecimal bigDecimal = orderMapper.countDirectByDelivery(orderExample);
+        return ReturnResult.ok(bigDecimal == null ? 0 : bigDecimal);
     }
 
     @Override
@@ -156,8 +198,8 @@ public class OrderServiceImpl implements OrderService {
         return ReturnResult.ok(orders.get(0).getId());
     }
 
-    private void saveDestination(Order order){
-        if(!Strings.isNullOrEmpty(order.getDestination())) {
+    private void saveDestination(Order order) {
+        if (!Strings.isNullOrEmpty(order.getDestination())) {
             Destination destination = new Destination();
             destination.setDestination(order.getDestination());
             destination.setAddr(order.getAddr());
@@ -165,5 +207,11 @@ public class OrderServiceImpl implements OrderService {
             destination.setRecipient(order.getRecipient());
             destinationService.saveDestination(destination);
         }
+    }
+
+    @Override
+    public ReturnResult confirmReceipt(Order order) {
+        int num = orderMapper.updateReceipt(order);
+        return ReturnResult.ok(num);
     }
 }

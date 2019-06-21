@@ -81,6 +81,10 @@ export function getExportList(json) {
   return axiosIns.post(url.GET_EXPORT_LIST, json);
 }
 
+export function countDirect(json) {
+  return axiosIns.post(url.COUNT_DIRECT, json);
+}
+
 export function getOrderDetail(json) {
   return axiosIns.post(url.GET_ORDER_DETAIL, json);
 }
@@ -99,6 +103,10 @@ export function deleteOrder(json) {
 
 export function getIdByOrderNo(json) {
   return axiosIns.post(url.GET_ID_BY_ORDER_NO, json)
+}
+
+export function confirmReceipt(json) {
+  return axiosIns.post(url.CONFIRM_RECEIPT, json)
 }
 
 export function getClientList(json) {

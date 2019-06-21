@@ -9,6 +9,8 @@ import com.eagle.order.vo.OrderQuery;
 import com.eagle.order.vo.OrderVO;
 import com.github.pagehelper.PageInfo;
 
+import java.math.BigDecimal;
+
 /**
  * @Description
  * @Author hongling.lin
@@ -19,6 +21,8 @@ public interface OrderService {
     ReturnResult<PageInfo<OrderVO>> queryList(QueryData<OrderQuery> queryData);
 
     ReturnResult<OrderVO> exportList(OrderQuery queryData);
+
+    ReturnResult<BigDecimal> countDirectByDelivery(OrderQuery queryData);
 
     ReturnResult<Order> getDetail(Long id);
 
@@ -31,4 +35,6 @@ public interface OrderService {
     ReturnResult<String> getDestination();
 
     ReturnResult<Long> getIdByOrderNo(String orderNo);
+
+    ReturnResult confirmReceipt(Order order);
 }

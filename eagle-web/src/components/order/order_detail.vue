@@ -525,7 +525,6 @@
       this.getTransferCoInfoList()
       this.getGoodsInfoList()
       this.getSalesmanInfoList()
-      this.getDestination()
     }
   }
 </script>

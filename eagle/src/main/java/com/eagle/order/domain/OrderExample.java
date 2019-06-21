@@ -1493,63 +1493,63 @@ public class OrderExample {
             return (Criteria) this;
         }
 
-        public Criteria andSalesmanIdIsNull() {
-            addCriterion("salesman_id is null");
+        public Criteria andSalesmansIdIsNull() {
+            addCriterion("salesmans_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andSalesmanIdIsNotNull() {
-            addCriterion("salesman_id is not null");
+        public Criteria andSalesmansIdIsNotNull() {
+            addCriterion("salesmans_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andSalesmanIdEqualTo(Long value) {
-            addCriterion("salesman_id =", value, "salesmanId");
+        public Criteria andSalesmansIdEqualTo(Long value) {
+            addCriterion("salesmans_id =", value, "salesmansId");
             return (Criteria) this;
         }
 
-        public Criteria andSalesmanIdNotEqualTo(Long value) {
-            addCriterion("salesman_id <>", value, "salesmanId");
+        public Criteria andSalesmansIdNotEqualTo(Long value) {
+            addCriterion("salesmans_id <>", value, "salesmansId");
             return (Criteria) this;
         }
 
-        public Criteria andSalesmanIdGreaterThan(Long value) {
-            addCriterion("salesman_id >", value, "salesmanId");
+        public Criteria andSalesmansIdGreaterThan(Long value) {
+            addCriterion("salesmans_id >", value, "salesmansId");
             return (Criteria) this;
         }
 
-        public Criteria andSalesmanIdGreaterThanOrEqualTo(Long value) {
-            addCriterion("salesman_id >=", value, "salesmanId");
+        public Criteria andSalesmansIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("salesmans_id >=", value, "salesmansId");
             return (Criteria) this;
         }
 
-        public Criteria andSalesmanIdLessThan(Long value) {
-            addCriterion("salesman_id <", value, "salesmanId");
+        public Criteria andSalesmansIdLessThan(Long value) {
+            addCriterion("salesmans_id <", value, "salesmansId");
             return (Criteria) this;
         }
 
-        public Criteria andSalesmanIdLessThanOrEqualTo(Long value) {
-            addCriterion("salesman_id <=", value, "salesmanId");
+        public Criteria andSalesmansIdLessThanOrEqualTo(Long value) {
+            addCriterion("salesmans_id <=", value, "salesmansId");
             return (Criteria) this;
         }
 
-        public Criteria andSalesmanIdIn(List<Long> values) {
-            addCriterion("o.salesman_id in", values, "salesmanId");
+        public Criteria andSalesmansIdIn(List<Long> values) {
+            addCriterion("salesmans_id in", values, "salesmansId");
             return (Criteria) this;
         }
 
-        public Criteria andSalesmanIdNotIn(List<Long> values) {
-            addCriterion("salesman_id not in", values, "salesmanId");
+        public Criteria andSalesmansIdNotIn(List<Long> values) {
+            addCriterion("salesmans_id not in", values, "salesmansId");
             return (Criteria) this;
         }
 
-        public Criteria andSalesmanIdBetween(Long value1, Long value2) {
-            addCriterion("salesman_id between", value1, value2, "salesmanId");
+        public Criteria andSalesmansIdBetween(Long value1, Long value2) {
+            addCriterion("salesmans_id between", value1, value2, "salesmansId");
             return (Criteria) this;
         }
 
-        public Criteria andSalesmanIdNotBetween(Long value1, Long value2) {
-            addCriterion("salesman_id not between", value1, value2, "salesmanId");
+        public Criteria andSalesmansIdNotBetween(Long value1, Long value2) {
+            addCriterion("salesmans_id not between", value1, value2, "salesmansId");
             return (Criteria) this;
         }
 
@@ -1760,6 +1760,76 @@ public class OrderExample {
 
         public Criteria andRecipientPhoneNotBetween(String value1, String value2) {
             addCriterion("recipient_phone not between", value1, value2, "recipientPhone");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeliverymanIsNull() {
+            addCriterion("deliveryman is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeliverymanIsNotNull() {
+            addCriterion("deliveryman is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeliverymanEqualTo(String value) {
+            addCriterion("deliveryman =", value, "deliveryman");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeliverymanNotEqualTo(String value) {
+            addCriterion("deliveryman <>", value, "deliveryman");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeliverymanGreaterThan(String value) {
+            addCriterion("deliveryman >", value, "deliveryman");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeliverymanGreaterThanOrEqualTo(String value) {
+            addCriterion("deliveryman >=", value, "deliveryman");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeliverymanLessThan(String value) {
+            addCriterion("deliveryman <", value, "deliveryman");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeliverymanLessThanOrEqualTo(String value) {
+            addCriterion("deliveryman <=", value, "deliveryman");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeliverymanLike(String value) {
+            addCriterion("deliveryman like", value, "deliveryman");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeliverymanNotLike(String value) {
+            addCriterion("deliveryman not like", value, "deliveryman");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeliverymanIn(List<String> values) {
+            addCriterion("deliveryman in", values, "deliveryman");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeliverymanNotIn(List<String> values) {
+            addCriterion("deliveryman not in", values, "deliveryman");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeliverymanBetween(String value1, String value2) {
+            addCriterion("deliveryman between", value1, value2, "deliveryman");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeliverymanNotBetween(String value1, String value2) {
+            addCriterion("deliveryman not between", value1, value2, "deliveryman");
             return (Criteria) this;
         }
     }

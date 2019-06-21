@@ -3,6 +3,7 @@ package com.eagle.order.mapper;
 import com.eagle.order.domain.Order;
 import com.eagle.order.domain.OrderExample;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.eagle.order.vo.OrderVO;
@@ -36,4 +37,8 @@ public interface OrderMapper {
     int countByExampleNew(OrderExample example);
 
     List<String> getDestination();
+
+    int updateReceipt(Order order);
+
+    BigDecimal countDirectByDelivery(OrderExample example);
 }

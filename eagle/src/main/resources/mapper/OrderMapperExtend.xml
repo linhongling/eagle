@@ -30,12 +30,15 @@
         c.name clientName,
         tc.name transferCompanyName,
         g.name goodsName,
-        s.name salesmanName
+        s.name salesmanName,
+        o.recipient recipient,
+        o.recipient_phone recipientPhone,
+        o.deliveryman deliveryman
         from t_order o
         LEFT JOIN t_client c ON client_id = c.id
         LEFT JOIN t_transfer_company tc ON transfer_company_id = tc.id
         LEFT JOIN t_goods g ON goods_id = g.id
-        LEFT JOIN t_salesman s ON s.id = o.salesman_id
+        LEFT JOIN t_salesman s ON s.id = o.salesmans_id
         <if test="_parameter != null" >
             <include refid="Example_Where_Clause" />
         </if>
@@ -51,4 +54,22 @@
         </if>
     </select>
 
+    <update id="updateReceipt" parameterType="com.eagle.order.domain.Order">
+        UPDATE t_order SET receipt = #{receipt,jdbcType=DATE} where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <select id="countDirectByDelivery" resultType="java.math.BigDecimal" parameterType="com.eagle.order.domain.OrderExample" >
+        select sum(o.cost_direct)
+        from t_order o
+        LEFT JOIN t_client c ON client_id = c.id
+        LEFT JOIN t_transfer_company tc ON transfer_company_id = tc.id
+        LEFT JOIN t_goods g ON goods_id = g.id
+        LEFT JOIN t_salesman s ON s.id = o.salesmans_id
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+        <if test="orderByClause != null" >
+            order by ${orderByClause}
+        </if>
+    </select>
 </mapper>

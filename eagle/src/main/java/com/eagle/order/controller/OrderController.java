@@ -13,6 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
+import java.util.Date;
+
 /**
  * @Description
  * @Author hongling.lin
@@ -35,6 +38,11 @@ public class OrderController {
     public ReturnResult<OrderVO> exportList(@RequestBody OrderQuery queryData) {
         ReturnResult<OrderVO> returnResult = orderService.exportList(queryData);
         return returnResult;
+    }
+
+    @RequestMapping("/countDirectByDelivery")
+    public ReturnResult<BigDecimal> countDirectByDelivery(@RequestBody OrderQuery queryData) {
+        return orderService.countDirectByDelivery(queryData);
     }
 
     @RequestMapping("/getDetail")
@@ -75,5 +83,10 @@ public class OrderController {
             return ReturnResult.error("参数orderNo不能为空");
         }
         return orderService.getIdByOrderNo(orderNo);
+    }
+
+    @PostMapping("/confirmReceipt")
+    public ReturnResult confirmReceipt(@RequestBody Order order) {
+        return orderService.confirmReceipt(order);
     }
 }

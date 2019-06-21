@@ -48,13 +48,15 @@ public class Order {
 
     private BigDecimal commission;
 
-    private Long salesmanId;
+    private Long salesmansId;
 
     private String destination;
 
     private String recipient;
 
     private String recipientPhone;
+
+    private String deliveryman;
 
     public Long getId() {
         return id;
@@ -232,12 +234,12 @@ public class Order {
         this.commission = commission;
     }
 
-    public Long getSalesmanId() {
-        return salesmanId;
+    public Long getSalesmansId() {
+        return salesmansId;
     }
 
-    public void setSalesmanId(Long salesmanId) {
-        this.salesmanId = salesmanId;
+    public void setSalesmansId(Long salesmansId) {
+        this.salesmansId = salesmansId;
     }
 
     public String getDestination() {
@@ -262,5 +264,13 @@ public class Order {
 
     public void setRecipientPhone(String recipientPhone) {
         this.recipientPhone = recipientPhone == null ? null : recipientPhone.trim();
+    }
+
+    public String getDeliveryman() {
+        return deliveryman;
+    }
+
+    public void setDeliveryman(String deliveryman) {
+        this.deliveryman = deliveryman == null ? null : deliveryman.trim();
     }
 }

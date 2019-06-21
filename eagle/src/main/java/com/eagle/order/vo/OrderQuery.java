@@ -25,4 +25,6 @@ public class OrderQuery {
     private String transferNo;
 
     private List<Long> salesManIds;
+
+    private String deliveryman;
 }
