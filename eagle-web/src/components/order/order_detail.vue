@@ -194,13 +194,18 @@
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="地址">
-            <el-input type="textarea" autosize v-model="form.addr" style="width: 220px" clearable></el-input>
+          <el-form-item label="送货方">
+            <el-input v-model="form.deliveryman" style="width: 220px" clearable></el-input>
           </el-form-item>
         </el-col>
       </el-row>
 
       <el-row :span="24">
+        <el-col :span="12">
+          <el-form-item label="地址">
+            <el-input type="textarea" autosize v-model="form.addr" style="width: 220px" clearable></el-input>
+          </el-form-item>
+        </el-col>
         <el-col :span="12">
           <el-form-item label="备注">
             <el-input type="textarea" autosize v-model="form.remark" style="width: 220px" clearable></el-input>
@@ -268,7 +273,8 @@
           salesmanId: '',
           destination: '',
           recipient: '',
-          recipientPhone: ''
+          recipientPhone: '',
+          deliveryman: ''
         },
         formdisabled: false,
         saveDisabled: false,

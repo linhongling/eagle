@@ -27,4 +27,6 @@ public class OrderQuery {
     private List<Long> salesManIds;
 
     private String deliveryman;
+
+    private Integer hasReceipt;
 }
