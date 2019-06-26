@@ -58,6 +58,8 @@ public class Order {
 
     private String deliveryman;
 
+    private Byte hasReceipt;
+
     public Long getId() {
         return id;
     }
@@ -272,5 +274,13 @@ public class Order {
 
     public void setDeliveryman(String deliveryman) {
         this.deliveryman = deliveryman == null ? null : deliveryman.trim();
+    }
+
+    public Byte getHasReceipt() {
+        return hasReceipt;
+    }
+
+    public void setHasReceipt(Byte hasReceipt) {
+        this.hasReceipt = hasReceipt;
     }
 }

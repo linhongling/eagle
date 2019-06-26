@@ -39,35 +39,8 @@ public class OrderServiceImpl implements OrderService {
     public ReturnResult<PageInfo<OrderVO>> queryList(QueryData<OrderQuery> queryData) {
         PageInfo pageInfo = queryData.getPageInfo();
         OrderQuery orderQuery = queryData.getParam();
-        OrderExample orderExample = new OrderExample();
+        OrderExample orderExample = this.queryCondition(orderQuery);
         orderExample.setOrderByClause("ORDER_DATE DESC, o.create_date DESC");
-        OrderExample.Criteria criteria = orderExample.createCriteria();
-        if (!Strings.isNullOrEmpty(orderQuery.getNo())) {
-            criteria.andNoEqualTo(orderQuery.getNo());
-        }
-        if (null != orderQuery.getClientIds() && orderQuery.getClientIds().size() > 0) {
-            criteria.andClientIdIn(orderQuery.getClientIds());
-        }
-        if (null != orderQuery.getStartOrderDate()) {
-            criteria.andOrderDateGreaterThanOrEqualTo(orderQuery.getStartOrderDate());
-            criteria.andOrderDateLessThanOrEqualTo(orderQuery.getEndOrderDate());
-        }
-        if (!Strings.isNullOrEmpty(orderQuery.getTransferNo())) {
-            criteria.andTransferNoEqualTo(orderQuery.getTransferNo());
-        }
-        if (null != orderQuery.getTransferCompanyIds() && orderQuery.getTransferCompanyIds().size() > 0) {
-            criteria.andTransferCompanyIdIn(orderQuery.getTransferCompanyIds());
-        }
-        if (null != orderQuery.getStartReceipt()) {
-            criteria.andReceiptGreaterThanOrEqualTo(orderQuery.getStartReceipt());
-            criteria.andReceiptLessThanOrEqualTo(orderQuery.getEndReceipt());
-        }
-        if (null != orderQuery.getSalesManIds() && orderQuery.getSalesManIds().size() > 0) {
-            criteria.andSalesmansIdIn(orderQuery.getSalesManIds());
-        }
-        if (!Strings.isNullOrEmpty(orderQuery.getDeliveryman())) {
-            criteria.andDeliverymanEqualTo(orderQuery.getDeliveryman());
-        }
         PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
         List<OrderVO> orders = orderMapper.selectByExampleNew(orderExample);
         PageInfo<OrderVO> resultInfo = new PageInfo<OrderVO>(orders);
@@ -76,35 +49,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public ReturnResult<OrderVO> exportList(OrderQuery orderQuery) {
-        OrderExample orderExample = new OrderExample();
+        OrderExample orderExample = this.queryCondition(orderQuery);
         orderExample.setOrderByClause("ORDER_DATE ASC, o.create_date ASC");
-        OrderExample.Criteria criteria = orderExample.createCriteria();
-        if (!Strings.isNullOrEmpty(orderQuery.getNo())) {
-            criteria.andNoEqualTo(orderQuery.getNo());
-        }
-        if (null != orderQuery.getClientIds() && orderQuery.getClientIds().size() > 0) {
-            criteria.andClientIdIn(orderQuery.getClientIds());
-        }
-        if (null != orderQuery.getStartOrderDate()) {
-            criteria.andOrderDateGreaterThanOrEqualTo(orderQuery.getStartOrderDate());
-            criteria.andOrderDateLessThanOrEqualTo(orderQuery.getEndOrderDate());
-        }
-        if (!Strings.isNullOrEmpty(orderQuery.getTransferNo())) {
-            criteria.andTransferNoEqualTo(orderQuery.getTransferNo());
-        }
-        if (null != orderQuery.getTransferCompanyIds() && orderQuery.getTransferCompanyIds().size() > 0) {
-            criteria.andTransferCompanyIdIn(orderQuery.getTransferCompanyIds());
-        }
-        if (null != orderQuery.getStartReceipt()) {
-            criteria.andReceiptGreaterThanOrEqualTo(orderQuery.getStartReceipt());
-            criteria.andReceiptLessThanOrEqualTo(orderQuery.getEndReceipt());
-        }
-        if (null != orderQuery.getSalesManIds() && orderQuery.getSalesManIds().size() > 0) {
-            criteria.andSalesmansIdIn(orderQuery.getSalesManIds());
-        }
-        if (!Strings.isNullOrEmpty(orderQuery.getDeliveryman())) {
-            criteria.andDeliverymanEqualTo(orderQuery.getDeliveryman());
-        }
         int count = orderMapper.countByExampleNew(orderExample);
         if (count > MAX) {
             return ReturnResult.error("超过导出数量上限");
@@ -115,35 +61,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public ReturnResult<BigDecimal> countDirectByDelivery(OrderQuery orderQuery) {
-        OrderExample orderExample = new OrderExample();
-        orderExample.setOrderByClause("ORDER_DATE ASC, o.create_date ASC");
-        OrderExample.Criteria criteria = orderExample.createCriteria();
-        if (!Strings.isNullOrEmpty(orderQuery.getNo())) {
-            criteria.andNoEqualTo(orderQuery.getNo());
-        }
-        if (null != orderQuery.getClientIds() && orderQuery.getClientIds().size() > 0) {
-            criteria.andClientIdIn(orderQuery.getClientIds());
-        }
-        if (null != orderQuery.getStartOrderDate()) {
-            criteria.andOrderDateGreaterThanOrEqualTo(orderQuery.getStartOrderDate());
-            criteria.andOrderDateLessThanOrEqualTo(orderQuery.getEndOrderDate());
-        }
-        if (!Strings.isNullOrEmpty(orderQuery.getTransferNo())) {
-            criteria.andTransferNoEqualTo(orderQuery.getTransferNo());
-        }
-        if (null != orderQuery.getTransferCompanyIds() && orderQuery.getTransferCompanyIds().size() > 0) {
-            criteria.andTransferCompanyIdIn(orderQuery.getTransferCompanyIds());
-        }
-        if (null != orderQuery.getStartReceipt()) {
-            criteria.andReceiptGreaterThanOrEqualTo(orderQuery.getStartReceipt());
-            criteria.andReceiptLessThanOrEqualTo(orderQuery.getEndReceipt());
-        }
-        if (null != orderQuery.getSalesManIds() && orderQuery.getSalesManIds().size() > 0) {
-            criteria.andSalesmansIdIn(orderQuery.getSalesManIds());
-        }
-        if (!Strings.isNullOrEmpty(orderQuery.getDeliveryman())) {
-            criteria.andDeliverymanEqualTo(orderQuery.getDeliveryman());
-        }
+        OrderExample orderExample = this.queryCondition(orderQuery);
         BigDecimal bigDecimal = orderMapper.countDirectByDelivery(orderExample);
         return ReturnResult.ok(bigDecimal == null ? 0 : bigDecimal);
     }
@@ -213,5 +131,40 @@ public class OrderServiceImpl implements OrderService {
     public ReturnResult confirmReceipt(Order order) {
         int num = orderMapper.updateReceipt(order);
         return ReturnResult.ok(num);
+    }
+
+    private OrderExample queryCondition(OrderQuery orderQuery){
+        OrderExample orderExample = new OrderExample();
+        OrderExample.Criteria criteria = orderExample.createCriteria();
+        if (!Strings.isNullOrEmpty(orderQuery.getNo())) {
+            criteria.andNoEqualTo(orderQuery.getNo());
+        }
+        if (null != orderQuery.getClientIds() && orderQuery.getClientIds().size() > 0) {
+            criteria.andClientIdIn(orderQuery.getClientIds());
+        }
+        if (null != orderQuery.getStartOrderDate()) {
+            criteria.andOrderDateGreaterThanOrEqualTo(orderQuery.getStartOrderDate());
+            criteria.andOrderDateLessThanOrEqualTo(orderQuery.getEndOrderDate());
+        }
+        if (!Strings.isNullOrEmpty(orderQuery.getTransferNo())) {
+            criteria.andTransferNoEqualTo(orderQuery.getTransferNo());
+        }
+        if (null != orderQuery.getTransferCompanyIds() && orderQuery.getTransferCompanyIds().size() > 0) {
+            criteria.andTransferCompanyIdIn(orderQuery.getTransferCompanyIds());
+        }
+        if (null != orderQuery.getStartReceipt()) {
+            criteria.andReceiptGreaterThanOrEqualTo(orderQuery.getStartReceipt());
+            criteria.andReceiptLessThanOrEqualTo(orderQuery.getEndReceipt());
+        }
+        if (null != orderQuery.getSalesManIds() && orderQuery.getSalesManIds().size() > 0) {
+            criteria.andSalesmansIdIn(orderQuery.getSalesManIds());
+        }
+        if (!Strings.isNullOrEmpty(orderQuery.getDeliveryman())) {
+            criteria.andDeliverymanEqualTo(orderQuery.getDeliveryman());
+        }
+        if (null != orderQuery.getHasReceipt()) {
+            criteria.andHasReceiptEqualTo(orderQuery.getHasReceipt());
+        }
+        return orderExample;
     }
 }

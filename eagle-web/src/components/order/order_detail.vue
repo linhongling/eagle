@@ -140,12 +140,14 @@
 
       <el-row :span="24">
         <el-col :span="12">
-          <el-form-item label="回单">
-            <el-date-picker
-              v-model="form.receipt"
-              type="date"
-              placeholder="选择日期">
-            </el-date-picker>
+          <el-form-item label="是否有回单">
+            <el-switch
+              v-model="form.hasReceipt"
+              :active-value=1
+              :inactive-value=0
+              active-text="是"
+              inactive-text="否">
+            </el-switch>
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -274,7 +276,8 @@
           destination: '',
           recipient: '',
           recipientPhone: '',
-          deliveryman: ''
+          deliveryman: '',
+          hasReceipt: 0
         },
         formdisabled: false,
         saveDisabled: false,
@@ -502,7 +505,7 @@
         this.dialogVisible = true
       },
       getDestination() {
-        if(this.$refs.destinationChoose.currentRowId) {
+        if (this.$refs.destinationChoose.currentRowId) {
           this.form.addr = ''
           this.form.recipient = ''
           this.form.recipientPhone = ''

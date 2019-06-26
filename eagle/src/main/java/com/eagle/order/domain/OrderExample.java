@@ -1832,6 +1832,66 @@ public class OrderExample {
             addCriterion("deliveryman not between", value1, value2, "deliveryman");
             return (Criteria) this;
         }
+
+        public Criteria andHasReceiptIsNull() {
+            addCriterion("has_receipt is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHasReceiptIsNotNull() {
+            addCriterion("has_receipt is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHasReceiptEqualTo(Byte value) {
+            addCriterion("has_receipt =", value, "hasReceipt");
+            return (Criteria) this;
+        }
+
+        public Criteria andHasReceiptNotEqualTo(Byte value) {
+            addCriterion("has_receipt <>", value, "hasReceipt");
+            return (Criteria) this;
+        }
+
+        public Criteria andHasReceiptGreaterThan(Byte value) {
+            addCriterion("has_receipt >", value, "hasReceipt");
+            return (Criteria) this;
+        }
+
+        public Criteria andHasReceiptGreaterThanOrEqualTo(Byte value) {
+            addCriterion("has_receipt >=", value, "hasReceipt");
+            return (Criteria) this;
+        }
+
+        public Criteria andHasReceiptLessThan(Byte value) {
+            addCriterion("has_receipt <", value, "hasReceipt");
+            return (Criteria) this;
+        }
+
+        public Criteria andHasReceiptLessThanOrEqualTo(Byte value) {
+            addCriterion("has_receipt <=", value, "hasReceipt");
+            return (Criteria) this;
+        }
+
+        public Criteria andHasReceiptIn(List<Byte> values) {
+            addCriterion("has_receipt in", values, "hasReceipt");
+            return (Criteria) this;
+        }
+
+        public Criteria andHasReceiptNotIn(List<Byte> values) {
+            addCriterion("has_receipt not in", values, "hasReceipt");
+            return (Criteria) this;
+        }
+
+        public Criteria andHasReceiptBetween(Byte value1, Byte value2) {
+            addCriterion("has_receipt between", value1, value2, "hasReceipt");
+            return (Criteria) this;
+        }
+
+        public Criteria andHasReceiptNotBetween(Byte value1, Byte value2) {
+            addCriterion("has_receipt not between", value1, value2, "hasReceipt");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

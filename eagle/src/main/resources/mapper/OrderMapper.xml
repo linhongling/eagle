@@ -29,6 +29,7 @@
     <result column="recipient" property="recipient" jdbcType="VARCHAR" />
     <result column="recipient_phone" property="recipientPhone" jdbcType="VARCHAR" />
     <result column="deliveryman" property="deliveryman" jdbcType="VARCHAR" />
+    <result column="has_receipt" property="hasReceipt" jdbcType="TINYINT" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -92,7 +93,7 @@
     id, no, order_date, client_id, addr, goods_id, count, weight, volume, freight_monthly, 
     freight_now, freight_arrive, cost_freight, cost_direct, cost_insurance, transfer_company_id, 
     transfer_no, receipt, remark, create_date, modify_date, commission, salesmans_id, 
-    destination, recipient, recipient_phone, deliveryman
+    destination, recipient, recipient_phone, deliveryman, has_receipt
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.eagle.order.domain.OrderExample" >
     select
@@ -134,8 +135,8 @@
       transfer_company_id, transfer_no, receipt, 
       remark, create_date, modify_date, 
       commission, salesmans_id, destination, 
-      recipient, recipient_phone, deliveryman
-      )
+      recipient, recipient_phone, deliveryman, 
+      has_receipt)
     values (#{id,jdbcType=BIGINT}, #{no,jdbcType=VARCHAR}, #{orderDate,jdbcType=DATE}, 
       #{clientId,jdbcType=BIGINT}, #{addr,jdbcType=VARCHAR}, #{goodsId,jdbcType=BIGINT}, 
       #{count,jdbcType=INTEGER}, #{weight,jdbcType=DECIMAL}, #{volume,jdbcType=DECIMAL}, 
@@ -144,8 +145,8 @@
       #{transferCompanyId,jdbcType=BIGINT}, #{transferNo,jdbcType=VARCHAR}, #{receipt,jdbcType=DATE}, 
       #{remark,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP}, 
       #{commission,jdbcType=DECIMAL}, #{salesmansId,jdbcType=BIGINT}, #{destination,jdbcType=VARCHAR}, 
-      #{recipient,jdbcType=VARCHAR}, #{recipientPhone,jdbcType=VARCHAR}, #{deliveryman,jdbcType=VARCHAR}
-      )
+      #{recipient,jdbcType=VARCHAR}, #{recipientPhone,jdbcType=VARCHAR}, #{deliveryman,jdbcType=VARCHAR}, 
+      #{hasReceipt,jdbcType=TINYINT})
   </insert>
   <insert id="insertSelective" parameterType="com.eagle.order.domain.Order" >
     insert into t_order
@@ -231,6 +232,9 @@
       <if test="deliveryman != null" >
         deliveryman,
       </if>
+      <if test="hasReceipt != null" >
+        has_receipt,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -313,6 +317,9 @@
       </if>
       <if test="deliveryman != null" >
         #{deliveryman,jdbcType=VARCHAR},
+      </if>
+      <if test="hasReceipt != null" >
+        #{hasReceipt,jdbcType=TINYINT},
       </if>
     </trim>
   </insert>
@@ -406,6 +413,9 @@
       <if test="record.deliveryman != null" >
         deliveryman = #{record.deliveryman,jdbcType=VARCHAR},
       </if>
+      <if test="record.hasReceipt != null" >
+        has_receipt = #{record.hasReceipt,jdbcType=TINYINT},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -439,7 +449,8 @@
       destination = #{record.destination,jdbcType=VARCHAR},
       recipient = #{record.recipient,jdbcType=VARCHAR},
       recipient_phone = #{record.recipientPhone,jdbcType=VARCHAR},
-      deliveryman = #{record.deliveryman,jdbcType=VARCHAR}
+      deliveryman = #{record.deliveryman,jdbcType=VARCHAR},
+      has_receipt = #{record.hasReceipt,jdbcType=TINYINT}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -525,6 +536,9 @@
       <if test="deliveryman != null" >
         deliveryman = #{deliveryman,jdbcType=VARCHAR},
       </if>
+      <if test="hasReceipt != null" >
+        has_receipt = #{hasReceipt,jdbcType=TINYINT},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -555,7 +569,8 @@
       destination = #{destination,jdbcType=VARCHAR},
       recipient = #{recipient,jdbcType=VARCHAR},
       recipient_phone = #{recipientPhone,jdbcType=VARCHAR},
-      deliveryman = #{deliveryman,jdbcType=VARCHAR}
+      deliveryman = #{deliveryman,jdbcType=VARCHAR},
+      has_receipt = #{hasReceipt,jdbcType=TINYINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

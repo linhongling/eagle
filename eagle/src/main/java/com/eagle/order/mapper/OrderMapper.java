@@ -36,9 +36,9 @@ public interface OrderMapper {
 
     int countByExampleNew(OrderExample example);
 
+    BigDecimal countDirectByDelivery(OrderExample example);
+
     List<String> getDestination();
 
     int updateReceipt(Order order);
-
-    BigDecimal countDirectByDelivery(OrderExample example);
 }

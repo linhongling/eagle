@@ -28,5 +28,5 @@ public class OrderQuery {
 
     private String deliveryman;
 
-    private Integer hasReceipt;
+    private Byte hasReceipt;
 }
