@@ -241,6 +241,10 @@ export function queryDestinationList(json) {
   return axiosIns.post(url.QUERY_DESTINATION_LIST, json);
 }
 
+export function getInfoByDestination(json) {
+  return axiosIns.post(url.GET_INFO_BY_DESTINATION, json);
+}
+
 export function saveDestination(json) {
   return axiosIns.post(url.DESTINATION, json);
 }

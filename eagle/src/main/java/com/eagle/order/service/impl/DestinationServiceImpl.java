@@ -106,4 +106,15 @@ public class DestinationServiceImpl implements DestinationService {
         }
         return ReturnResult.ok(destination);
     }
+
+    @Override
+    public ReturnResult<Destination> getInfoByDestination(String name) {
+        DestinationExample destinationExample = new DestinationExample();
+        DestinationExample.Criteria criteria = destinationExample.createCriteria().andDestinationEqualTo(name);
+        List<Destination> destinations = destinationMapper.selectByExample(destinationExample);
+        if(null == destinations && destinations.size() > 0){
+            return ReturnResult.error("获取目的地信息失败");
+        }
+        return ReturnResult.ok(destinations.get(0));
+    }
 }

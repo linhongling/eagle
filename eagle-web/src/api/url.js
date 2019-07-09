@@ -46,6 +46,7 @@ export const GET_SALESMAN_INFO_LIST = "/salesman/getSalesmanInfoList"
 export const GET_SALESMAN_ID_BY_CLIENT = "/client/getSalesmanIdByClientId"
 export const DESTINATION = "/destination"
 export const QUERY_DESTINATION_LIST = "/destination/queryList"
+export const GET_INFO_BY_DESTINATION   = "/destination/getInfoByDestination"
 
 
 export const IDENTI_CODE = "/index/captcha-image"

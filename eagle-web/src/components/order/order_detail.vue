@@ -160,24 +160,7 @@
       <el-row :span="24">
         <el-col :span="12">
           <el-form-item label="目的地">
-            <!--<el-select
-              v-model="form.destination"
-              filterable
-              allow-create
-              clearable
-              remote
-              reserve-keyword
-              :remote-method="remoteMethod"
-              :loading="loading"
-              @change="changeMethod">
-              <el-option
-                v-for="item in destinationOption"
-                :key="item.id"
-                :label="item.name"
-                :value="item.id">
-              </el-option>
-            </el-select>-->
-            <el-input v-model="form.destination" style="width: 220px" clearable>
+            <el-input v-model="form.destination" style="width: 220px" @blur="getInfoByDestination" clearable>
               <el-button slot="append" @click="choseDestination" icon="el-icon-search"></el-button>
             </el-input>
           </el-form-item>
@@ -243,7 +226,8 @@
     updateOrder,
     getSalesmanInfoList,
     getSalesmanIdByClientId,
-    getDestinationDetail
+    getDestinationDetail,
+    getInfoByDestination
   } from '../../api/api'
   import Destination_choose_query from "./destination_choose_query";
 
@@ -461,43 +445,6 @@
           }
         })
       },
-      /*getDestination() {
-        getDestination().then((res) => {
-          if (res.status == 200) {
-            this.destinationList = res.data
-          }
-        })
-      },
-      remoteMethod(query) {
-        if (query !== '') {
-          this.loading = true;
-          setTimeout(() => {
-            this.loading = false;
-            this.destinationOption = this.destinationList.filter(item => {
-              return item.name.indexOf(query) > -1;
-            });
-          }, 200);
-        } else {
-          this.destinationOption = [];
-        }
-      },
-      changeMethod(val) {
-        this.form.addr = ''
-        this.form.recipient = ''
-        this.form.recipientPhone = ''
-        if (val != null) {
-          var re = /^[0-9]+.?[0-9]*$/
-          if (re.test(val)) {
-            getDestinationDetail(val).then((res) => {
-              if (res.status == 200) {
-                this.form.addr = res.data.addr
-                this.form.recipient = res.data.recipient
-                this.form.recipientPhone = res.data.phone
-              }
-            })
-          }
-        }
-      },*/
       closeDialog() {
         this.dialogVisible = false
       },
@@ -520,6 +467,21 @@
           })
         }
         this.dialogVisible = false
+      },
+      getInfoByDestination() {
+        if (this.form.destination) {
+          this.form.addr = ''
+          this.form.recipient = ''
+          this.form.recipientPhone = ''
+          getInfoByDestination(this.form.destination).then((res) => {
+            if (res.status == 200) {
+              this.form.addr = res.data.addr
+              this.form.recipient = res.data.recipient
+              this.form.recipientPhone = res.data.phone
+              this.form.destination = res.data.destination
+            }
+          })
+        }
       }
     },
     mounted() {

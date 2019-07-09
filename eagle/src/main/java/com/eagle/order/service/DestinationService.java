@@ -26,4 +26,6 @@ public interface DestinationService {
     ReturnResult<Integer> deleteDestination(Long id);
 
     ReturnResult<Destination> getDestination(Long id);
+
+    ReturnResult<Destination> getInfoByDestination(String name);
 }

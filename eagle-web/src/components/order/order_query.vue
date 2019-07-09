@@ -328,7 +328,7 @@
           getExportList(json).then((res) => {
             if (res.status == 200) {
               import('@/vendor/Export2Excel').then(excel => {
-                const multiHeader = [['', '', '', '', '', '', '', '', '运费收入', '', '', '出货成本', '', '', '', '', '', '', '', '']]
+                const multiHeader = [['', '', '', '', '', '', '', '', '运费收入', '', '', '出货成本', '', '', '', '', '', '', '', '', '', '', '', '']]
                 const header = ['日期', '运单号', '客户', '目的地', '品名', '件数', '重量', '体积', '月结', '现付', '到付',
                   '运费', '直送', '保险', '转运公司', '转运单号', '回单', '业务员', '提成', '地址', '收件人', '收件人号码', '送货方', '备注']
                 const filterVal = ['orderDate', 'no', 'clientName', 'destination', 'goodsName', 'count', 'weight', 'volume',

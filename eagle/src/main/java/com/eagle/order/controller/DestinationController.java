@@ -53,4 +53,9 @@ public class DestinationController {
         return destinationService.deleteDestination(id);
     }
 
+    @PostMapping("/getInfoByDestination")
+    public ReturnResult<Destination> getInfoByDestination(@RequestBody String destination) {
+        return destinationService.getInfoByDestination(destination);
+    }
+
 }
