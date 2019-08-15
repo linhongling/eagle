@@ -19,7 +19,9 @@
                               range-separator="至"
                               start-placeholder="开始日期"
                               type="datetimerange"
-                              v-model="queryCreateDate"/>
+                              v-model="queryCreateDate"
+                              :default-time="['00:00:00', '23:59:59']"
+                              @change="setQueryDateTime"/>
             </el-form-item>
           </el-col>
         </el-row>
@@ -148,7 +150,6 @@
       },
       searchTask() {
         this.loading = true;
-        this.setQueryDateTime()
         var obj = {
           pageInfo: {
             pageNum: this.pageNum,

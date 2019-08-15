@@ -31,7 +31,8 @@
                               range-separator="至"
                               start-placeholder="开始日期"
                               type="datetimerange"
-                              v-model="queryOrderDate"/>
+                              v-model="queryOrderDate"
+                              @change="setQueryOrderDate"/>
             </el-form-item>
           </el-col>
         </el-row>
@@ -61,7 +62,8 @@
                               range-separator="至"
                               start-placeholder="开始日期"
                               type="datetimerange"
-                              v-model="queryReceiptDate"/>
+                              v-model="queryReceiptDate"
+                              @change="setQueryReceiptDate"/>
             </el-form-item>
           </el-col>
         </el-row>
@@ -283,7 +285,6 @@
       },
       searchOrder() {
         this.loading = true;
-        this.setQueryDateTime()
         var obj = {
           pageInfo: {
             pageNum: this.pageNum,
@@ -394,7 +395,7 @@
         if (refresh)
           this.searchOrder()
       },
-      setQueryDateTime() {
+      setQueryOrderDate(){
         if (this.queryOrderDate) {
           this.querys.startOrderDate = this.queryOrderDate[0]
           this.querys.endOrderDate = this.queryOrderDate[1]
@@ -402,7 +403,8 @@
           this.querys.startOrderDate = null
           this.querys.endOrderDate = null
         }
-
+      },
+      setQueryReceiptDate(){
         if (this.queryReceiptDate) {
           this.querys.startReceipt = this.queryReceiptDate[0]
           this.querys.endReceipt = this.queryReceiptDate[1]

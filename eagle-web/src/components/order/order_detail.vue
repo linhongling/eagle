@@ -160,9 +160,23 @@
       <el-row :span="24">
         <el-col :span="12">
           <el-form-item label="目的地">
-            <el-input v-model="form.destination" style="width: 220px" @blur="getInfoByDestination" clearable>
-              <el-button slot="append" @click="choseDestination" icon="el-icon-search"></el-button>
-            </el-input>
+            <el-select
+              v-model="form.destination"
+              filterable
+              allow-create
+              clearable
+              remote
+              reserve-keyword
+              :remote-method="remoteMethod"
+              :loading="loading"
+              @change="changeMethod">
+              <el-option
+                v-for="item in destinationOption"
+                :key="item.id"
+                :label="item.name"
+                :value="item.id">
+              </el-option>
+            </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -206,13 +220,13 @@
       </el-col>
     </el-row>
 
-    <el-dialog title="选择目的地" :visible.sync="dialogVisible" v-if='dialogVisible' width="1200px" append-to-body>
+    <!--<el-dialog title="选择目的地" :visible.sync="dialogVisible" v-if='dialogVisible' width="1200px" append-to-body>
       <destination_choose_query ref="destinationChoose"></destination_choose_query>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogVisible = false">取 消</el-button>
         <el-button type="primary" @click="getDestination">确认</el-button>
       </div>
-    </el-dialog>
+    </el-dialog>-->
   </div>
 </template>
 
@@ -226,8 +240,9 @@
     updateOrder,
     getSalesmanInfoList,
     getSalesmanIdByClientId,
-    getDestinationDetail,
-    getInfoByDestination
+    getDestination,
+    getInfoByDestination,
+    getDestinationDetail
   } from '../../api/api'
   import Destination_choose_query from "./destination_choose_query";
 
@@ -452,21 +467,11 @@
         this.dialogVisible = true
       },
       getDestination() {
-        if (this.$refs.destinationChoose.currentRowId) {
-          this.form.addr = ''
-          this.form.recipient = ''
-          this.form.recipientPhone = ''
-          this.form.destination = ''
-          getDestinationDetail(this.$refs.destinationChoose.currentRowId).then((res) => {
-            if (res.status == 200) {
-              this.form.addr = res.data.addr
-              this.form.recipient = res.data.recipient
-              this.form.recipientPhone = res.data.phone
-              this.form.destination = res.data.destination
-            }
-          })
-        }
-        this.dialogVisible = false
+        getDestination().then((res) => {
+          if (res.status == 200) {
+            this.destinationList = res.data
+          }
+        })
       },
       getInfoByDestination() {
         if (this.form.destination) {
@@ -482,6 +487,36 @@
             }
           })
         }
+      },
+      remoteMethod(query) {
+        if (query !== '') {
+          this.loading = true;
+          setTimeout(() => {
+            this.loading = false;
+            this.destinationOption = this.destinationList.filter(item => {
+              return item.name.indexOf(query) > -1;
+            });
+          }, 200);
+        } else {
+          this.destinationOption = [];
+        }
+      },
+      changeMethod(val) {
+        this.form.addr = ''
+        this.form.recipient = ''
+        this.form.recipientPhone = ''
+        if (val != null) {
+          var re = /^[0-9]+.?[0-9]*$/
+          if (re.test(val)) {
+            getDestinationDetail(val).then((res) => {
+              if (res.status == 200) {
+                this.form.addr = res.data.addr
+                this.form.recipient = res.data.recipient
+                this.form.recipientPhone = res.data.phone
+              }
+            })
+          }
+        }
       }
     },
     mounted() {
@@ -496,6 +531,7 @@
       this.getTransferCoInfoList()
       this.getGoodsInfoList()
       this.getSalesmanInfoList()
+      this.getDestination()
     }
   }
 </script>

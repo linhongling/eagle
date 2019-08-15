@@ -41,7 +41,7 @@ public class DestinationServiceImpl implements DestinationService {
         destinationExample.setOrderByClause("CREATE_DATE DESC");
         DestinationExample.Criteria criteria = destinationExample.createCriteria();
         if (!Strings.isNullOrEmpty(destination.getDestination())) {
-            criteria.andDestinationLike(destination.getDestination() + "%");
+            criteria.andDestinationLike("%" + destination.getDestination() + "%");
         }
         PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
         List<Destination> orderTaskList = destinationMapper.selectByExample(destinationExample);
@@ -61,10 +61,10 @@ public class DestinationServiceImpl implements DestinationService {
         int num = 0;
         if (destinations != null && destinations.size() == 0) {
             num = destinationMapper.insert(destination);
-            if(num == 0){
+            if (num == 0) {
                 return ReturnResult.error("新增失败");
             }
-        }else {
+        } else {
             return ReturnResult.error("此目的地重复");
         }
         return ReturnResult.ok(num);
@@ -101,7 +101,7 @@ public class DestinationServiceImpl implements DestinationService {
     @Override
     public ReturnResult<Destination> getDestination(Long id) {
         Destination destination = destinationMapper.selectByPrimaryKey(id);
-        if(null == destination){
+        if (null == destination) {
             return ReturnResult.error("获取目的地信息失败");
         }
         return ReturnResult.ok(destination);
@@ -112,7 +112,7 @@ public class DestinationServiceImpl implements DestinationService {
         DestinationExample destinationExample = new DestinationExample();
         DestinationExample.Criteria criteria = destinationExample.createCriteria().andDestinationEqualTo(name);
         List<Destination> destinations = destinationMapper.selectByExample(destinationExample);
-        if(null == destinations && destinations.size() > 0){
+        if (null == destinations && destinations.size() > 0) {
             return ReturnResult.error("获取目的地信息失败");
         }
         return ReturnResult.ok(destinations.get(0));
