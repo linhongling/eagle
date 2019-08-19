@@ -174,7 +174,7 @@
                 v-for="item in destinationOption"
                 :key="item.id"
                 :label="item.name"
-                :value="item.id">
+                :value="item.name">
               </el-option>
             </el-select>
           </el-form-item>
@@ -506,16 +506,16 @@
         this.form.recipient = ''
         this.form.recipientPhone = ''
         if (val != null) {
-          var re = /^[0-9]+.?[0-9]*$/
-          if (re.test(val)) {
-            getDestinationDetail(val).then((res) => {
-              if (res.status == 200) {
-                this.form.addr = res.data.addr
-                this.form.recipient = res.data.recipient
-                this.form.recipientPhone = res.data.phone
-              }
-            })
-          }
+          /*var re = /^[0-9]+.?[0-9]*$/
+          if (re.test(val)) {*/
+          getInfoByDestination(val).then((res) => {
+            if (res.status == 200) {
+              this.form.addr = res.data.addr
+              this.form.recipient = res.data.recipient
+              this.form.recipientPhone = res.data.phone
+            }
+          })
+          // }
         }
       }
     },

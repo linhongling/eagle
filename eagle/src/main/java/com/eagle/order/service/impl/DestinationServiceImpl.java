@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -60,6 +61,7 @@ public class DestinationServiceImpl implements DestinationService {
         List<Destination> destinations = destinationMapper.selectByExample(destinationExample);
         int num = 0;
         if (destinations != null && destinations.size() == 0) {
+            destination.setCreateDate(new Date());
             num = destinationMapper.insert(destination);
             if (num == 0) {
                 return ReturnResult.error("新增失败");
@@ -78,6 +80,7 @@ public class DestinationServiceImpl implements DestinationService {
         List<Destination> destinations = destinationMapper.selectByExample(destinationExample);
         int num = 0;
         if (destinations != null && destinations.size() == 0) {
+            destination.setModifyDate(new Date());
             num = destinationMapper.updateByPrimaryKey(destination);
             if (num > 0) {
                 return ReturnResult.ok(num);

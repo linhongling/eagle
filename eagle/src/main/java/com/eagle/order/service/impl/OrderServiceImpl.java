@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -81,6 +82,7 @@ public class OrderServiceImpl implements OrderService {
         if (orders != null && orders.size() > 0) {
             return ReturnResult.error("此运单号重复");
         }
+        order.setCreateDate(new Date());
         int num = orderMapper.insert(order);
         this.saveDestination(order);
         return ReturnResult.ok(num);
@@ -88,6 +90,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public ReturnResult<Integer> updateOrder(Order order) {
+        order.setModifyDate(new Date());
         int num = orderMapper.updateByPrimaryKey(order);
         this.saveDestination(order);
         return ReturnResult.ok(num);
